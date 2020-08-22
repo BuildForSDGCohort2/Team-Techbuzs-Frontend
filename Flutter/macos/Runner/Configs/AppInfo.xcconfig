@@ -8,7 +8,7 @@
 PRODUCT_NAME = Greeneva
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.techbuzs.greeneva.Greeneva
+PRODUCT_BUNDLE_IDENTIFIER = com.techbuzs.greeneva
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2020 com.techbuzs.greeneva. All rights reserved.
