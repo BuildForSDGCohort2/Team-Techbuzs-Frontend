@@ -6,10 +6,9 @@ jobs:
   package-analysis:
 
     runs-on: ubuntu-latest
-    script:
-      - cd Flutter/
-      
+
     steps:
+      - cd Flutter/
       - uses: actions/checkout@v2
 
       - uses: axel-op/dart-package-analyzer@v3
