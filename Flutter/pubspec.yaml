@@ -23,9 +23,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+# Defuelt Cupertino Package
   cupertino_icons: ^0.1.3
-
+  # Intro Package
+  introduction_screen: ^1.0.9
+  # Firebase Dependencies
+  firebase_core: ^0.5.0
+  firebase_auth: ^0.18.0+1
+  firebase_analytics: ^6.0.0
+  cloud_firestore: ^0.14.0+2
+  firebase_remote_config:
+  # State Management
+  get_it:
+  stacked:
 dev_dependencies:
   flutter_test:
     sdk: flutter
