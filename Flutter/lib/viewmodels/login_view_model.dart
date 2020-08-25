@@ -15,6 +15,18 @@ class LoginViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
+  Future googlelogin() async {
+    try {
+      await _authenticationService.signInWithGoogle();
+      setBusy(false);
+      await _analyticsService.logLogingoogle();
+      _navigationService.navigateTo(HomeViewRoute);
+    } catch (e) {
+      print(e.message);
+      //  setBusy(false);
+    }
+  }
+
   Future login({
     @required String email,
     @required String password,

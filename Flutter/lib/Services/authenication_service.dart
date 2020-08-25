@@ -4,11 +4,16 @@ import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  String name;
+  String imageUrl;
 
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
@@ -27,6 +32,27 @@ class AuthenticationService {
     } catch (e) {
       return e.message;
     }
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    // Create a new credential
+    try {
+      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      return e.message;
+    }
+    // Once signed in, return the UserCredential
   }
 
   Future signUpWithEmail({

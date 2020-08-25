@@ -33,6 +33,7 @@ dependencies:
   firebase_analytics: ^6.0.0
   cloud_firestore: ^0.14.0+2
   firebase_remote_config:
+  google_sign_in:
   # State Management
   get_it:
   stacked:

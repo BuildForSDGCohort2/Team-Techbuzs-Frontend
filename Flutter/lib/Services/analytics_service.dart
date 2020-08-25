@@ -20,6 +20,10 @@ class AnalyticsService {
     await _analytics.logLogin(loginMethod: 'email');
   }
 
+  Future logLogingoogle() async {
+    await _analytics.logLogin(loginMethod: 'Google');
+  }
+
   Future logSignUp() async {
     await _analytics.logSignUp(signUpMethod: 'email');
   }

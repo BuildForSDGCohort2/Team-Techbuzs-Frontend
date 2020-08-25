@@ -1,4 +1,5 @@
 import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/ui/coming_soon.dart';
 import 'package:Greeneva/ui/home_screen.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 import 'package:Greeneva/ui/views/login_view.dart';
@@ -20,7 +21,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: HomePage(),
+        viewToShow: ComingS(),
       );
     case OnBoarding:
       return _getPageRoute(

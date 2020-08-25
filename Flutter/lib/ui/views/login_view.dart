@@ -55,6 +55,13 @@ class LoginView extends StatelessWidget {
                   ],
                 ),
                 verticalSpaceMedium,
+                BusyButton(
+                  title: 'Google Sign in',
+                  onPressed: () {
+                    model.googlelogin();
+                  },
+                ),
+                verticalSpaceMedium,
                 TextLink(
                   'Create an Account if you\'re new.',
                   onPressed: () {
