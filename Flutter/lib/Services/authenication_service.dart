@@ -1,9 +1,13 @@
+import 'dart:js';
+
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
+import 'package:Greeneva/Services/locationJs.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geocoder/geocoder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
@@ -14,6 +18,8 @@ class AuthenticationService {
 
   String name;
   String imageUrl;
+  var lat;
+  var long;
 
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
@@ -34,7 +40,25 @@ class AuthenticationService {
     }
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  success(pos) {
+    try {
+      print(pos.coords.latitude);
+
+      lat = pos.coords.latitude;
+      long = pos.coords.longitude;
+      print(pos.coords.longitude);
+    } catch (ex) {
+      print("Exception thrown : " + ex.toString());
+    }
+  }
+
+  _getCurrentLocation() {
+    if (kIsWeb) {
+      getCurrentPosition(allowInterop((pos) => success(pos)));
+    }
+  }
+
+  Future<UserCredential> signInWithGoogle({String location}) async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -42,12 +66,33 @@ class AuthenticationService {
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
+    final User user = _firebaseAuth.currentUser;
+
+    await _getCurrentLocation();
+
+    final coordinates = new Coordinates(lat, long);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    _currentUser = UserModel(
+      id: user.uid,
+      email: user.email,
+      fullName: user.displayName,
+      location: first.locality,
+    );
     // Create a new credential
     try {
       final GoogleAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+      if (user != null) {
+        await _firestoreService.createUser(_currentUser);
+        await _analyticsService.setUserProperties(
+          userId: user.uid,
+          name: _currentUser.location,
+        );
+      }
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       return e.message;

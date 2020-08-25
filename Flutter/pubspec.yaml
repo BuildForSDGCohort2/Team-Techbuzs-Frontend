@@ -37,6 +37,12 @@ dependencies:
   # State Management
   get_it:
   stacked:
+  # App Features
+  ip_geolocation_api: ^0.0.1
+  geocoder: ^0.2.1
+  graphql_flutter: ^3.1.0
+  shared_preferences: ^0.5.10
+  provider:
 dev_dependencies:
   flutter_test:
     sdk: flutter
