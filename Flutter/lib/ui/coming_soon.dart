@@ -1,8 +1,10 @@
+import 'package:Greeneva/Services/authenication_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:js' as js;
+// import 'dart:js' as js;
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
+// import 'dart:html' as html;
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -20,6 +22,7 @@ class ComingS extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final User user = FirebaseAuth.instance.currentUser;
     return Scaffold(
         backgroundColor: Colors.white,
         body: Container(
@@ -31,7 +34,7 @@ class ComingS extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    'Greeneva | #BuildForSDG Cohort 2',
+                    'Greeneva | #BuildForSDG Cohort 2\n\n Welcome ',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 22, letterSpacing: 1.3, color: Colors.green),
@@ -55,13 +58,16 @@ class ComingS extends StatelessWidget {
                         'assets/git.jpeg',
                         height: 50,
                       ),
-                      onTap: () => platformChecker()
-                          ? js.context.callMethod("open", [
-                              "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
-                            ])
-                          : html.window.open(
-                              "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
-                              'GitHub')),
+                      onTap: () =>
+                          {print('Done'), AuthenticationService().logout()}
+                      // platformChecker()
+                      //     ? js.context.callMethod("open", [
+                      //         "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
+                      //       ])
+                      //     : html.window.open(
+                      //         "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
+                      //         'GitHub')
+                      ),
                 )
               ],
             ),

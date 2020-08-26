@@ -1,4 +1,4 @@
-import 'dart:js';
+// import 'dart:js';
 
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
@@ -24,6 +24,14 @@ class AuthenticationService {
   UserModel _currentUser;
   UserModel get currentUser => _currentUser;
 
+  Future logout() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future loginWithEmail({
     @required String email,
     @required String password,
@@ -40,23 +48,23 @@ class AuthenticationService {
     }
   }
 
-  success(pos) {
-    try {
-      print(pos.coords.latitude);
+  // success(pos) {
+  //   try {
+  //     print(pos.coords.latitude);
 
-      lat = pos.coords.latitude;
-      long = pos.coords.longitude;
-      print(pos.coords.longitude);
-    } catch (ex) {
-      print("Exception thrown : " + ex.toString());
-    }
-  }
+  //     lat = pos.coords.latitude;
+  //     long = pos.coords.longitude;
+  //     print(pos.coords.longitude);
+  //   } catch (ex) {
+  //     print("Exception thrown : " + ex.toString());
+  //   }
+  // }
 
-  _getCurrentLocation() {
-    if (kIsWeb) {
-      getCurrentPosition(allowInterop((pos) => success(pos)));
-    }
-  }
+  // _getCurrentLocation() {
+  //   if (kIsWeb) {
+  //     getCurrentPosition(allowInterop((pos) => success(pos)));
+  //   }
+  // }
 
   Future<UserCredential> signInWithGoogle({String location}) async {
     // Trigger the authentication flow
@@ -67,8 +75,9 @@ class AuthenticationService {
         await googleUser.authentication;
 
     final User user = _firebaseAuth.currentUser;
-
-    await _getCurrentLocation();
+    if (kIsWeb) {
+      // await _getCurrentLocation();
+    }
 
     final coordinates = new Coordinates(lat, long);
     var addresses =
@@ -104,7 +113,7 @@ class AuthenticationService {
     @required String email,
     @required String password,
     @required String fullName,
-    @required String role,
+    @required String location,
   }) async {
     try {
       var authResult = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -117,7 +126,7 @@ class AuthenticationService {
         id: authResult.user.uid,
         email: email,
         fullName: fullName,
-        location: role,
+        location: location,
       );
 
       await _firestoreService.createUser(_currentUser);

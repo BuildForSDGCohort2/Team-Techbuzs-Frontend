@@ -7,6 +7,7 @@ import 'package:Greeneva/managers/dialog_manager.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 import 'package:Greeneva/ui/router.dart';
 import 'package:Greeneva/ui/views/startup_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString('token');
 

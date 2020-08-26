@@ -17,6 +17,7 @@ class SignUpViewModel extends BaseModel {
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   String _selectedRole = 'Select a User Role';
+
   String get selectedRole => _selectedRole;
 
   void setSelectedRole(dynamic role) {
@@ -24,18 +25,18 @@ class SignUpViewModel extends BaseModel {
     notifyListeners();
   }
 
-  Future signUp({
-    @required String email,
-    @required String password,
-    @required String fullName,
-  }) async {
+  Future signUp(
+      {@required String email,
+      @required String password,
+      @required String fullName,
+      String location}) async {
     setBusy(true);
 
     var result = await _authenticationService.signUpWithEmail(
         email: email,
         password: password,
         fullName: fullName,
-        role: _selectedRole);
+        location: location);
 
     setBusy(false);
 

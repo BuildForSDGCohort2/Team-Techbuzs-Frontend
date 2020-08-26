@@ -56,6 +56,7 @@ class LoginView extends StatelessWidget {
                 ),
                 verticalSpaceMedium,
                 BusyButton(
+                  busy: model.busy,
                   title: 'Google Sign in',
                   onPressed: () {
                     model.googlelogin();
