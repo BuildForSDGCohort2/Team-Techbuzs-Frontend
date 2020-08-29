@@ -129,6 +129,7 @@ class AuthenticationService {
         location: location,
       );
       final User user = _firebaseAuth.currentUser;
+      await user.sendEmailVerification();
       await _firestoreService.createUser(_currentUser);
       await updateUserName(fullName, user);
       await _analyticsService.setUserProperties(

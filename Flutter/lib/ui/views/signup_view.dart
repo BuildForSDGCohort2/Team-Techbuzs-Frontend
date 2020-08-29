@@ -22,23 +22,22 @@ class SignUpView extends StatefulWidget {
 class _SignUpViewState extends State<SignUpView> {
   var lat;
   var long;
-  // success(pos) {
-  //   try {
-  //     print(pos.coords.latitude);
+   success(pos) {
+     try {
+    print(pos.coords.latitude);
+    lat = pos.coords.latitude;
+    long = pos.coords.longitude;
+     print(pos.coords.longitude);
+   } catch (ex) {
+     print("Exception thrown : " + ex.toString());
+   }
+   }
 
-  //     lat = pos.coords.latitude;
-  //     long = pos.coords.longitude;
-  //     print(pos.coords.longitude);
-  //   } catch (ex) {
-  //     print("Exception thrown : " + ex.toString());
-  //   }
-  // }
-
-  // _getCurrentLocation() {
-  //   if (kIsWeb) {
-  //     getCurrentPosition(allowInterop((pos) => success(pos)));
-  //   }
-  // }
+ _getCurrentLocation() {
+   if (kIsWeb) {
+     getCurrentPosition(allowInterop((pos) => success(pos)));
+   }
+ }
 
   @override
   void initState() {
