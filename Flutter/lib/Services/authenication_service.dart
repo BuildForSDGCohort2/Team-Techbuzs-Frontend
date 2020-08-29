@@ -1,4 +1,4 @@
-// import 'dart:js';
+import 'dart:js';
 
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
@@ -48,23 +48,23 @@ class AuthenticationService {
     }
   }
 
-  // success(pos) {
-  //   try {
-  //     print(pos.coords.latitude);
+  success(pos) {
+    try {
+      print(pos.coords.latitude);
 
-  //     lat = pos.coords.latitude;
-  //     long = pos.coords.longitude;
-  //     print(pos.coords.longitude);
-  //   } catch (ex) {
-  //     print("Exception thrown : " + ex.toString());
-  //   }
-  // }
+      lat = pos.coords.latitude;
+      long = pos.coords.longitude;
+      print(pos.coords.longitude);
+    } catch (ex) {
+      print("Exception thrown : " + ex.toString());
+    }
+  }
 
-  // _getCurrentLocation() {
-  //   if (kIsWeb) {
-  //     getCurrentPosition(allowInterop((pos) => success(pos)));
-  //   }
-  // }
+  _getCurrentLocation() {
+    if (kIsWeb) {
+      getCurrentPosition(allowInterop((pos) => success(pos)));
+    }
+  }
 
   Future<UserCredential> signInWithGoogle({String location}) async {
     // Trigger the authentication flow
