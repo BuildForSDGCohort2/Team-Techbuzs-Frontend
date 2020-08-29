@@ -128,8 +128,9 @@ class AuthenticationService {
         fullName: fullName,
         location: location,
       );
-
+      final User user = _firebaseAuth.currentUser;
       await _firestoreService.createUser(_currentUser);
+      await updateUserName(fullName, user);
       await _analyticsService.setUserProperties(
         userId: authResult.user.uid,
         name: _currentUser.location,
@@ -139,6 +140,13 @@ class AuthenticationService {
     } catch (e) {
       return e.message;
     }
+  }
+
+  Future updateUserName(String name, User currentUser) async {
+    // var userUpdateInfo = User();
+    // userUpdateInfo.displayName = name;
+    await currentUser.updateProfile(displayName: name);
+    await currentUser.reload();
   }
 
   Future<bool> isUserLoggedIn() async {

@@ -1,9 +1,7 @@
 import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
-ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -34,7 +32,7 @@ class ComingS extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    'Greeneva | #BuildForSDG Cohort 2\n\n Welcome ',
+                    'Greeneva | #BuildForSDG Cohort 2\n\n Welcome ${user.displayName ?? 'Not Signed IN '}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 22, letterSpacing: 1.3, color: Colors.green),
@@ -60,14 +58,13 @@ class ComingS extends StatelessWidget {
                       ),
                       onTap: () =>
                           // {print('Done'), AuthenticationService().logout()}
-                      platformChecker()
-                          ? js.context.callMethod("open", [
-                              "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
-                            ])
-                          : html.window.open(
-                              "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
-                              'GitHub')
-                      ),
+                          platformChecker()
+                              ? js.context.callMethod("open", [
+                                  "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
+                                ])
+                              : html.window.open(
+                                  "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
+                                  'GitHub')),
                 )
               ],
             ),
