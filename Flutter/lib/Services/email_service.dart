@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class EmailService {
-  Future<http.Response> sendtrans(String message, String email, String name) {
+  Future<http.Response> sendtrans(
+      String message, String email, String name) async {
     return http.post(
       'https://sdgfortb.herokuapp.com/emailtrans',
       body: jsonEncode(

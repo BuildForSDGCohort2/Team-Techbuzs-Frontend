@@ -1,6 +1,7 @@
 import 'dart:js';
 
 import 'package:Greeneva/Services/analytics_service.dart';
+import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
 import 'package:Greeneva/Services/locationJs.dart';
 import 'package:Greeneva/locator.dart';
@@ -130,6 +131,9 @@ class AuthenticationService {
       );
       final User user = _firebaseAuth.currentUser;
       await user.sendEmailVerification();
+      await EmailService().sendtrans('Thank You for Creating an Account ',
+          email != null ? email : authResult.user.email, name);
+
       await _firestoreService.createUser(_currentUser);
       await updateUserName(fullName, user);
       await _analyticsService.setUserProperties(
