@@ -44,6 +44,8 @@ dependencies:
   shared_preferences: ^0.5.10
   provider:
   http:
+    # Web Package
+  js: ^0.6.0
   flutter_google_places:
 dev_dependencies:
   flutter_test:
