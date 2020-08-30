@@ -1,6 +1,7 @@
 // import 'dart:js';
 
 import 'package:Greeneva/Services/analytics_service.dart';
+import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
 import 'package:Greeneva/Services/locationJs.dart';
 import 'package:Greeneva/locator.dart';
@@ -27,6 +28,7 @@ class AuthenticationService {
   Future logout() async {
     try {
       await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
     } catch (e) {
       print(e);
     }
@@ -130,6 +132,11 @@ class AuthenticationService {
       );
 
       await _firestoreService.createUser(_currentUser);
+      _firebaseAuth.currentUser != null
+          ? await _firebaseAuth.currentUser.sendEmailVerification()
+          : {};
+      EmailService().sendtrans('Thank You for Creating an Account ',
+          email != null ? email : authResult.user.email, name);
       await _analyticsService.setUserProperties(
         userId: authResult.user.uid,
         name: _currentUser.location,
