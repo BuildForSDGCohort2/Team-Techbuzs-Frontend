@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>892143420968-qv9hg5p64mf5e64go4hfc80tu1g43ou6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.892143420968-qv9hg5p64mf5e64go4hfc80tu1g43ou6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>892143420968-g4rdccqb2qo78rad6t6aohiedsfnfi83.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDe656AsQFfGIOcgPwQ6_qVqwda8FmpqDI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>892143420968</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.techbuzs.greeneva</string>
+	<key>PROJECT_ID</key>
+	<string>greeneva-project</string>
+	<key>STORAGE_BUCKET</key>
+	<string>greeneva-project.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:892143420968:ios:acd8f1eece94d65c5ad71d</string>
+	<key>DATABASE_URL</key>
+	<string>https://greeneva-project.firebaseio.com</string>
+</dict>
+</plist>
