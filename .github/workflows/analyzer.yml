@@ -1,35 +1,77 @@
-name: Analysis workflow
-on: [push, pull_request]
+name: greeneva_workflow
+
+on:
+  pull_request:
+
+  push:
+    branches:
+      - develop
+      - develop-web
+
+    
+env:
+  Example101: "ex"
+  Example102: "ex2"
+  Example103: "ex3"
 
 jobs:
-
-  package-analysis:
-
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./Flutter
-
+  android:
+    runs-on: macos-latest
+    if: github.event_name == 'pull_request'
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2
-
-      - uses: axel-op/dart-package-analyzer@v3
-        # set an id for the current step
-        id: analysis
+      - uses: actions/checkout@v1
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Build Example"
+        run: ./.github/workflows/scripts/build-example.sh android
+      - name: "Drive Example"
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
+          arch: x86_64
+          target: google_apis
+          profile: Nexus 5X
+          script: ./.github/workflows/scripts/drive-example.sh android
 
-      # You can then use this id to retrieve the outputs in the next steps.
-      # The following step shows how to exit the workflow with an error if the total score in percentage is below 50:
-      - name: Check scores
-        env:
-          # NB: "analysis" is the id set above. Replace it with the one you used if different.
-          TOTAL: ${{ steps.analysis.outputs.total }}
-          TOTAL_MAX: ${{ steps.analysis.outputs.total_max }}
+  apple:
+    runs-on: macos-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh dev
+      - name: "Install Tools"
         run: |
-          PERCENTAGE=$(( $TOTAL * 100 / $TOTAL_MAX ))
-          if (( $PERCENTAGE < 50 ))
-          then
-            echo Score too low!
-            exit 1
-          fi
+          ./.github/workflows/scripts/install-tools.sh
+          flutter config --enable-macos-desktop
+      - name: "Build iOS Example"
+        run: ./.github/workflows/scripts/build-example.sh ios
+      - name: "Drive iOS Example"
+        run: ./.github/workflows/scripts/drive-example.sh ios
+      - name: "Build MacOS Example"
+        run: ./.github/workflows/scripts/build-example.sh macos
+      - name: "Drive MacOS Example"
+        run: ./.github/workflows/scripts/drive-example.sh macos
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh beta
+      - name: "Install Tools"
+        run: |
+          ./.github/workflows/scripts/install-tools.sh
+          flutter config --enable-web
+      - name: "Drive Example"
+        run: ./.github/workflows/scripts/drive-example.sh web
