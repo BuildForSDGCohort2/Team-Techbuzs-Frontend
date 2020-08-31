@@ -2,6 +2,9 @@ name: greeneva_workflow
 
 on:
   pull_request:
+    branches:
+      - develop
+      - develop-web
 
   push:
     branches:
