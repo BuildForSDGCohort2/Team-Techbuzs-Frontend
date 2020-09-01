@@ -5,6 +5,9 @@ jobs:
   build-and-test:
     name: build-and-test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Flutter
     steps:
     - uses: actions/checkout@v1 
     - uses: actions/setup-java@v1
