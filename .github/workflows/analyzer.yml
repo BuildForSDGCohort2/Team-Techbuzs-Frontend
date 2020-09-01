@@ -1,5 +1,4 @@
-name: Build and Test
-
+name: Greeneva Analyze
 on: [push]
 jobs: 
   build-and-test:
