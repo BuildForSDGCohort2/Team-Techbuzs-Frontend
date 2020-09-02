@@ -1,21 +1,16 @@
-import 'dart:js';
-
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
-import 'package:Greeneva/Services/locationJs.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
-  GoogleSignIn _googleSignIn = GoogleSignIn();
 
   String name;
   String imageUrl;
@@ -49,24 +44,6 @@ class AuthenticationService {
     }
   }
 
-  success(pos) {
-    try {
-      print(pos.coords.latitude);
-
-      lat = pos.coords.latitude;
-      long = pos.coords.longitude;
-      print(pos.coords.longitude);
-    } catch (ex) {
-      print("Exception thrown : " + ex.toString());
-    }
-  }
-
-  _getCurrentLocation() {
-    if (kIsWeb) {
-      getCurrentPosition(allowInterop((pos) => success(pos)));
-    }
-  }
-
   Future<UserCredential> signInWithGoogle({String location}) async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -80,15 +57,11 @@ class AuthenticationService {
       // await _getCurrentLocation();
     }
 
-    final coordinates = new Coordinates(lat, long);
-    var addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    var first = addresses.first;
     _currentUser = UserModel(
       id: user.uid,
       email: user.email,
       fullName: user.displayName,
-      location: first.locality,
+      location: 'first.locality',
     );
     // Create a new credential
     try {
@@ -155,7 +128,7 @@ class AuthenticationService {
   }
 
   Future<bool> isUserLoggedIn() async {
-    var user = await _firebaseAuth.currentUser;
+    var user = _firebaseAuth.currentUser;
     await _populateCurrentUser(user);
     return user != null;
   }

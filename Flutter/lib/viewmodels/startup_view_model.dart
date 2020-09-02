@@ -1,6 +1,6 @@
 import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:Greeneva/Services/navigation_service.dart';
-import 'package:Greeneva/Services/remote_config_service.dart';
+// import 'package:Greeneva/Services/remote_config_service.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/locator.dart';
 

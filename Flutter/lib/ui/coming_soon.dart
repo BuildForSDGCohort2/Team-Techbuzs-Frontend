@@ -1,7 +1,9 @@
-import 'package:Greeneva/Services/authenication_service.dart';
+// import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;

@@ -1,7 +1,8 @@
 import 'package:Greeneva/Services/authenication_service.dart';
-import 'package:Greeneva/Services/remote_config_service.dart';
+// import 'package:Greeneva/Services/remote_config_service.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
+// ignore: unused_import
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/widgets.dart';
 

@@ -47,6 +47,7 @@ dependencies:
     # Web Package
   js: ^0.6.0
   flutter_google_places:
+  flare_flutter: ^2.0.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,40 @@
+import 'package:Greeneva/Services/navigation_service.dart';
+import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/viewmodels/startup_view_model.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  final NavigationService _navigationService = locator<NavigationService>();
+
+  @override
+  void initState() {
+    Future.delayed(
+        Duration(seconds: 5), () => _navigationService.navigateTo(Startup));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: FlareActor("assets/main.flr",
+              alignment: Alignment.center,
+              fit: BoxFit.contain,
+              animation: "Untitled"),
+        ),
+      ),
+    );
+  }
+}
 
 class StartUpView extends StatelessWidget {
   const StartUpView({Key key}) : super(key: key);
@@ -16,11 +50,6 @@ class StartUpView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              SizedBox(
-                width: 300,
-                height: 100,
-                child: Image.asset('assets/g.png'),
-              ),
               CircularProgressIndicator(
                 strokeWidth: 3,
                 valueColor: AlwaysStoppedAnimation(

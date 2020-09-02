@@ -1,3 +1,4 @@
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:js';
 
 import 'package:Greeneva/Services/Location_web/api.dart';
@@ -8,7 +9,7 @@ import 'package:Greeneva/ui/widgets/input_field.dart';
 import 'package:Greeneva/viewmodels/signup_view_model.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
+// import 'package:geocoder/geocoder.dart';
 // import 'package:js/js.dart';
 import 'package:stacked/stacked.dart';
 // import 'package:google_maps_webservice/places.dart';
@@ -34,6 +35,7 @@ class _SignUpViewState extends State<SignUpView> {
   final localityController = TextEditingController();
   double _latitude = 0.0;
   double _longitude = 0.0;
+  // ignore: unused_field
   String _city = '';
 
   @override
