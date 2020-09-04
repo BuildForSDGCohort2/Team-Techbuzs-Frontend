@@ -48,6 +48,8 @@ dependencies:
   js: ^0.6.0
   flutter_google_places:
   flare_flutter: ^2.0.6
+  material_design_icons_flutter:
+  cached_network_image:
 dev_dependencies:
   flutter_test:
     sdk: flutter

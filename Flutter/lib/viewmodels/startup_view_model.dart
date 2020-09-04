@@ -29,7 +29,8 @@ class StartUpViewModel extends BaseModel {
     if (hasLoggedInUser) {
       _navigationService.navigateTo(HomeViewRoute);
     } else {
-      _navigationService.navigateTo(LoginViewRoute);
+      // _navigationService.navigateTo(LoginViewRoute);
+      _navigationService.navigateTo(HomeViewRoute);
     }
   }
 }

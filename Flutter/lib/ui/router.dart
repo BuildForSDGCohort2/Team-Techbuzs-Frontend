@@ -27,7 +27,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: ComingS(),
+        viewToShow: NavScreen(),
       );
     case OnBoarding:
       return _getPageRoute(

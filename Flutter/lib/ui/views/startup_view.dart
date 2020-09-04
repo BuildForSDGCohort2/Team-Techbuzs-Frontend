@@ -26,11 +26,27 @@ class _SplashState extends State<Splash> {
     return Scaffold(
       body: Container(
         child: Center(
-          child: FlareActor("assets/main.flr",
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              animation: "Untitled"),
-        ),
+            child:
+
+                /// For Now Flare Support FOr Flutter Web Is not too good Sending off the Animation Here :(
+                //  FlareActor("assets/main.flr",
+                //     alignment: Alignment.center,
+                //     fit: BoxFit.contain,
+                //     animation: "Untitled"),
+                Column(
+          children: [
+            Image.asset('assets/g.png'),
+            SizedBox(
+              height: 20,
+            ),
+            CircularProgressIndicator(
+              strokeWidth: 3,
+              valueColor: AlwaysStoppedAnimation(
+                Theme.of(context).primaryColor,
+              ),
+            )
+          ],
+        )),
       ),
     );
   }
