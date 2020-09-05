@@ -1,5 +1,9 @@
 name: Greeneva Analyze
-on: [push]
+on:
+  push:
+     branches: [ develop ]
+  pull_request:
+     branches: [ develop ] 
 jobs: 
   build-and-test:
     name: build-and-test
