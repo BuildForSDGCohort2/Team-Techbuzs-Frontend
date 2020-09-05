@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies 
       run: flutter pub get
     - name: Analyze Dart code
-      run: flutter analyze -v
+      run: flutter analyze
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
