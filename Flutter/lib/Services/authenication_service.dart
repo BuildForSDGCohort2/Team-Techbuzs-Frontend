@@ -81,15 +81,12 @@ class AuthenticationService {
       // await _getCurrentLocation();
     }
 
-    final coordinates = new Coordinates(lat, long);
-    var addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    var first = addresses.first;
+    //
     _currentUser = UserModel(
       id: user.uid,
       email: user.email,
       fullName: user.displayName,
-      location: first.locality,
+      location: "locality",
     );
     // Create a new credential
     try {
