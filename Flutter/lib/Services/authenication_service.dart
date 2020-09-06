@@ -3,12 +3,12 @@
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
-import 'package:Greeneva/Services/locationJs.dart';
+// import 'package:Greeneva/Services/locationJs.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:geocoder/geocoder.dart';
+// import 'package:geocoder/geocoder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
@@ -131,6 +131,7 @@ class AuthenticationService {
       await _firestoreService.createUser(_currentUser);
       _firebaseAuth.currentUser != null
           ? await _firebaseAuth.currentUser.sendEmailVerification()
+          // ignore: unnecessary_statements
           : {};
       EmailService().sendtrans('Thank You for Creating an Account ',
           email != null ? email : authResult.user.email, name);
@@ -146,7 +147,7 @@ class AuthenticationService {
   }
 
   Future<bool> isUserLoggedIn() async {
-    var user = await _firebaseAuth.currentUser;
+    var user = _firebaseAuth.currentUser;
     await _populateCurrentUser(user);
     return user != null;
   }

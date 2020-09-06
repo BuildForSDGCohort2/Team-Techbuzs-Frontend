@@ -1,5 +1,5 @@
 import 'package:Greeneva/Services/authenication_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: avoid_web_libraries_in_flutter
 // import 'dart:js' as js;
@@ -22,7 +22,7 @@ class ComingS extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final User user = FirebaseAuth.instance.currentUser;
+    // final User user = FirebaseAuth.instance.currentUser;
     return Scaffold(
         backgroundColor: Colors.white,
         body: Container(

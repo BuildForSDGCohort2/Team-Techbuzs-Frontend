@@ -17,13 +17,16 @@ class LoginViewModel extends BaseModel {
 
   Future googlelogin() async {
     try {
+      setBusy(true);
       await _authenticationService.signInWithGoogle();
       setBusy(false);
       await _analyticsService.logLogingoogle();
       _navigationService.navigateTo(HomeViewRoute);
     } catch (e) {
       print(e.message);
-      //  setBusy(false);
+      await _dialogService.showDialog(
+          title: 'Google Sign In Error', description: 'Error: ${e.toString()}');
+      setBusy(false);
     }
   }
 

@@ -1,11 +1,10 @@
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get_it/get_it.dart';
 import 'Services/dialog_service.dart';
 import 'Services/navigation_service.dart';
-import 'Services/remote_config_service.dart';
+// import 'Services/remote_config_service.dart';
 
 GetIt locator = GetIt.instance;
 
