@@ -71,6 +71,8 @@ class AuthenticationService {
       );
       if (user != null) {
         await _firestoreService.createUser(_currentUser);
+        await EmailService().sendEmail('Thank You for Creating an Account ',
+            _currentUser.email != null ? _currentUser.email : user.email, name);
         await _analyticsService.setUserProperties(
           userId: user.uid,
           name: _currentUser.location,
@@ -104,7 +106,7 @@ class AuthenticationService {
       );
       final User user = _firebaseAuth.currentUser;
       await user.sendEmailVerification();
-      await EmailService().sendtrans('Thank You for Creating an Account ',
+      await EmailService().sendEmail('Thank You for Creating an Account ',
           email != null ? email : authResult.user.email, name);
 
       await _firestoreService.createUser(_currentUser);

@@ -11,4 +11,21 @@ class EmailService {
           <String, dynamic>{"email": email, "name": name, "message": message}),
     );
   }
+
+  sendEmail(String message, String email, String name) async {
+    var url = 'https://sdgfortb.herokuapp.com/emailtrans';
+    var response = await http.post(url,
+        body: jsonEncode({
+          "auth": "admin101\$",
+          "email": email,
+          "name": name,
+          "message": message
+        }),
+        headers: {"Content-Type": "application/json"});
+    if (response.statusCode == 202) {
+      print('Success ${response.body}');
+    } else {
+      print('error ${response.body}');
+    }
+  }
 }

@@ -1,4 +1,5 @@
 // import 'package:Greeneva/Services/authenication_service.dart';
+import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/ui/custom_app_bar.dart';
 import 'package:Greeneva/ui/custom_tab_bar.dart';
 import 'package:Greeneva/ui/widgets/responsive.dart';
@@ -18,6 +19,7 @@ class NavScreen extends StatefulWidget {
 }
 
 class _NavScreenState extends State<NavScreen> {
+  final List<String> name = ['Home', 'Account', 'Info'];
   final List<Widget> _screens = [
     ComingS(),
     // Scaffold(),
@@ -44,6 +46,7 @@ class _NavScreenState extends State<NavScreen> {
         appBar: PreferredSize(
           preferredSize: Size(screenSize.width, 100.0),
           child: CustomAppBar(
+            name: name,
             icons: _icons,
             selectedIndex: _selectedIndex,
             onTap: (index) => setState(() => _selectedIndex = index),
@@ -75,19 +78,19 @@ class ComingS extends StatelessWidget {
   Widget build(BuildContext context) {
     final User user = FirebaseAuth.instance.currentUser;
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Greeneva',
-                style: TextStyle(color: Color(0xff4A69FF)),
-              ),
-            )
-          ],
-          toolbarHeight: 30,
-          backgroundColor: Color(0xffFAFAFA),
-        ),
+        // appBar: AppBar(
+        //   actions: [
+        //     Align(
+        //       alignment: Alignment.topLeft,
+        //       child: Text(
+        //         'Greeneva',
+        //         style: TextStyle(color: Color(0xff4A69FF)),
+        //       ),
+        //     )
+        //   ],
+        //   toolbarHeight: 30,
+        //   backgroundColor: Color(0xffFAFAFA),
+        // ),
         backgroundColor: 1 == 2 ? Color(0xffFAFAFA) : Colors.white,
         body: Container(
           child: SingleChildScrollView(
@@ -99,7 +102,7 @@ class ComingS extends StatelessWidget {
                 user != null
                     ? Container(
                         child: Text(
-                          'Greeneva | #BuildForSDG Cohort 2\n\n Welcome ${user.displayName ?? 'Not Signed IN '}',
+                          'Greeneva | #BuildForSDG Cohort 2',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 22,
@@ -121,21 +124,27 @@ class ComingS extends StatelessWidget {
                   child: Text('By TechBuzs Group'),
                 ),
                 Container(
-                  child: GestureDetector(
-                      child: Image.asset(
-                        'assets/git.jpeg',
-                        height: 50,
-                      ),
-                      onTap: () =>
-                          // {print('Done'), AuthenticationService().logout()}
-                          platformChecker()
-                              ? js.context.callMethod("open", [
-                                  "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
-                                ])
-                              : html.window.open(
-                                  "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
-                                  'GitHub')),
-                )
+                    child: GestureDetector(
+                        child: Image.asset(
+                          'assets/git.jpeg',
+                          height: 50,
+                        ),
+                        onTap: () async {
+                          // print("admin\$");
+                          user != null
+                              ? EmailService().sendEmail(
+                                  'message', user.email, user.displayName)
+                              : {};
+                        })
+                    // {print('Done'), AuthenticationService().logout()}
+                    // platformChecker()
+                    //     ? js.context.callMethod("open", [
+                    //         "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
+                    //       ])
+                    //     : html.window.open(
+                    //         "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
+                    //         'GitHub')),
+                    )
               ],
             ),
           ),

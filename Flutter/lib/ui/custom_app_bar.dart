@@ -10,11 +10,13 @@ class CustomAppBar extends StatelessWidget {
   final List<IconData> icons;
   final int selectedIndex;
   final Function(int) onTap;
+  final List<String> name;
 
   const CustomAppBar({
     Key key,
     // @required this.currentUser,
     @required this.icons,
+    this.name,
     @required this.selectedIndex,
     @required this.onTap,
   }) : super(key: key);
@@ -48,32 +50,22 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            height: double.infinity,
-            width: 600.0,
-            child: CustomTabBar(
-              icons: icons,
-              selectedIndex: selectedIndex,
-              onTap: onTap,
-              isBottomIndicator: true,
-            ),
-          ),
+          // Container(
+          //   height: double.infinity,
+          //   width: 600.0,
+          //   child: CustomTabBar(
+          //     icons: icons,
+          //     selectedIndex: selectedIndex,
+          //     onTap: onTap,
+          //     name: name,
+          //     isBottomIndicator: true,
+          //   ),
+          // ),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                UserCard(),
-                const SizedBox(width: 12.0),
-                CircleButton(
-                  icon: Icons.search,
-                  iconSize: 30.0,
-                  onPressed: () => print('Search'),
-                ),
-                CircleButton(
-                  icon: MdiIcons.home,
-                  iconSize: 30.0,
-                  onPressed: () => print('Messenger'),
-                ),
+                // UserCard(),
               ],
             ),
           ),
