@@ -1,6 +1,10 @@
 import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/ui/account_page.dart';
 import 'package:Greeneva/ui/auth_screen.dart';
 import 'package:Greeneva/ui/coming_soon.dart';
+import 'package:Greeneva/ui/contact_page.dart';
+import 'package:Greeneva/ui/donate_page.dart';
+import 'package:Greeneva/ui/help_page.dart';
 import 'package:Greeneva/ui/home_screen.dart';
 // import 'package:Greeneva/ui/home_screen.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
@@ -15,6 +19,26 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: SplashView(),
+      );
+    case Help:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: HelpPage(),
+      );
+    case Donate:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: DonatePage(),
+      );
+    case Contact:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ContactPage(),
+      );
+    case Account:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: AccountPage(),
       );
     case AuthView:
       return _getPageRoute(

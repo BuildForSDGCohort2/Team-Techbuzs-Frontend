@@ -15,6 +15,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ComingS extends StatelessWidget {
+  String name;
+  ComingS({this.name});
   bool platformChecker() {
     if (kIsWeb) {
       return true;
@@ -53,6 +55,14 @@ class ComingS extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 3.6,
                 ),
+                Container(
+                  child: Text(
+                    name != null ? '$name is Working on It' : '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 22, letterSpacing: 1.3, color: Colors.green),
+                  ),
+                ),
                 Center(
                   child: Image.asset('assets/P4id.gif'),
                 ),
@@ -74,16 +84,7 @@ class ComingS extends StatelessWidget {
                               ? EmailService().sendEmail(
                                   'message', user.email, user.displayName)
                               : {};
-                        })
-                    // {print('Done'), AuthenticationService().logout()}
-                    // platformChecker()
-                    //     ? js.context.callMethod("open", [
-                    //         "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend"
-                    //       ])
-                    //     : html.window.open(
-                    //         "https://github.com/BuildForSDGCohort2/Team-Techbuzs-Frontend",
-                    //         'GitHub')),
-                    )
+                        }))
               ],
             ),
           ),

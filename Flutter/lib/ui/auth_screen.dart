@@ -1,7 +1,12 @@
+import 'package:Greeneva/Services/navigation_service.dart';
+import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/ui/cicle_button.dart';
+import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../locator.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -9,13 +14,16 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final NavigationService _navigationService = locator<NavigationService>();
+
   @override
   Widget build(BuildContext context) {
+    String route = "Account";
     var length = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     print(width);
     print((width * .4452083333));
-    bool ishome = true;
+    // bool ishome = true;
 
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +32,7 @@ class _AuthScreenState extends State<AuthScreen> {
         title: !(width < 710)
             ? Row(
                 children: [
-                  SizedBox(width: width / 17),
+                  SizedBox(width: width / 20),
                   Text(
                     'Greeneva.',
                     style: GoogleFonts.merriweatherSans(
@@ -43,7 +51,12 @@ class _AuthScreenState extends State<AuthScreen> {
                   Column(
                     children: [
                       GestureDetector(
-                        onTap: () => !ishome,
+                        onTap: () {
+                          route.contains("Account")
+                              ? _navigationService.navigateTo(HomeViewRoute)
+                              : {};
+                        },
+                        // onTap: () => !ishome,
                         child: Text(
                           'Home'.toUpperCase(),
                           style: GoogleFonts.merriweatherSans(
@@ -53,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      ishome
+                      route.contains("Account")
                           ? Icon(
                               Icons.ac_unit_rounded,
                               color: Colors.green,
@@ -63,36 +76,63 @@ class _AuthScreenState extends State<AuthScreen> {
                     ],
                   ),
                   SizedBox(width: (width / 20)),
-                  Text(
-                    'Help'.toUpperCase(),
-                    style: GoogleFonts.merriweatherSans(
-                        color: Color(0xff4A69FF),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      route.contains("Account")
+                          ? _navigationService.navigateTo(Help)
+                          : {};
+                    },
+                    child: Text(
+                      'Help'.toUpperCase(),
+                      style: GoogleFonts.merriweatherSans(
+                          color: Color(0xff4A69FF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(width: (width / 20)),
-                  Text(
-                    'Donate'.toUpperCase(),
-                    style: GoogleFonts.merriweatherSans(
-                        color: Color(0xff4A69FF),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      route.contains("Account")
+                          ? _navigationService.navigateTo(Donate)
+                          // ignore: unnecessary_statements
+                          : {};
+                    },
+                    child: Text(
+                      'Donate'.toUpperCase(),
+                      style: GoogleFonts.merriweatherSans(
+                          color: Color(0xff4A69FF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(width: (width / 20)),
-                  Text(
-                    'Contact'.toUpperCase(),
-                    style: GoogleFonts.merriweatherSans(
-                        color: Color(0xff4A69FF),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      route.contains("Account")
+                          ? _navigationService.navigateTo(Contact)
+                          : {};
+                    },
+                    child: Text(
+                      'Contact'.toUpperCase(),
+                      style: GoogleFonts.merriweatherSans(
+                          color: Color(0xff4A69FF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   SizedBox(width: (width / 20)),
-                  Text(
-                    'Account'.toUpperCase(),
-                    style: GoogleFonts.merriweatherSans(
-                        color: Color(0xff4A69FF),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      route.contains("Account") ? {} : {};
+                    },
+                    child: Text(
+                      'Account'.toUpperCase(),
+                      style: GoogleFonts.merriweatherSans(
+                          color: Color(0xff4A69FF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               )
@@ -126,16 +166,22 @@ class _AuthScreenState extends State<AuthScreen> {
                         ? width - (width - (width / 2))
                         : width - 100,
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    LoginViewModel().busy ? {} : LoginViewModel().googlelogin();
+                  },
                   height: length / 10,
                   minWidth: length / 2,
                   color: Colors.white,
                   child: Row(
                     children: [
-                      Image.network(
-                        'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
-                        height: 50,
-                      ),
+                      LoginViewModel().busy
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Image.network(
+                              'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
+                              height: 50,
+                            ),
                       SizedBox(
                         width: 39,
                       ),
