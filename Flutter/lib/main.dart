@@ -17,6 +17,7 @@ void main() async {
   await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString('token');
+  print(token);
 
   HttpLink httpLink = HttpLink(uri: 'https://communityfortb.herokuapp.com/');
 
@@ -59,6 +60,7 @@ class MyApp extends StatefulWidget {
 Future setinfodat(bool kauth) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setBool('info', kauth);
+  // print()
 }
 
 class _MyAppState extends State<MyApp> {
@@ -84,7 +86,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: Splash(),
+      home: SplashView(),
       onGenerateRoute: generateRoute,
     );
   }

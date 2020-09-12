@@ -30,7 +30,7 @@ class StartUpViewModel extends BaseModel {
       _navigationService.navigateTo(HomeViewRoute);
     } else {
       // _navigationService.navigateTo(LoginViewRoute);
-      _navigationService.navigateTo(HomeViewRoute);
+      _navigationService.navigateTo(AuthView);
     }
   }
 }

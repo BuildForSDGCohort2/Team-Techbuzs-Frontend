@@ -14,55 +14,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class NavScreen extends StatefulWidget {
-  @override
-  _NavScreenState createState() => _NavScreenState();
-}
-
-class _NavScreenState extends State<NavScreen> {
-  final List<String> name = ['Home', 'Account', 'Info'];
-  final List<Widget> _screens = [
-    ComingS(),
-    // Scaffold(),
-    // Scaffold(),
-    // Scaffold(),
-    // Scaffold(),
-    // Scaffold(),
-  ];
-  final List<IconData> _icons = const [
-    Icons.home,
-    // Icons.,
-    MdiIcons.accountCircleOutline,
-    MdiIcons.accountGroupOutline,
-    // MdiIcons.bellOutline,
-    // Icons.menu,
-  ];
-  int _selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-    return DefaultTabController(
-      length: _icons.length,
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(screenSize.width, 100.0),
-          child: CustomAppBar(
-            name: name,
-            icons: _icons,
-            selectedIndex: _selectedIndex,
-            onTap: (index) => setState(() => _selectedIndex = index),
-          ),
-        ),
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: _screens,
-        ),
-        bottomNavigationBar: const SizedBox.shrink(),
-      ),
-    );
-  }
-}
-
 class ComingS extends StatelessWidget {
   bool platformChecker() {
     if (kIsWeb) {
@@ -79,19 +30,6 @@ class ComingS extends StatelessWidget {
   Widget build(BuildContext context) {
     final User user = FirebaseAuth.instance.currentUser;
     return Scaffold(
-        // appBar: AppBar(
-        //   actions: [
-        //     Align(
-        //       alignment: Alignment.topLeft,
-        //       child: Text(
-        //         'Greeneva',
-        //         style: TextStyle(color: Color(0xff4A69FF)),
-        //       ),
-        //     )
-        //   ],
-        //   toolbarHeight: 30,
-        //   backgroundColor: Color(0xffFAFAFA),
-        // ),
         backgroundColor: 1 == 2 ? Color(0xffFAFAFA) : Colors.white,
         body: Container(
           child: SingleChildScrollView(

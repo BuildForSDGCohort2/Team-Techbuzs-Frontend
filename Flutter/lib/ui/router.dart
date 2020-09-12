@@ -1,5 +1,7 @@
 import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/ui/auth_screen.dart';
 import 'package:Greeneva/ui/coming_soon.dart';
+import 'package:Greeneva/ui/home_screen.dart';
 // import 'package:Greeneva/ui/home_screen.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 import 'package:Greeneva/ui/views/login_view.dart';
@@ -9,6 +11,17 @@ import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    case SplashViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SplashView(),
+      );
+    case AuthView:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: AuthScreen(),
+      );
+
     case LoginViewRoute:
       return _getPageRoute(
         routeName: settings.name,
@@ -27,7 +40,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case HomeViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: NavScreen(),
+        viewToShow: HomePage(),
       );
     case OnBoarding:
       return _getPageRoute(

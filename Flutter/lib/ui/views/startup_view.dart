@@ -6,54 +6,72 @@ import 'package:Greeneva/viewmodels/startup_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class Splash extends StatefulWidget {
+import 'dart:math' as math;
+
+class SplashView extends StatefulWidget {
   @override
-  _SplashState createState() => _SplashState();
+  _SplashViewState createState() => _SplashViewState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashViewState extends State<SplashView>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   void initState() {
     Future.delayed(
         Duration(seconds: 5), () => _navigationService.navigateTo(Startup));
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 6))
+          ..repeat();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-            child:
-
-                /// For Now Flare Support FOr Flutter Web Is not too good Sending off the Animation Here :(
-                //  FlareActor("assets/main.flr",
-                //     alignment: Alignment.center,
-                //     fit: BoxFit.contain,
-                //     animation: "Untitled"),
-                Column(
-          children: [
-            Image.asset('assets/g.png'),
-            SizedBox(
-              height: 20,
-            ),
-            CircularProgressIndicator(
-              strokeWidth: 3,
-              valueColor: AlwaysStoppedAnimation(
-                Theme.of(context).primaryColor,
+    return Container(
+      color: Color(0xfffafafa),
+      // appBar: AppBar(),
+      child: Center(
+        child: AnimatedBuilder(
+            animation: _controller,
+            builder: (_, child) {
+              return Transform.rotate(
+                angle: _controller.value * 2 * math.pi,
+                child: child,
+              );
+            },
+            child: Center(
+              child: Image.asset(
+                'assets/greeneva.png',
+                height: 150,
               ),
-            )
-          ],
-        )),
+            )),
       ),
     );
   }
 }
 
-class StartUpView extends StatelessWidget {
+class StartUpView extends StatefulWidget {
   const StartUpView({Key key}) : super(key: key);
+
+  @override
+  _StartUpViewState createState() => _StartUpViewState();
+}
+
+class _StartUpViewState extends State<StartUpView>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 6))
+          ..repeat();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +84,26 @@ class StartUpView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              CircularProgressIndicator(
-                strokeWidth: 3,
-                valueColor: AlwaysStoppedAnimation(
-                  Theme.of(context).primaryColor,
-                ),
-              )
+              AnimatedBuilder(
+                  animation: _controller,
+                  builder: (_, child) {
+                    return Transform.rotate(
+                      angle: _controller.value * 2 * math.pi,
+                      child: child,
+                    );
+                  },
+                  child: Center(
+                    child: Image.asset(
+                      'assets/greeneva.png',
+                      height: 150,
+                    ),
+                  )),
+              // CircularProgressIndicator(
+              //   strokeWidth: 3,
+              //   valueColor: AlwaysStoppedAnimation(
+              //     Theme.of(context).primaryColor,
+              //   ),
+              // )
             ],
           ),
         ),
