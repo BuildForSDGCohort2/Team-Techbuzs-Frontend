@@ -17,6 +17,8 @@ class StartUpViewModel extends BaseModel {
   // final RemoteConfigService _remoteConfigService =
   //     locator<RemoteConfigService>();
 
+  // Timer(Duration(seconds: 5), () => )\
+
   Future handleStartUpLogic() async {
     // await _dynamicLinkService.handleDynamicLinks();
     // await _remoteConfigService.initialise();
@@ -27,9 +29,11 @@ class StartUpViewModel extends BaseModel {
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
     if (hasLoggedInUser) {
-      _navigationService.navigateTo(HomeViewRoute);
+      Future.delayed(
+          Duration(seconds: 5), () => _navigationService.navigateTo(AuthView));
     } else {
-      _navigationService.navigateTo(LoginViewRoute);
+      Future.delayed(
+          Duration(seconds: 5), () => _navigationService.navigateTo(AuthView));
     }
   }
 }

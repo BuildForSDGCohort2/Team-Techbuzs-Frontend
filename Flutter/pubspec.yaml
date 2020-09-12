@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^0.5.10
   provider:
   flutter_google_places:
+  google_fonts: ^1.1.0
   flare_flutter:
 dev_dependencies:
   flutter_test:
