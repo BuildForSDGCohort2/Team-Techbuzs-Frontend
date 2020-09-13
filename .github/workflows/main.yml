@@ -5,6 +5,8 @@ name: Build, Release app to  Firebase Hosting
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
+  pull_request:
+     branches: [ develop-web ] 
   push:
     branches:
       - develop-web
@@ -14,6 +16,9 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Flutter
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
