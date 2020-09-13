@@ -30,6 +30,21 @@ class LoginViewModel extends BaseModel {
     }
   }
 
+  Future facebooklogin() async {
+    try {
+      setBusy(true);
+      await _authenticationService.signInWithFacebook();
+      await _analyticsService.logLoginfacebook();
+      setBusy(false);
+      _navigationService.navigateTo(HomeViewRoute);
+    } catch (e) {
+      print(e.message);
+      await _dialogService.showDialog(
+          title: 'Google Sign In Error', description: 'Error: ${e.toString()}');
+      setBusy(false);
+    }
+  }
+
   Future login({
     @required String email,
     @required String password,

@@ -3,12 +3,11 @@
 import 'package:Greeneva/Services/analytics_service.dart';
 import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
-// import 'package:Greeneva/Services/locationJs.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-// import 'package:geocoder/geocoder.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
@@ -50,23 +49,18 @@ class AuthenticationService {
     }
   }
 
-  // success(pos) {
-  //   try {
-  //     print(pos.coords.latitude);
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult result = await FacebookAuth.instance.login();
 
-  //     lat = pos.coords.latitude;
-  //     long = pos.coords.longitude;
-  //     print(pos.coords.longitude);
-  //   } catch (ex) {
-  //     print("Exception thrown : " + ex.toString());
-  //   }
-  // }
+    // Create a credential from the access token
+    final FacebookAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.accessToken.token);
 
-  // _getCurrentLocation() {
-  //   if (kIsWeb) {
-  //     getCurrentPosition(allowInterop((pos) => success(pos)));
-  //   }
-  // }
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance
+        .signInWithCredential(facebookAuthCredential);
+  }
 
   Future<UserCredential> signInWithGoogle({String location}) async {
     // Trigger the authentication flow
@@ -77,11 +71,6 @@ class AuthenticationService {
         await googleUser.authentication;
 
     final User user = _firebaseAuth.currentUser;
-    if (kIsWeb) {
-      // await _getCurrentLocation();
-    }
-
-    //
     _currentUser = UserModel(
       id: user.uid,
       email: user.email,

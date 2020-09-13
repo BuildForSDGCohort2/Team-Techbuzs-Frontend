@@ -17,14 +17,22 @@ class AnalyticsService {
   }
 
   Future logLogin() async {
-    await _analytics.logLogin(loginMethod: 'email');
+    await _analytics.logLogin(loginMethod: 'Email Login');
   }
 
   Future logLogingoogle() async {
     await _analytics.logLogin(loginMethod: 'Google');
   }
 
+  Future logLoginfacebook() async {
+    await _analytics.logLogin(loginMethod: 'Facebook');
+  }
+
   Future logSignUp() async {
-    await _analytics.logSignUp(signUpMethod: 'email');
+    await _analytics.logSignUp(signUpMethod: 'Email SignUp');
+  }
+
+  Future logTwitter() async {
+    await _analytics.logSignUp(signUpMethod: 'Twitter');
   }
 }

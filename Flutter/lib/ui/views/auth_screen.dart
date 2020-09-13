@@ -1,3 +1,4 @@
+import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -94,19 +95,23 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             Row(
               children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 10,
+                ),
+                !(LoginViewModel().busy)
+                    ? IconButton(
+                        icon: Icon(Icons.slideshow),
+                        onPressed: () => LoginViewModel().facebooklogin(),
+                      )
+                    : Center(child: CircularProgressIndicator()),
+                SizedBox(
+                  width: 100,
+                ),
                 // CircleButton(
-                //     icon: MdiIcons.facebook,
-                //     iconSize: 50,
-                //     onPressed: () {},
-                //   ),
-                //   SizedBox(
-                //     width: 100,
-                //   ),
-                //   CircleButton(
-                //     icon: MdiIcons.twitter,
-                //     iconSize: 50,
-                //     onPressed: () {},
-                //   )
+                //   icon: MdiIcons.twitter,
+                //   iconSize: 50,
+                //   onPressed: () {},
+                // )
               ],
             )
           ],
