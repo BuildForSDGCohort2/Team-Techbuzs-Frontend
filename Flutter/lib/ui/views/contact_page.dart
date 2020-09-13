@@ -1,10 +1,10 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/coming_soon.dart';
+import 'package:Greeneva/ui/views/coming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../locator.dart';
+import '../../locator.dart';
 
 class ContactPage extends StatefulWidget {
   @override
@@ -12,12 +12,20 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
+  /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
+  /// This does not do any foo  !!!!
+  void nothing() {
+    print('This Does Nothing LOL :)');
+  }
+
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
     String route = "Contact";
-    var length = MediaQuery.of(context).size.height;
+
+    /// TO Be used Uncommenrt
+    // var length = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +56,7 @@ class _ContactPageState extends State<ContactPage> {
                         onTap: () {
                           route.contains("Contact")
                               ? _navigationService.navigateTo(HomeViewRoute)
-                              : {};
+                              : nothing();
                         },
                         // onTap: () => !ishome,
                         child: Text(
@@ -66,7 +74,7 @@ class _ContactPageState extends State<ContactPage> {
                               color: Colors.green,
                               size: 10,
                             )
-                          : {},
+                          : null,
                     ],
                   ),
                   SizedBox(width: (width / 20)),
@@ -74,7 +82,7 @@ class _ContactPageState extends State<ContactPage> {
                     onTap: () {
                       route.contains("Contact")
                           ? _navigationService.navigateTo(Help)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Help'.toUpperCase(),
@@ -89,7 +97,7 @@ class _ContactPageState extends State<ContactPage> {
                     onTap: () {
                       route.contains("Contact")
                           ? _navigationService.navigateTo(Donate)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Donate'.toUpperCase(),
@@ -102,7 +110,7 @@ class _ContactPageState extends State<ContactPage> {
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Contact") ? {} : {};
+                      route.contains("Contact") ? nothing() : nothing();
                     },
                     child: Text(
                       'Contact'.toUpperCase(),
@@ -117,7 +125,7 @@ class _ContactPageState extends State<ContactPage> {
                     onTap: () {
                       route.contains("Contact")
                           ? _navigationService.navigateTo(Account)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Account'.toUpperCase(),

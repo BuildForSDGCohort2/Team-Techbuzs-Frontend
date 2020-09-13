@@ -18,6 +18,8 @@ class StartUpViewModel extends BaseModel {
   //     locator<RemoteConfigService>();
 
   Future handleStartUpLogic() async {
+    // print(hasLoggedInUser);
+
     // await _dynamicLinkService.handleDynamicLinks();
     // await _remoteConfigService.initialise();
 
@@ -25,6 +27,7 @@ class StartUpViewModel extends BaseModel {
     // await _pushNotificationService.initialise();
 
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
+    print(hasLoggedInUser);
 
     if (hasLoggedInUser) {
       _navigationService.navigateTo(HomeViewRoute);

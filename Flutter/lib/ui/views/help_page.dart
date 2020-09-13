@@ -1,10 +1,10 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/coming_soon.dart';
+import 'package:Greeneva/ui/views/coming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../locator.dart';
+import '../../locator.dart';
 
 class HelpPage extends StatefulWidget {
   @override
@@ -16,8 +16,15 @@ class _HelpPageState extends State<HelpPage> {
 
   @override
   Widget build(BuildContext context) {
+    /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
+    /// This does not do any foo  !!!!
+    void nothing() {
+      print('This Does Nothing LOL :)');
+    }
+
     String route = "Help";
-    var length = MediaQuery.of(context).size.height;
+    //// TO Be USed Uncomment
+    // var length = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +55,7 @@ class _HelpPageState extends State<HelpPage> {
                         onTap: () {
                           route.contains("Help")
                               ? _navigationService.navigateTo(HomeViewRoute)
-                              : {};
+                              : nothing();
                         },
                         // onTap: () => !ishome,
                         child: Text(
@@ -66,13 +73,13 @@ class _HelpPageState extends State<HelpPage> {
                               color: Colors.green,
                               size: 10,
                             )
-                          : {},
+                          : null,
                     ],
                   ),
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Help") ? {} : {};
+                      route.contains("Help") ? nothing() : nothing();
                     },
                     child: Text(
                       'Help'.toUpperCase(),
@@ -87,7 +94,7 @@ class _HelpPageState extends State<HelpPage> {
                     onTap: () {
                       route.contains("Help")
                           ? _navigationService.navigateTo(Donate)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Donate'.toUpperCase(),
@@ -102,7 +109,7 @@ class _HelpPageState extends State<HelpPage> {
                     onTap: () {
                       route.contains("Help")
                           ? _navigationService.navigateTo(Contact)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Contact'.toUpperCase(),
@@ -117,7 +124,7 @@ class _HelpPageState extends State<HelpPage> {
                     onTap: () {
                       route.contains("Help")
                           ? _navigationService.navigateTo(Account)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Account'.toUpperCase(),

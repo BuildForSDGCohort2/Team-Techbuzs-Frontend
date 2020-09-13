@@ -1,12 +1,13 @@
+import 'package:Greeneva/Services/dialog_service.dart';
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/cicle_button.dart';
+import 'package:Greeneva/ui/widgets/cicle_button.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../locator.dart';
+import '../../locator.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -14,6 +15,14 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
+  /// This does not do any foo  !!!!
+  void nothing() {
+    print('This Does Nothing LOL :)');
+  }
+
+  final DialogService _dialogService = locator<DialogService>();
+
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
@@ -54,7 +63,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         onTap: () {
                           route.contains("Account")
                               ? _navigationService.navigateTo(HomeViewRoute)
-                              : {};
+                              : nothing();
                         },
                         // onTap: () => !ishome,
                         child: Text(
@@ -72,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               color: Colors.green,
                               size: 10,
                             )
-                          : {},
+                          : null,
                     ],
                   ),
                   SizedBox(width: (width / 20)),
@@ -80,7 +89,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     onTap: () {
                       route.contains("Account")
                           ? _navigationService.navigateTo(Help)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Help'.toUpperCase(),
@@ -96,7 +105,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       route.contains("Account")
                           ? _navigationService.navigateTo(Donate)
                           // ignore: unnecessary_statements
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Donate'.toUpperCase(),
@@ -111,7 +120,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     onTap: () {
                       route.contains("Account")
                           ? _navigationService.navigateTo(Contact)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Contact'.toUpperCase(),
@@ -124,7 +133,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Account") ? {} : {};
+                      route.contains("Account") ? nothing() : nothing();
                     },
                     child: Text(
                       'Account'.toUpperCase(),
@@ -167,7 +176,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         : width - 100,
                 child: MaterialButton(
                   onPressed: () {
-                    LoginViewModel().busy ? {} : LoginViewModel().googlelogin();
+                    LoginViewModel().busy
+                        ? nothing()
+                        : LoginViewModel().googlelogin();
                   },
                   height: length / 10,
                   minWidth: length / 2,
@@ -209,14 +220,17 @@ class _AuthScreenState extends State<AuthScreen> {
                         ? width - (width - (width / 2))
                         : width - 100,
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _dialogService.showDialog(
+                        title: 'Not Implemented', description: 'Working On It');
+                  },
                   height: length / 10,
                   minWidth: length / 2,
                   color: Colors.white,
                   child: Row(
                     children: [
                       Image.network(
-                        'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
+                        'https://www.hawaiipublicradio.org/sites/khpr/files/201702/Apple_logo_black.svg_.png',
                         height: 50,
                       ),
                       SizedBox(
@@ -243,17 +257,28 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(
                   width: !(width < 720) ? width / 2.4 : width / 4,
                 ),
-                CircleButton(
-                  icon: MdiIcons.facebook,
-                  iconSize: 50,
-                  onPressed: () {},
-                ),
+                !(LoginViewModel().busy)
+                    ? CircleButton(
+                        link:
+                            "https://www.freepnglogos.com/uploads/facebook-logo-icon/facebook-logo-icon-facebook-logo-png-transparent-svg-vector-bie-supply-16.png",
+                        iconSize: 50,
+                        onPressed: () {
+                          print(LoginViewModel().busy);
+                          LoginViewModel().facebooklogin();
+                        },
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
+                      ),
                 SizedBox(
                   width: 100,
                 ),
                 CircleButton(
-                  icon: MdiIcons.twitter,
+                  link:
+                      "https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-logo-vector-png-clipart-1.png",
                   iconSize: 50,
+
+                  /// To be Implented Twitter  Login  LOL :)
                   onPressed: () {},
                 )
               ],
@@ -282,7 +307,6 @@ class CircleTabIndicator extends Container {
   CircleTabIndicator({@required Color color, @required double radius})
       : _painter = _CirclePainter(color, radius);
 
-  @override
   BoxPainter createBoxPainter([onChanged]) => _painter;
 }
 

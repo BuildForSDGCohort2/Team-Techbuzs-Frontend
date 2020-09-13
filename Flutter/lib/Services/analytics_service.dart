@@ -25,6 +25,10 @@ class AnalyticsService {
   }
 
   Future logSignUp() async {
-    await _analytics.logSignUp(signUpMethod: 'email');
+    await _analytics.logSignUp(signUpMethod: 'Email SignUp');
+  }
+
+  Future logLoginFacebook() async {
+    await _analytics.logLogin(loginMethod: 'Facebook');
   }
 }

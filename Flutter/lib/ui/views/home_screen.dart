@@ -3,7 +3,7 @@ import 'package:Greeneva/constants/routename.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../locator.dart';
+import '../../locator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,8 +13,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
+    /// This does not do any foo  !!!!
+    void nothing() {
+      print('This Does Nothing LOL :)');
+    }
+
     String route = "Home";
-    var length = MediaQuery.of(context).size.height;
+
+    /// TO Be USed
+    // var length = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     final NavigationService _navigationService = locator<NavigationService>();
 
@@ -45,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          route.contains("Home") ? {} : {};
+                          route.contains("Home") ? nothing() : nothing();
                         },
                         // onTap: () => !ishome,
                         child: Text(
@@ -59,11 +67,11 @@ class _HomePageState extends State<HomePage> {
                       ),
                       route.contains("Home")
                           ? Icon(
-                              Icons.ac_unit_rounded,
+                              Icons.donut_large_rounded,
                               color: Colors.green,
                               size: 10,
                             )
-                          : {},
+                          : null,
                     ],
                   ),
                   SizedBox(width: (width / 20)),
@@ -71,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       route.contains("Home")
                           ? _navigationService.navigateTo(Help)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Help'.toUpperCase(),
@@ -86,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       route.contains("Home")
                           ? _navigationService.navigateTo(Donate)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Donate'.toUpperCase(),
@@ -101,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       route.contains("Home")
                           ? _navigationService.navigateTo(Contact)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Contact'.toUpperCase(),
@@ -116,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       route.contains("Home")
                           ? _navigationService.navigateTo(Account)
-                          : {};
+                          : nothing();
                     },
                     child: Text(
                       'Account'.toUpperCase(),

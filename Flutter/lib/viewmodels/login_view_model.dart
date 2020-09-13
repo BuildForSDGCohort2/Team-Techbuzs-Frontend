@@ -17,12 +17,33 @@ class LoginViewModel extends BaseModel {
 
   Future googlelogin() async {
     try {
+      setBusy(true);
       await _authenticationService.signInWithGoogle();
       setBusy(false);
       await _analyticsService.logLogingoogle();
       _navigationService.navigateTo(HomeViewRoute);
     } catch (e) {
+      _dialogService.showDialog(
+          title: "Google Sign-In Error ", description: e.toString());
       print(e.message);
+      //  setBusy(false);
+    }
+  }
+
+  Future facebooklogin() async {
+    try {
+      setBusy(true);
+
+      await _authenticationService.signInWithFacebook();
+      await _analyticsService.logLoginFacebook();
+      setBusy(false);
+      _navigationService.navigateTo(HomeViewRoute);
+    } catch (e) {
+      setBusy(false);
+
+      print(e);
+      await _dialogService.showDialog(
+          title: 'FaceBook  Error', description: '${e.toString()}');
       //  setBusy(false);
     }
   }

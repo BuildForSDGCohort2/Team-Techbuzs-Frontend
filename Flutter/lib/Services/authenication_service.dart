@@ -28,6 +28,12 @@ class AuthenticationService {
     }
   }
 
+  /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
+  /// This does not do any foo  !!!!
+  void nothing() {
+    print('This Does Nothing LOL :)');
+  }
+
   Future loginWithEmail({
     @required String email,
     @required String password,
@@ -44,6 +50,22 @@ class AuthenticationService {
     }
   }
 
+  Future<UserCredential> signInWithFacebook() async {
+    // Create a new provider
+    FacebookAuthProvider facebookProvider = FacebookAuthProvider();
+
+    facebookProvider.addScope('email');
+    facebookProvider.setCustomParameters({
+      'display': 'popup',
+    });
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithPopup(facebookProvider);
+
+    // Or use signInWithRedirect
+    // return await FirebaseAuth.instance.signInWithRedirect(facebookProvider);
+  }
+
   Future<UserCredential> signInWithGoogle({String location}) async {
     // Trigger the authentication flow
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -53,9 +75,6 @@ class AuthenticationService {
         await googleUser.authentication;
 
     final User user = _firebaseAuth.currentUser;
-    if (kIsWeb) {
-      // await _getCurrentLocation();
-    }
 
     _currentUser = UserModel(
       id: user.uid,
@@ -64,15 +83,26 @@ class AuthenticationService {
       location: 'first.locality',
     );
     // Create a new credential
+
     try {
       final GoogleAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
       if (user != null) {
-        await _firestoreService.createUser(_currentUser);
-        await EmailService().sendEmail('Thank You for Creating an Account ',
-            _currentUser.email != null ? _currentUser.email : user.email, name);
+        await _firestoreService.checkIfUserExist(user.uid)
+            ? nothing()
+            : await _firestoreService.createUser(_currentUser);
+        // : nothing();
+
+        await _firestoreService.checkIfUserExist(user.uid)
+            ? nothing()
+            : await EmailService().sendEmail(
+                'Thank You for Creating an Account ',
+                _currentUser.email != null ? _currentUser.email : user.email,
+                name);
         await _analyticsService.setUserProperties(
           userId: user.uid,
           name: _currentUser.location,
@@ -138,10 +168,10 @@ class AuthenticationService {
   Future _populateCurrentUser(User user) async {
     if (user != null) {
       _currentUser = await _firestoreService.getUser(user.uid);
-      await _analyticsService.setUserProperties(
-        userId: user.uid,
-        name: _currentUser.location,
-      );
+      // await _analyticsService.setUserProperties(
+      //   userId: user.uid,
+      //   name: _currentUser.location,
+      // );
     }
   }
 }
