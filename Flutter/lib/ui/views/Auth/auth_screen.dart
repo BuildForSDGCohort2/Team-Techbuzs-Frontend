@@ -109,6 +109,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(
                   width: !(width < 720) ? width / 2.4 : width / 4,
                 ),
+
+                ///
                 !(LoginViewModel().busy)
                     ? CircleButton(
                         link:
