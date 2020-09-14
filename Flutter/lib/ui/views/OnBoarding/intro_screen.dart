@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
 
-import 'home_screen.dart';
+import '../Home/home_screen.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override

@@ -34,6 +34,7 @@ dependencies:
   cloud_firestore: ^0.14.0+2
   firebase_remote_config:
   google_sign_in:
+  flutter_twitter_login: ^1.1.0
   # State Management
   get_it:
   stacked:
@@ -51,6 +52,8 @@ dependencies:
   flare_flutter: ^2.0.6
   material_design_icons_flutter:
   cached_network_image:
+  #  Web Stuff
+  responsive_builder: ^0.2.0+2
 dev_dependencies:
   flutter_test:
     sdk: flutter

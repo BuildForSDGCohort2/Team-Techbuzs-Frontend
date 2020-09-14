@@ -1,7 +1,7 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/locator.dart';
-import 'package:Greeneva/ui/views/coming_soon.dart';
+import 'package:Greeneva/ui/views/OnBoarding/coming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

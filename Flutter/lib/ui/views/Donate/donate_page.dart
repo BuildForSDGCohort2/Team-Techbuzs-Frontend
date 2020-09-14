@@ -1,29 +1,30 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/views/coming_soon.dart';
+import 'package:Greeneva/ui/views/OnBoarding/coming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../locator.dart';
+import '../../../locator.dart';
 
-class HelpPage extends StatefulWidget {
+class DonatePage extends StatefulWidget {
   @override
-  _HelpPageState createState() => _HelpPageState();
+  _DonatePageState createState() => _DonatePageState();
 }
 
-class _HelpPageState extends State<HelpPage> {
+class _DonatePageState extends State<DonatePage> {
+  /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
+  /// This does not do any foo  !!!!
+  void nothing() {
+    print('This Does Nothing LOL :)');
+  }
+
   final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
-    /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
-    /// This does not do any foo  !!!!
-    void nothing() {
-      print('This Does Nothing LOL :)');
-    }
+    String route = "Donate";
 
-    String route = "Help";
-    //// TO Be USed Uncomment
+    /// TO Be used Uncommenrt
     // var length = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -53,7 +54,7 @@ class _HelpPageState extends State<HelpPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          route.contains("Help")
+                          route.contains("Donate")
                               ? _navigationService.navigateTo(HomeViewRoute)
                               : nothing();
                         },
@@ -67,19 +68,21 @@ class _HelpPageState extends State<HelpPage> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      route.contains("Help")
-                          ? Icon(
-                              Icons.ac_unit_rounded,
-                              color: Colors.green,
-                              size: 10,
-                            )
-                          : null,
+                      // route.contains("Donate")
+                      //     ? Icon(
+                      //         Icons.ac_unit_rounded,
+                      //         color: Colors.green,
+                      //         size: 10,
+                      //       )
+                      //     : nothing(),
                     ],
                   ),
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Help") ? nothing() : nothing();
+                      route.contains("Donate")
+                          ? _navigationService.navigateTo(Help)
+                          : nothing();
                     },
                     child: Text(
                       'Help'.toUpperCase(),
@@ -92,22 +95,31 @@ class _HelpPageState extends State<HelpPage> {
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Help")
-                          ? _navigationService.navigateTo(Donate)
-                          : nothing();
+                      route.contains("Donate") ? nothing() : nothing();
                     },
-                    child: Text(
-                      'Donate'.toUpperCase(),
-                      style: GoogleFonts.merriweatherSans(
-                          color: Color(0xff4A69FF),
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Donate'.toUpperCase(),
+                          style: GoogleFonts.merriweatherSans(
+                              color: Color(0xff4A69FF),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        route.contains("Donate")
+                            ? Icon(
+                                Icons.ac_unit_rounded,
+                                color: Colors.green,
+                                size: 10,
+                              )
+                            : null,
+                      ],
                     ),
                   ),
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Help")
+                      route.contains("Donate")
                           ? _navigationService.navigateTo(Contact)
                           : nothing();
                     },
@@ -119,10 +131,11 @@ class _HelpPageState extends State<HelpPage> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
+
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Help")
+                      route.contains("Donate")
                           ? _navigationService.navigateTo(Account)
                           : nothing();
                     },
@@ -139,7 +152,7 @@ class _HelpPageState extends State<HelpPage> {
             : null,
       ),
       body: ComingS(
-        name: 'Help Page',
+        name: 'Donate Page',
       ),
     );
   }

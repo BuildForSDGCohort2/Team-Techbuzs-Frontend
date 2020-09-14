@@ -34,6 +34,17 @@ class AuthenticationService {
     print('This Does Nothing LOL :)');
   }
 
+  Future<UserCredential> signInWithTwitter() async {
+    // Create a new provider
+    TwitterAuthProvider twitterProvider = TwitterAuthProvider();
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithPopup(twitterProvider);
+
+    // Or use signInWithRedirect
+    // return await FirebaseAuth.instance.signInWithRedirect(twitterProvider);
+  }
+
   Future loginWithEmail({
     @required String email,
     @required String password,

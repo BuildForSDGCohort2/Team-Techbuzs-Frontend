@@ -1,17 +1,17 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/views/coming_soon.dart';
+import 'package:Greeneva/ui/views/OnBoarding/coming_soon.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../locator.dart';
+import '../../../locator.dart';
 
-class DonatePage extends StatefulWidget {
+class ContactPage extends StatefulWidget {
   @override
-  _DonatePageState createState() => _DonatePageState();
+  _ContactPageState createState() => _ContactPageState();
 }
 
-class _DonatePageState extends State<DonatePage> {
+class _ContactPageState extends State<ContactPage> {
   /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
   /// This does not do any foo  !!!!
   void nothing() {
@@ -22,7 +22,7 @@ class _DonatePageState extends State<DonatePage> {
 
   @override
   Widget build(BuildContext context) {
-    String route = "Donate";
+    String route = "Contact";
 
     /// TO Be used Uncommenrt
     // var length = MediaQuery.of(context).size.height;
@@ -54,7 +54,7 @@ class _DonatePageState extends State<DonatePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          route.contains("Donate")
+                          route.contains("Contact")
                               ? _navigationService.navigateTo(HomeViewRoute)
                               : nothing();
                         },
@@ -68,19 +68,19 @@ class _DonatePageState extends State<DonatePage> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      // route.contains("Donate")
-                      //     ? Icon(
-                      //         Icons.ac_unit_rounded,
-                      //         color: Colors.green,
-                      //         size: 10,
-                      //       )
-                      //     : nothing(),
+                      route.contains("Contact")
+                          ? Icon(
+                              Icons.ac_unit_rounded,
+                              color: Colors.green,
+                              size: 10,
+                            )
+                          : null,
                     ],
                   ),
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Donate")
+                      route.contains("Contact")
                           ? _navigationService.navigateTo(Help)
                           : nothing();
                     },
@@ -95,33 +95,22 @@ class _DonatePageState extends State<DonatePage> {
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Donate") ? nothing() : nothing();
+                      route.contains("Contact")
+                          ? _navigationService.navigateTo(Donate)
+                          : nothing();
                     },
-                    child: Column(
-                      children: [
-                        Text(
-                          'Donate'.toUpperCase(),
-                          style: GoogleFonts.merriweatherSans(
-                              color: Color(0xff4A69FF),
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        route.contains("Donate")
-                            ? Icon(
-                                Icons.ac_unit_rounded,
-                                color: Colors.green,
-                                size: 10,
-                              )
-                            : null,
-                      ],
+                    child: Text(
+                      'Donate'.toUpperCase(),
+                      style: GoogleFonts.merriweatherSans(
+                          color: Color(0xff4A69FF),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Donate")
-                          ? _navigationService.navigateTo(Contact)
-                          : nothing();
+                      route.contains("Contact") ? nothing() : nothing();
                     },
                     child: Text(
                       'Contact'.toUpperCase(),
@@ -131,11 +120,10 @@ class _DonatePageState extends State<DonatePage> {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-
                   SizedBox(width: (width / 20)),
                   GestureDetector(
                     onTap: () {
-                      route.contains("Donate")
+                      route.contains("Contact")
                           ? _navigationService.navigateTo(Account)
                           : nothing();
                     },
@@ -152,7 +140,7 @@ class _DonatePageState extends State<DonatePage> {
             : null,
       ),
       body: ComingS(
-        name: 'Donate Page',
+        name: 'Contact Page',
       ),
     );
   }

@@ -1,17 +1,21 @@
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/views/account_page.dart';
-import 'package:Greeneva/ui/views/auth_screen.dart';
+import 'package:Greeneva/nav_bar.dart';
+import 'package:Greeneva/ui/views/Account/account_page.dart';
+import 'package:Greeneva/ui/views/Auth/auth.dart';
+import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
 // import 'package:Greeneva/ui/coming_soon.dart';
-import 'package:Greeneva/ui/views/contact_page.dart';
-import 'package:Greeneva/ui/views/donate_page.dart';
-import 'package:Greeneva/ui/views/help_page.dart';
-import 'package:Greeneva/ui/views/home_screen.dart';
+import 'package:Greeneva/ui/views/Contacts/contact_page.dart';
+import 'package:Greeneva/ui/views/Donate/donate_page.dart';
+import 'package:Greeneva/ui/views/Info/help_page.dart';
+import 'package:Greeneva/ui/views/Home/home_screen.dart';
 // import 'package:Greeneva/ui/home_screen.dart';
-import 'package:Greeneva/ui/views/intro_screen.dart';
-import 'package:Greeneva/ui/views/login_view.dart';
-import 'package:Greeneva/ui/views/signup_view.dart';
-import 'package:Greeneva/ui/views/startup_view.dart';
+import 'package:Greeneva/ui/views/OnBoarding/intro_screen.dart';
+import 'package:Greeneva/ui/views/Auth/login_view.dart';
+import 'package:Greeneva/ui/views/Auth/signup_view.dart';
+import 'package:Greeneva/ui/views/Startup/startup_view.dart';
 import 'package:flutter/material.dart';
+
+import 'views/layout_template/layout_template.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -43,7 +47,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case AuthView:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: AuthScreen(),
+        viewToShow: Auth(),
+      );
+    case Layout:
+      var arg = settings.arguments;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: LayoutTemplate(
+          argument: arg == null ? AuthView : arg,
+        ),
       );
 
     case LoginViewRoute:
@@ -81,9 +93,29 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 }
 
 PageRoute _getPageRoute({String routeName, Widget viewToShow}) {
-  return MaterialPageRoute(
-      settings: RouteSettings(
-        name: routeName,
-      ),
-      builder: (_) => viewToShow);
+  return _FadeRoute(child: viewToShow, routeName: routeName);
+}
+
+class _FadeRoute extends PageRouteBuilder {
+  final Widget child;
+  final String routeName;
+  _FadeRoute({this.child, this.routeName})
+      : super(
+            pageBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+            ) =>
+                child,
+            settings: RouteSettings(name: routeName),
+            transitionsBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child,
+            ) =>
+                FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ));
 }

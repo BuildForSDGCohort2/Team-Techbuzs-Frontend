@@ -31,4 +31,8 @@ class AnalyticsService {
   Future logLoginFacebook() async {
     await _analytics.logLogin(loginMethod: 'Facebook');
   }
+
+  Future logLoginTwitter() async {
+    await _analytics.logLogin(loginMethod: 'Twitter');
+  }
 }

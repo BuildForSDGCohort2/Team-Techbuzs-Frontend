@@ -15,13 +15,28 @@ class LoginViewModel extends BaseModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
+  Future twitterlogin() async {
+    try {
+      setBusy(true);
+      await _authenticationService.signInWithTwitter();
+      setBusy(false);
+      await _analyticsService.logLoginTwitter();
+      _navigationService.navigateTo(Layout, arguments: HomeViewRoute);
+    } catch (e) {
+      _dialogService.showDialog(
+          title: "Twitter Sign-In Error ", description: e.toString());
+      print(e.message);
+      //  setBusy(false);
+    }
+  }
+
   Future googlelogin() async {
     try {
       setBusy(true);
       await _authenticationService.signInWithGoogle();
       setBusy(false);
       await _analyticsService.logLogingoogle();
-      _navigationService.navigateTo(HomeViewRoute);
+      _navigationService.navigateTo(Layout, arguments: HomeViewRoute);
     } catch (e) {
       _dialogService.showDialog(
           title: "Google Sign-In Error ", description: e.toString());
@@ -37,7 +52,7 @@ class LoginViewModel extends BaseModel {
       await _authenticationService.signInWithFacebook();
       await _analyticsService.logLoginFacebook();
       setBusy(false);
-      _navigationService.navigateTo(HomeViewRoute);
+      _navigationService.navigateTo(Layout, arguments: HomeViewRoute);
     } catch (e) {
       setBusy(false);
 
@@ -64,7 +79,7 @@ class LoginViewModel extends BaseModel {
     if (result is bool) {
       if (result) {
         await _analyticsService.logLogin();
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(Layout, arguments: HomeViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Login Failure',
