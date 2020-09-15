@@ -12,6 +12,6 @@ class HomePage extends StatelessWidget {
     return ScreenTypeLayout(
       mobile: HomeContentMobile(),
       desktop: HomeContentDesktop(),
-    ).showCursorOnHover.moveUpOnHover;
+    );
   }
 }

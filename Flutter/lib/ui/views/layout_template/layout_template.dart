@@ -22,7 +22,7 @@ class LayoutTemplate extends StatelessWidget {
         drawer: sizingInformation.deviceScreenType == DeviceScreenType.mobile
             ? NavigationDrawer()
             : null,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xffF7F8FA),
         body: CenteredView(
           child: Column(
             children: <Widget>[
