@@ -6,6 +6,7 @@ const String Startup = "/Startup";
 const String SplashViewRoute = "/Splash";
 const String AuthView = "/AuthView";
 const String Layout = "/Loading";
+const String TargetsView = "/Targets";
 const String Help = "/Help";
 const String Donate = "/Donate";
 const String Contact = "/Contact";

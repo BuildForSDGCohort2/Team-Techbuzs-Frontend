@@ -38,6 +38,7 @@ dependencies:
   # State Management
   get_it:
   stacked:
+  provider_architecture:
   # App Features
   ip_geolocation_api: ^0.0.1
   geocoder: ^0.2.1
@@ -64,3 +65,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/SDGs/

@@ -11,6 +11,7 @@ import 'package:Greeneva/ui/views/OnBoarding/intro_screen.dart';
 import 'package:Greeneva/ui/views/Auth/login_view.dart';
 import 'package:Greeneva/ui/views/Auth/signup_view.dart';
 import 'package:Greeneva/ui/views/Startup/startup_view.dart';
+import 'package:Greeneva/ui/widgets/info_list/target.dart';
 import 'package:flutter/material.dart';
 
 import 'views/layout_template/layout_template.dart';
@@ -25,7 +26,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case Help:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: HelpPage(),
+        viewToShow: Info(),
+      );
+    case TargetsView:
+      var arg = settings.arguments;
+
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: Targets(
+          model: arg,
+        ),
       );
     case Donate:
       return _getPageRoute(

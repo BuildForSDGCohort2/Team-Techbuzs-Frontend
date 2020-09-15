@@ -1,35 +1,32 @@
-// import 'package:Greeneva/Services/navigation_service.dart';
-// import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/views/OnBoarding/coming_soon.dart';
+import 'package:Greeneva/ui/widgets/info_list/info_list.dart';
+import 'package:Greeneva/viewmodels/info_page_viewmodel.dart';
 import 'package:flutter/material.dart';
-// import 'package:google_fonts/google_fonts.dart';
+import 'package:stacked/stacked.dart';
 
-// import '../../../locator.dart';
-
-class HelpPage extends StatefulWidget {
-  @override
-  _HelpPageState createState() => _HelpPageState();
-}
-
-class _HelpPageState extends State<HelpPage> {
-  // final NavigationService _navigationService = locator<NavigationService>();
+class Info extends StatelessWidget {
+  const Info({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    /// I'm calling This because I don't like the 50+ Warning about Syntax Error and Blabala.
-    /// This does not do any foo  !!!!
-    // void nothing() {
-    //   print('This Does Nothing LOL :)');
-    // }
-
-    // String route = "Help";
-    //// TO Be USed Uncomment
-    // var length = MediaQuery.of(context).size.height;
-    // var width = MediaQuery.of(context).size.width;
-    return Container(
-      child: ComingS(
-        name: 'Help Page',
-      ),
+    return ViewModelBuilder<InfoViewModel>.reactive(
+      viewModelBuilder: () => InfoViewModel(),
+      onModelReady: (model) => model.getGoals(),
+      builder: (context, model, child) => SingleChildScrollView(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          SizedBox(
+            height: 100,
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          model.goals == null
+              ? CircularProgressIndicator()
+              : InfoList(goals: model.goals),
+        ],
+      )),
     );
   }
 }
