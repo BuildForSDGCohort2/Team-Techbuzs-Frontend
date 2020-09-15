@@ -1,4 +1,4 @@
-import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
+// import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
 import 'package:Greeneva/ui/views/Contacts/contact_page.dart';
 import 'package:flutter/material.dart';
 

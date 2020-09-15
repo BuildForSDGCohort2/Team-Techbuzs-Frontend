@@ -32,7 +32,7 @@ class StartUpViewModel extends BaseModel {
     if (hasLoggedInUser) {
       print('Home');
 
-      _navigationService.navigateTo(Layout, arguments: HomeViewRoute);
+      _navigationService.navigateTo(Layout);
       // Navigat
     } else {
       // _navigationService.navigateTo(LoginViewRoute);

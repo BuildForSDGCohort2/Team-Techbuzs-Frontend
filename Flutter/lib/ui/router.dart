@@ -1,8 +1,6 @@
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/nav_bar.dart';
 import 'package:Greeneva/ui/views/Account/account_page.dart';
 import 'package:Greeneva/ui/views/Auth/auth.dart';
-import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
 // import 'package:Greeneva/ui/coming_soon.dart';
 import 'package:Greeneva/ui/views/Contacts/contact_page.dart';
 import 'package:Greeneva/ui/views/Donate/donate_page.dart';
@@ -50,12 +48,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: Auth(),
       );
     case Layout:
-      var arg = settings.arguments;
+      // var arg = settings.arguments;
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: LayoutTemplate(
-          argument: arg == null ? AuthView : arg,
-        ),
+            // argument: arg == null ? AuthView : arg,
+            ),
       );
 
     case LoginViewRoute:

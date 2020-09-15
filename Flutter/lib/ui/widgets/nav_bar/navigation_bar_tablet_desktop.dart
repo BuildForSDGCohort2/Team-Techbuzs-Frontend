@@ -1,5 +1,7 @@
+// import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/ui/widgets/nav_item/nav_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // import 'navbar_item.dart';
@@ -10,6 +12,8 @@ class NavigationBarTabletDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = FirebaseAuth.instance.currentUser;
+
     return Container(
       // height: ,
       child: Row(
@@ -35,7 +39,8 @@ class NavigationBarTabletDesktop extends StatelessWidget {
               SizedBox(
                 width: 60,
               ),
-              NavBarItem('Account', Account),
+              NavBarItem(user != null ? 'Account' : 'Login',
+                  user != null ? HomeViewRoute : AuthView),
             ],
           )
         ],

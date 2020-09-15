@@ -10,8 +10,11 @@ import 'package:responsive_builder/responsive_builder.dart';
 import '../../router.dart';
 
 class LayoutTemplate extends StatelessWidget {
-  LayoutTemplate({Key key, this.argument}) : super(key: key);
-  final String argument;
+  LayoutTemplate({
+    Key key,
+    //  this.argument
+  }) : super(key: key);
+  // final String argument;
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
@@ -28,7 +31,7 @@ class LayoutTemplate extends StatelessWidget {
                 child: Navigator(
                   key: locator<NavigationServiceM>().navigatorKey,
                   onGenerateRoute: generateRoute,
-                  initialRoute: AuthView,
+                  initialRoute: HomeViewRoute,
                 ),
               )
             ],

@@ -1,7 +1,7 @@
 import 'package:Greeneva/Services/dialog_service.dart';
-import 'package:Greeneva/Services/navigation_service.dart';
-import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/widgets/Socialbutton/button.dart';
+// import 'package:Greeneva/Services/navigation_service.dart';
+// import 'package:Greeneva/constants/routename.dart';
+// import 'package:Greeneva/ui/widgets/Socialbutton/button.dart';
 import 'package:Greeneva/ui/widgets/cicle_button.dart';
 import 'package:Greeneva/ui/widgets/hover_button/call_to_action.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
@@ -25,11 +25,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final DialogService _dialogService = locator<DialogService>();
 
-  final NavigationService _navigationService = locator<NavigationService>();
+  // final NavigationService _navigationService = locator<NavigationService>();
 
   @override
   Widget build(BuildContext context) {
-    String route = "Account";
+    // String route = "Account";
     var length = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     print(width);
@@ -49,57 +49,83 @@ class _AuthScreenState extends State<AuthScreen> {
             SizedBox(
               height: length / 5,
             ),
-            Center(
-              child: Text(
-                'Welcome',
-                style: GoogleFonts.merriweatherSans(
-                  fontSize: 50,
-                  color: Color(0xff4A69FF),
+            Row(
+              children: [
+                SizedBox(
+                  width: !(width < 600) ? width / 2.5 : width / 4.5,
                 ),
-              ),
+                Center(
+                  child: Text(
+                    'Welcome',
+                    style: GoogleFonts.merriweatherSans(
+                      fontSize: 50,
+                      color: Color(0xff4A69FF),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 60,
             ),
-            Center(
-              child: Container(
-                width: !(width < 1200)
-                    ? width / 3.6
-                    : !(width < 720)
-                        ? width - (width - (width / 2))
-                        : width - 100,
-                child: CallToAction(
-                  length,
-                  'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
-                  'Sign in with Google',
-
-                  //  _dialogService,
-
-                  () => LoginViewModel().googlelogin(),
+            Row(
+              children: [
+                SizedBox(
+                  width: width / 3,
                 ),
-              ),
+                Center(
+                  child: Container(
+                    width: !(width < 1200)
+                        ? width / 3.6
+                        : width < 850
+                            ? width - 500
+                            : !(width < 720)
+                                ? width - (width - (width / 2))
+                                : width - 400,
+                    child: CallToAction(
+                      length,
+                      'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
+                      'Sign in with Google',
+
+                      //  _dialogService,
+
+                      () => LoginViewModel().googlelogin(),
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             SizedBox(
               height: 40,
             ),
-            Center(
-              child: Container(
-                width: !(width < 1200)
-                    ? width / 3.6
-                    : !(width < 720)
-                        ? width - (width - (width / 2))
-                        : width - 100,
-                child: CallToAction(
-                  // dialogService: _dialogService,
-                  length,
-
-                  'https://www.hawaiipublicradio.org/sites/khpr/files/201702/Apple_logo_black.svg_.png',
-                  'Sign in with Apple',
-                  () => _dialogService.showDialog(
-                      title: 'Not Implemented', description: 'Working On It'),
+            Row(
+              children: [
+                SizedBox(
+                  width: width / 3,
                 ),
-              ),
+                Center(
+                  child: Container(
+                    width: !(width < 1200)
+                        ? width / 3.6
+                        : width < 850
+                            ? width - 500
+                            : !(width < 720)
+                                ? width - (width - (width / 2))
+                                : width - 400,
+                    child: CallToAction(
+                      // dialogService: _dialogService,
+                      length,
+
+                      'https://www.hawaiipublicradio.org/sites/khpr/files/201702/Apple_logo_black.svg_.png',
+                      'Sign in with Apple',
+                      () => _dialogService.showDialog(
+                          title: 'Not Implemented',
+                          description: 'Working On It'),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 39,
