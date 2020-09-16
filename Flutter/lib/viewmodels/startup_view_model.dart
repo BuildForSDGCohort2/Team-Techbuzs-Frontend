@@ -32,12 +32,14 @@ class StartUpViewModel extends BaseModel {
     if (hasLoggedInUser) {
       print('Home');
 
-      _navigationService.navigateTo(Layout);
+      Future.delayed(
+          Duration(seconds: 5), () => _navigationService.navigateTo(Layout));
       // Navigat
     } else {
       // _navigationService.navigateTo(LoginViewRoute);
       print('Auth');
-      _navigationService.navigateTo(Layout);
+      Future.delayed(
+          Duration(seconds: 5), () => _navigationService.navigateTo(Layout));
     }
   }
 }

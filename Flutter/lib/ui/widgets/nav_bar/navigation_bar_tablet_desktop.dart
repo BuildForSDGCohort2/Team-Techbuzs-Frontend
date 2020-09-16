@@ -40,7 +40,7 @@ class NavigationBarTabletDesktop extends StatelessWidget {
                 width: 60,
               ),
               NavBarItem(user != null ? 'Account' : 'Login',
-                  user != null ? HomeViewRoute : AuthView),
+                  user != null ? HomeViewRoute : OnBoarding),
             ],
           )
         ],

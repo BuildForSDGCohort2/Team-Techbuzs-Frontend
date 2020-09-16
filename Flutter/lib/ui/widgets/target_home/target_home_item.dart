@@ -21,12 +21,13 @@ class TargetHItem extends StatelessWidget {
         color: Colors.white,
         elevation: 2,
         child: SizedBox(
-          width: 170,
-          child: Column(
+          width: 500,
+          height: 100,
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: 180,
+                height: 100,
                 child: Image.asset(
                   model.image == null ? 'assets/SDGs/sdg1.png' : model.image,
                   fit: BoxFit.cover,
@@ -37,7 +38,7 @@ class TargetHItem extends StatelessWidget {
                   horizontal: 15.0,
                   vertical: 20,
                 ),
-                child: Column(
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(

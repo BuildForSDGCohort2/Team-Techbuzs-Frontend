@@ -1,4 +1,5 @@
 import 'package:Greeneva/ui/views/Info/help_page.dart';
+import 'package:Greeneva/ui/widgets/target_home/target_home.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:Greeneva/extensions/hover_extension.dart';
@@ -86,156 +87,159 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
             SizedBox(
               height: 30,
             ),
-            Row(
-              children: [
-                Container(
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    child: SizedBox(
-                      width: 310,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 140,
-                            child: WebsafeSvg.asset(
-                              'assets/HomePage_1.svg',
-                              fit: BoxFit.contain,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      child: SizedBox(
+                        width: 310,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 140,
+                              child: WebsafeSvg.asset(
+                                'assets/HomePage_1.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0,
-                              vertical: 20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Center(
-                                  child: Text(
-                                    'Communities',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15.0,
+                                vertical: 20,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Center(
+                                    child: Text(
+                                      'Communities',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                      ),
+                                      softWrap: true,
                                     ),
-                                    softWrap: true,
                                   ),
-                                ),
-                                // Text(
-                                //   '',
-                                //   // '${model.targets["1.1.1"]["name"]}',
-                                //   style: TextStyle(fontSize: 10),
-                                // )
-                              ],
+                                  // Text(
+                                  //   '',
+                                  //   // '${model.targets["1.1.1"]["name"]}',
+                                  //   style: TextStyle(fontSize: 10),
+                                  // )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ).showCursorOnHover.moveUpOnHover,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 15,
-                ),
-                Container(
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    child: SizedBox(
-                      width: 310,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 140,
-                            child: WebsafeSvg.asset(
-                              'assets/HomePage_2.svg',
-                              fit: BoxFit.contain,
+                    ).showCursorOnHover.moveUpOnHover,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Container(
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      child: SizedBox(
+                        width: 310,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 140,
+                              child: WebsafeSvg.asset(
+                                'assets/HomePage_2.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0,
-                              vertical: 20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Center(
-                                  child: Text(
-                                    'Sustanable Development Goals',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15.0,
+                                vertical: 20,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Center(
+                                    child: Text(
+                                      'Sustanable Development Goals',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                      ),
+                                      softWrap: true,
                                     ),
-                                    softWrap: true,
                                   ),
-                                ),
-                                // Text(
-                                //   '',
-                                //   // '${model.targets["1.1.1"]["name"]}',
-                                //   style: TextStyle(fontSize: 10),
-                                // )
-                              ],
+                                  // Text(
+                                  //   '',
+                                  //   // '${model.targets["1.1.1"]["name"]}',
+                                  //   style: TextStyle(fontSize: 10),
+                                  // )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ).showCursorOnHover.moveUpOnHover,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 15,
-                ),
-                Container(
-                  child: Card(
-                    color: Colors.white,
-                    elevation: 2,
-                    child: SizedBox(
-                      width: 310,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 140,
-                            child: WebsafeSvg.asset(
-                              'assets/HomePage_3.svg',
-                              fit: BoxFit.contain,
+                    ).showCursorOnHover.moveUpOnHover,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 15,
+                  ),
+                  Container(
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      child: SizedBox(
+                        width: 310,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(
+                              height: 140,
+                              child: WebsafeSvg.asset(
+                                'assets/HomePage_3.svg',
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0,
-                              vertical: 20,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Center(
-                                  child: Text(
-                                    'Get Educated',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15.0,
+                                vertical: 20,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Center(
+                                    child: Text(
+                                      'Get Educated',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                      ),
+                                      softWrap: true,
                                     ),
-                                    softWrap: true,
                                   ),
-                                ),
-                                // Text(
-                                //   '',
-                                //   // '${model.targets["1.1.1"]["name"]}',
-                                //   style: TextStyle(fontSize: 10),
-                                // )
-                              ],
+                                  // Text(
+                                  //   '',
+                                  //   // '${model.targets["1.1.1"]["name"]}',
+                                  //   style: TextStyle(fontSize: 10),
+                                  // )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ).showCursorOnHover.moveUpOnHover,
-                ),
-              ],
+                    ).showCursorOnHover.moveUpOnHover,
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 40,
@@ -280,11 +284,13 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
                             )
                           ],
                         ),
-                        Info()
+                        TargetHome()
                       ],
                     ),
                   ),
-                  Icon(Icons.home),
+                  Container(
+                    color: Colors.deepOrange,
+                  ),
                   Icon(Icons.home),
                   // Icon(Icons.home),
                   // Icon(Icons.home),
