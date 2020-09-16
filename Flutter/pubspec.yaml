@@ -53,6 +53,7 @@ dependencies:
   flare_flutter: ^2.0.6
   material_design_icons_flutter:
   cached_network_image:
+  flutter_web_scrollbar: ^0.0.2
   websafe_svg: ^1.1.4
   #  Web Stuff
   responsive_builder: ^0.2.0+2

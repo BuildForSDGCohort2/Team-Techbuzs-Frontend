@@ -1,6 +1,7 @@
 import 'package:Greeneva/ui/views/Info/help_page.dart';
 import 'package:Greeneva/ui/widgets/target_home/target_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:Greeneva/extensions/hover_extension.dart';
 
@@ -13,11 +14,16 @@ class HomeContentDesktop extends StatefulWidget {
 
 class _HomeContentDesktopState extends State<HomeContentDesktop>
     with SingleTickerProviderStateMixin {
+  ScrollController _controller;
+
   TabController tabController;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _controller = ScrollController();
+    });
     tabController = TabController(length: 3, vsync: this);
   }
 
@@ -25,6 +31,13 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
   void dispose() {
     tabController.dispose();
     super.dispose();
+  }
+
+  void scrollCallBack(DragUpdateDetails dragUpdate) {
+    setState(() {
+      // Note: 3.5 represents the theoretical height of all my scrollable content. This number will vary for you.
+      _controller.position.moveTo(dragUpdate.globalPosition.dy * 3.5);
+    });
   }
 
   TabBar _getTabBar() {
@@ -74,6 +87,7 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _controller,
       child: Container(
         child: Column(
           children: [
@@ -297,7 +311,19 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
                   // Icon(Icons.settings),
                 ],
               ),
-            )
+            ),
+            FlutterWebScroller(
+              //Pass a reference to the ScrollCallBack function into the scrollbar
+              scrollCallBack,
+
+              //Add optional values
+              scrollBarBackgroundColor: Colors.white,
+              scrollBarWidth: 20.0,
+              dragHandleColor: Colors.red,
+              dragHandleBorderRadius: 2.0,
+              dragHandleHeight: 40.0,
+              dragHandleWidth: 15.0,
+            ),
           ],
         ),
       ),

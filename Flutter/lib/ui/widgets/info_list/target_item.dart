@@ -43,7 +43,7 @@ class TargetItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '${model.targets["1.1.1"]["definition"]}',
+                      '${model.target["1.1.1"]["definition"]}',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
@@ -51,7 +51,7 @@ class TargetItem extends StatelessWidget {
                       softWrap: true,
                     ),
                     Text(
-                      '${model.targets["1.1.1"]["name"]}',
+                      '${model.target["1.1.1"]["name"]}',
                       style: TextStyle(fontSize: 10),
                     )
                   ],
