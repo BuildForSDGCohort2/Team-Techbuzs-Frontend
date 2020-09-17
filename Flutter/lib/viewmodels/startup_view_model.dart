@@ -9,7 +9,7 @@ import 'base_model.dart';
 class StartUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   // final PushNotificationService _pushNotificationService =
   //     locator<PushNotificationService>();
   //TODO Work on dynamic Links

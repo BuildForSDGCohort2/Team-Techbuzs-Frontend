@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
-  final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
 
   @override
   void initState() {

@@ -5,7 +5,7 @@ import 'package:Greeneva/locator.dart';
 import 'package:flutter/material.dart';
 
 class TargetItem extends StatelessWidget {
-  final NavigationServiceM _navigationServiceM = locator<NavigationServiceM>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final GoalAPI model;
 
   TargetItem({
@@ -17,8 +17,7 @@ class TargetItem extends StatelessWidget {
   Widget build(BuildContext context) {
     int id = model.goal;
     return GestureDetector(
-      onTap: () =>
-          _navigationServiceM.navigateTo(TargetsView, arguments: model),
+      onTap: () => _navigationService.navigateTo(TargetsView, arguments: model),
       child: Card(
         color: Colors.white,
         elevation: 2,

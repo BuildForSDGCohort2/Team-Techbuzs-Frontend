@@ -9,7 +9,7 @@ import 'Services/navigation_service.dart';
 GetIt locator = GetIt.instance;
 
 Future setupLocator() async {
-  locator.registerLazySingleton(() => NavigationService());
+  // locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => NavigationServiceM());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => AuthenticationService());

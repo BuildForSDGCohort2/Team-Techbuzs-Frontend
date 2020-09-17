@@ -13,7 +13,7 @@ class SignUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final DialogService _dialogService = locator<DialogService>();
-  final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   String _selectedRole = 'Select a User Role';
