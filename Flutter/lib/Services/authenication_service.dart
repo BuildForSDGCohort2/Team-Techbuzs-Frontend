@@ -8,6 +8,7 @@ import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
@@ -47,6 +48,33 @@ class AuthenticationService {
     } catch (e) {
       return e.message;
     }
+  }
+
+  Future<UserCredential> signInWithTwitter() async {
+    // Create a TwitterLogin instance
+    final TwitterLogin twitterLogin = new TwitterLogin(
+      consumerKey: 'pRsGZkKEgMFwbij8NgFcCgQi9',
+      consumerSecret: 'fXSLtaBrdgBK6pikRLi96ILd3xKZZKxvlPh0xadCirR9fetoDX',
+    );
+
+    // Trigger the sign-in flow
+    try {
+      final TwitterLoginResult loginResult = await twitterLogin.authorize();
+      final TwitterSession twitterSession = loginResult.session;
+
+      // Create a credential from the access token
+      final AuthCredential twitterAuthCredential =
+          TwitterAuthProvider.credential(
+              accessToken: twitterSession.token, secret: twitterSession.secret);
+
+      // Once signed in, return the UserCredential
+      return await FirebaseAuth.instance
+          .signInWithCredential(twitterAuthCredential);
+    } catch (e) {
+      print(e);
+    }
+
+    // Get the Logged In session
   }
 
   Future<UserCredential> signInWithFacebook() async {

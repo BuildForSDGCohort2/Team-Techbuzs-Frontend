@@ -1,6 +1,9 @@
+import 'package:Greeneva/Services/dialog_service.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../locator.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -8,6 +11,8 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final DialogService _dialogService = locator<DialogService>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +36,9 @@ class _AuthScreenState extends State<AuthScreen> {
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    LoginViewModel().googlelogin();
+                  },
                   height: 70,
                   // minWidth: length / 2,
                   color: Colors.white,
@@ -64,7 +71,10 @@ class _AuthScreenState extends State<AuthScreen> {
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () => _dialogService.showDialog(
+                      title: "Not Implemented",
+                      description: "Will Be Implemented "),
+
                   height: 70,
                   // minWidth: length / 2,
                   color: Colors.white,
@@ -107,6 +117,10 @@ class _AuthScreenState extends State<AuthScreen> {
                 SizedBox(
                   width: 100,
                 ),
+                IconButton(
+                  icon: Icon(Icons.slideshow),
+                  onPressed: () => LoginViewModel().twitterlogin(),
+                )
                 // CircleButton(
                 //   icon: MdiIcons.twitter,
                 //   iconSize: 50,

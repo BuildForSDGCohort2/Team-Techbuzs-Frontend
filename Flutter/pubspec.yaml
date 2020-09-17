@@ -39,6 +39,7 @@ dependencies:
   # Social Authenication
   google_sign_in:
   flutter_facebook_auth: ^0.2.3
+  flutter_twitter_login:
 
   # State Management
   get_it:
@@ -53,6 +54,9 @@ dependencies:
   flutter_google_places:
   google_fonts: ^1.1.0
   flare_flutter:
+  bubble_bottom_bar: ^1.2.0
+  websafe_svg: ^1.1.4
+  flutter_spinkit: ^4.1.2+1
 
 dev_dependencies:
   flutter_test:

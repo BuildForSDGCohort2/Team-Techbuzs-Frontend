@@ -4,6 +4,7 @@ import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/Services/state.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/managers/dialog_manager.dart';
+import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
 import 'package:Greeneva/ui/router.dart';
 import 'package:Greeneva/ui/views/startup_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -84,7 +85,7 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
-      home: StartUpView(),
+      home: NavBar(),
       onGenerateRoute: generateRoute,
     );
   }
