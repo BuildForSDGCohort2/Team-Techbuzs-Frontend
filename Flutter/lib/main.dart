@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         onGenerateRoute: (settings) => MaterialPageRoute(
             builder: (context) => DialogManager(child: child)),
       ),
-      navigatorKey: locator<NavigationServiceM>().navigatorKey,
+      navigatorKey: locator<NavigationService>().navigationKey,
       navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
       theme: ThemeData(
         primarySwatch: Colors.blue,
