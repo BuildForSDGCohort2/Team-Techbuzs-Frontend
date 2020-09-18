@@ -1,6 +1,50 @@
+import 'package:Greeneva/ui/intro_screen.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
+
+Future<String> signInWithGoogle() async {
+  await Firebase.initializeApp();
+
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+  final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+
+  final AuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+
+  final UserCredential authResult =
+      await _auth.signInWithCredential(credential);
+  final User user = authResult.user;
+
+  if (user != null) {
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final User currentUser = _auth.currentUser;
+    assert(user.uid == currentUser.uid);
+
+    print('signInWithGoogle succeeded: $user');
+
+    return '$user';
+  }
+
+  return null;
+}
+
+Future<void> signOutGoogle() async {
+  await googleSignIn.signOut();
+
+  print("User Signed Out");
+}
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -31,7 +75,17 @@ class _AuthScreenState extends State<AuthScreen> {
               child: Container(
                 width: MediaQuery.of(context).size.width - 50,
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    signInWithGoogle().whenComplete(() {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return OnBoardingPage();
+                          },
+                        ),
+                      );
+                    });
+                  },
                   height: 70,
                   // minWidth: length / 2,
                   color: Colors.white,
@@ -50,7 +104,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         style: GoogleFonts.roboto(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontSize: 24),
+                            fontSize: 20),
                       ))
                     ],
                   ),
@@ -83,7 +137,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         style: GoogleFonts.roboto(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontSize: 24),
+                            fontSize: 20),
                       ))
                     ],
                   ),
