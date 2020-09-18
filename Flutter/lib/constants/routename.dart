@@ -9,3 +9,4 @@ const String DiscoverView = "DiscoverView";
 const String CommunityView = "CommunityView";
 const String DonationView = "DonationView";
 const String AccountView = "AccountView";
+const String MainView = "MainView";
