@@ -258,8 +258,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.6"
-<<<<<<< HEAD
-=======
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -267,7 +265,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.2+1"
->>>>>>> 263eaf3a91221626b6dd79f077970a22684d6364
   flutter_svg:
     dependency: transitive
     description:
@@ -695,11 +692,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "4.5.1"
-=======
     version: "4.5.0"
->>>>>>> 263eaf3a91221626b6dd79f077970a22684d6364
 sdks:
   dart: ">=2.10.0-0.0.dev <2.10.0"
   flutter: ">=1.18.0-6.0.pre <2.0.0"
