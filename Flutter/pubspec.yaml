@@ -53,6 +53,7 @@ dependencies:
   flutter_google_places:
   google_fonts: ^1.1.0
   flare_flutter:
+  websafe_svg:
 
 dev_dependencies:
   flutter_test:
@@ -64,3 +65,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/svgs/
+    - assets/logo/

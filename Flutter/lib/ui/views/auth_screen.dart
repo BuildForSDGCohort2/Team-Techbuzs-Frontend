@@ -1,50 +1,9 @@
-import 'package:Greeneva/ui/intro_screen.dart';
+import 'package:Greeneva/ui/views/login_view.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final GoogleSignIn googleSignIn = GoogleSignIn();
-
-Future<String> signInWithGoogle() async {
-  await Firebase.initializeApp();
-
-  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
-
-  final AuthCredential credential = GoogleAuthProvider.credential(
-    accessToken: googleSignInAuthentication.accessToken,
-    idToken: googleSignInAuthentication.idToken,
-  );
-
-  final UserCredential authResult =
-      await _auth.signInWithCredential(credential);
-  final User user = authResult.user;
-
-  if (user != null) {
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final User currentUser = _auth.currentUser;
-    assert(user.uid == currentUser.uid);
-
-    print('signInWithGoogle succeeded: $user');
-
-    return '$user';
-  }
-
-  return null;
-}
-
-Future<void> signOutGoogle() async {
-  await googleSignIn.signOut();
-
-  print("User Signed Out");
-}
+import 'package:websafe_svg/websafe_svg.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -52,124 +11,196 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  Widget _buildImageSvg(String assetName) {
+    return Align(
+      child: WebsafeSvg.asset('assets/svgs/$assetName.svg', width: 350.0),
+      alignment: Alignment.bottomCenter,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100,
+      body: Stack(
+        children: [
+          Container(
+            child: WebsafeSvg.asset(
+              'assets/svgs/Login_Background.svg',
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
             ),
-            Center(
-              child: Text(
-                'Welcome',
-                style: GoogleFonts.cormorantUpright(
-                    color: Color(0xff4A69FF), fontSize: 45),
-              ),
-            ),
-            SizedBox(
-              height: 70,
-            ),
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width - 50,
-                child: MaterialButton(
-                  onPressed: () {
-                    signInWithGoogle().whenComplete(() {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return OnBoardingPage();
-                          },
-                        ),
-                      );
-                    });
-                  },
-                  height: 70,
-                  // minWidth: length / 2,
-                  color: Colors.white,
-                  child: Row(
-                    children: [
-                      Image.network(
-                        'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
-                        height: 50,
-                      ),
-                      SizedBox(
-                        width: 39,
-                      ),
-                      Center(
-                          child: Text(
-                        'Sign in with Google',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 20),
-                      ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 29,
-            ),
-            Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width - 50,
-                child: MaterialButton(
-                  onPressed: () {},
-                  height: 70,
-                  // minWidth: length / 2,
-                  color: Colors.white,
-                  child: Row(
-                    children: [
-                      Image.network(
-                        'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
-                        height: 50,
-                      ),
-                      SizedBox(
-                        width: 39,
-                      ),
-                      Center(
-                          child: Text(
-                        'Sign in with Apple',
-                        style: GoogleFonts.roboto(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 20),
-                      ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
+          ),
+          Container(
+            child: Column(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 10,
+                  height: 150,
                 ),
-                !(LoginViewModel().busy)
-                    ? IconButton(
-                        icon: Icon(Icons.slideshow),
-                        onPressed: () => LoginViewModel().facebooklogin(),
-                      )
-                    : Center(child: CircularProgressIndicator()),
+                Center(
+                  child: Text(
+                    'Welcome',
+                    style: GoogleFonts.cormorantUpright(
+                        color: Color(0xff4A69FF), fontSize: 45),
+                  ),
+                ),
                 SizedBox(
-                  width: 100,
+                  height: 70,
                 ),
-                // CircleButton(
-                //   icon: MdiIcons.twitter,
-                //   iconSize: 50,
-                //   onPressed: () {},
-                // )
+                Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 50,
+                    child: MaterialButton(
+                      onPressed: () {},
+                      height: 70,
+                      // minWidth: length / 2,
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          Image.network(
+                            'https://www.freepngimg.com/thumb/google/66893-guava-logo-google-plus-suite-png-image-high-quality.png',
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 33,
+                          ),
+                          Center(
+                              child: Text(
+                            'Sign in with Google',
+                            style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 20),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 29,
+                ),
+                Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 50,
+                    child: MaterialButton(
+                      onPressed: () {},
+                      height: 70,
+                      // minWidth: length / 2,
+                      color: Colors.white,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            'assets/logo/apple.png',
+                            height: 50,
+                          ),
+                          SizedBox(
+                            width: 39,
+                          ),
+                          Center(
+                              child: Text(
+                            'Sign in with Apple',
+                            style: GoogleFonts.roboto(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 20),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    !(LoginViewModel().busy)
+                        ? IconButton(
+                            iconSize: 50,
+                            icon: Container(
+                              decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: new Border.all(
+                                    color: Colors.blue, width: 3.0),
+                                image: new DecorationImage(
+                                  image: new AssetImage(
+                                      "assets/logo/facebook.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            onPressed: () => LoginViewModel().facebooklogin(),
+                          )
+                        : Center(child: CircularProgressIndicator()),
+                    SizedBox(
+                      width: 100,
+                    ),
+
+                    !(LoginViewModel().busy)
+                        ? IconButton(
+                            iconSize: 50,
+                            icon: Container(
+                              decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: new Border.all(
+                                    color: Colors.blue, width: 3.0),
+                                image: new DecorationImage(
+                                  image:
+                                      new AssetImage("assets/logo/twitter.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            onPressed: () => LoginViewModel().facebooklogin(),
+                          )
+                        : Center(child: CircularProgressIndicator()),
+                    // CircleButton(
+                    //   icon: MdiIcons.twitter,
+                    //   iconSize: 50,
+                    //   onPressed: () {},
+                    // )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Or',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkResponse(
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => LoginView()));
+                      },
+                      child: Text(
+                        'Continue with Email',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w100,
+                          fontSize: 20,
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
