@@ -35,10 +35,12 @@ dependencies:
   firebase_analytics: ^6.0.0
   cloud_firestore: ^0.14.0+2
   firebase_remote_config:
+  firebase_messaging:
 
   # Social Authenication
   google_sign_in:
   flutter_facebook_auth: ^0.2.3
+  flutter_twitter_login:
 
   # State Management
   get_it:
@@ -50,10 +52,15 @@ dependencies:
   geocoder: ^0.2.1
   graphql_flutter: ^3.1.0
   shared_preferences: ^0.5.10
+  outline_material_icons:
   flutter_google_places:
   google_fonts: ^1.1.0
   flare_flutter:
-  websafe_svg:
+  bubble_bottom_bar: ^1.2.0
+  websafe_svg: ^1.1.4
+  flutter_spinkit: ^4.1.2+1
+
+
 
 dev_dependencies:
   flutter_test:
@@ -65,5 +72,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/svgs/
-    - assets/logo/

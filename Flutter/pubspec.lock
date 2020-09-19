@@ -15,6 +15,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety"
+  bubble_bottom_bar:
+    dependency: "direct main"
+    description:
+      name: bubble_bottom_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.0"
   characters:
     dependency: transitive
     description:
@@ -204,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.0.0"
   firebase_remote_config:
     dependency: "direct main"
     description:
@@ -244,6 +258,16 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.6"
+<<<<<<< HEAD
+=======
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.1.2+1"
+>>>>>>> 263eaf3a91221626b6dd79f077970a22684d6364
   flutter_svg:
     dependency: transitive
     description:
@@ -256,6 +280,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_twitter_login:
+    dependency: "direct main"
+    description:
+      name: flutter_twitter_login
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -415,6 +446,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+  outline_material_icons:
+    dependency: "direct main"
+    description:
+      name: outline_material_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   path:
     dependency: transitive
     description:
@@ -657,7 +695,11 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "4.5.1"
+=======
+    version: "4.5.0"
+>>>>>>> 263eaf3a91221626b6dd79f077970a22684d6364
 sdks:
   dart: ">=2.10.0-0.0.dev <2.10.0"
   flutter: ">=1.18.0-6.0.pre <2.0.0"

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "892143420968-79k4vvg70qacgsi1aijgj9ke4sg8afg9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techbuzs.greeneva",
+            "certificate_hash": "904971ed88737f16462a21e7b5137a968917f93a"
+          }
+        },
+        {
           "client_id": "892143420968-g4rdccqb2qo78rad6t6aohiedsfnfi83.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "892143420968-10cupgpo4a63ts003528lckfaadrqejo.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "892143420968-qv9hg5p64mf5e64go4hfc80tu1g43ou6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.techbuzs.greeneva"
+              }
             }
           ]
         }

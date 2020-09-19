@@ -45,6 +45,22 @@ class LoginViewModel extends BaseModel {
     }
   }
 
+  Future twitterlogin() async {
+    try {
+      setBusy(true);
+      await _authenticationService.signInWithTwitter();
+      await _analyticsService.logTwitter();
+      setBusy(false);
+      _navigationService.navigateTo(HomeViewRoute);
+    } catch (e) {
+      print(e.message);
+      await _dialogService.showDialog(
+          title: 'Twitter Sign In Error',
+          description: 'Error: ${e.toString()}');
+      setBusy(false);
+    }
+  }
+
   Future login({
     @required String email,
     @required String password,
