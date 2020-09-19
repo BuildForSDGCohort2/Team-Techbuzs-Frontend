@@ -1,12 +1,14 @@
 import 'package:Greeneva/Services/dialog_service.dart';
+import 'package:Greeneva/Services/navigation_service.dart';
+import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-import '../../../locator.dart';
-import '../login_view.dart';
+import '../../locator.dart';
+// import '../login_view.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -14,13 +16,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Widget _buildImageSvg(String assetName) {
-    return Align(
-      child: WebsafeSvg.asset('assets/svgs/$assetName.svg', width: 350.0),
-      alignment: Alignment.bottomCenter,
-    );
-  }
-
+  NavigationService _navigationService = locator<NavigationService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +50,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width - 50,
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        LoginViewModel().googlelogin();
+                      },
                       height: 70,
                       // minWidth: length / 2,
                       color: Colors.white,
@@ -186,10 +184,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InkResponse(
-                      onTap: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (_) => LoginView()));
-                      },
+                      onTap: () =>
+                          _navigationService.navigateTo(LoginViewRoute),
                       child: Text(
                         'Continue with Email',
                         style: TextStyle(

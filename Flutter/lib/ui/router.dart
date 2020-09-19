@@ -1,5 +1,7 @@
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/ui/Account/Account.dart';
+import 'package:Greeneva/ui/Auth/login_view.dart';
+import 'package:Greeneva/ui/Auth/signup_view.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
@@ -7,20 +9,28 @@ import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
 import 'package:Greeneva/ui/home_screen.dart';
 // import 'package:Greeneva/ui/home_screen.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
-import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
-import 'package:Greeneva/ui/views/Auth/login_view.dart';
-import 'package:Greeneva/ui/views/Auth/signup_view.dart';
 
 import 'package:flutter/material.dart';
 
+import 'Auth/auth_screen.dart';
+
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
+    // case LoginView:
+    //   return _getPageRoute(
+    //     routeName: settings.name,
+    //     viewToShow: LoginView(),
+    //   );
     case AuthView:
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: AuthScreen(),
       );
-
+    case LoginViewRoute:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: LoginView(),
+      );
     case SignUpViewRoute:
       return _getPageRoute(
         routeName: settings.name,

@@ -45,6 +45,8 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+        android.useAndroidX=true
+        android.enableJetifier=true
     }
 
     buildTypes {

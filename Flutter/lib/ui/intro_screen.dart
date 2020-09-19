@@ -1,12 +1,13 @@
+import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/views/auth_screen.dart';
+// import 'package:Greeneva/ui/views/auth_screen.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-import 'home_screen.dart';
+import '../locator.dart';
 
 class OnBoardingPage extends StatefulWidget {
   @override
@@ -14,11 +15,8 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
+  NavigationService _navigationService = locator<NavigationService>();
   final introKey = GlobalKey<IntroductionScreenState>();
-
-  void _onIntroEnd(context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => AuthScreen()));
-  }
 
   Widget _buildImage(String assetName) {
     return Align(
@@ -52,7 +50,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Build Teams and Communities",
           body:
-              "Instead of having to buy an entire share, invest any amount you want.",
+              "Greeneva Helps In Building Teams and Communities to Solve the Sustainable Development Goals",
           image: Center(
               child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -64,54 +62,21 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Learn about the Sustainable Development Goals",
           body:
-              "Download the Stockpile app and master the market with our mini-lesson.",
+              "Get Informated about Each Sustainable Development Goal Target and Indicators. ",
           image: Center(
             child: Center(child: _buildImageSvg('Onboarding_2')),
           ),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Kids and teens",
-          body:
-              "Kids and teens can track their stocks 24/7 and place trades that you approve.",
-          image: _buildImageSvg('Onboarding_3'),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "Another title page",
-          body: "Another beautiful body text for this example onboarding",
-          image: _buildImageSvg('Onboardin_p2'),
-          footer: RaisedButton(
-            onPressed: () {
-              introKey.currentState?.animateScroll(0);
-            },
-            child: const Text(
-              'FooButton',
-              style: TextStyle(color: Colors.white),
-            ),
-            color: Colors.lightBlue,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-          ),
-          decoration: pageDecoration,
-        ),
-        PageViewModel(
-          title: "Title of last page",
-          bodyWidget: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text("Click on ", style: bodyStyle),
-              Icon(Icons.edit),
-              Text(" to edit a post", style: bodyStyle),
-            ],
-          ),
-          image: _buildImage('git'),
+          title: "Make your Impact In Your Community",
+          body: "Get Started Today!! ",
+          image: _buildImageSvg('Onboarding_3.svg'),
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => _onIntroEnd(context),
-      //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
+      onDone: () => _navigationService.navigateTo(SignUpViewRoute),
+      onSkip: () => _navigationService.navigateTo(SignUpViewRoute),
       showSkipButton: true,
       skipFlex: 0,
       nextFlex: 0,

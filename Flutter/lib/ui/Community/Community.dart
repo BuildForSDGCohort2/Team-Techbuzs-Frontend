@@ -1,9 +1,9 @@
 // import 'dart:html';
 
 // import 'package:Greeneva/Services/navigation_service.dart';
+import 'package:Greeneva/ui/Community/Community_welcome.dart';
 import 'package:Greeneva/ui/Community/screens/chats/chats.dart';
 import 'package:Greeneva/ui/Community/state/app_state.dart';
-import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -74,9 +74,7 @@ class MaterialAppWidget extends StatelessWidget {
 
     return MaterialApp(
       theme: appState.currentTheme,
-      title: "chat app",
-      home: auth ? ChatListScreen() : AuthScreen(),
-      debugShowCheckedModeBanner: false,
+      home: auth ? ChatListScreen() : CommunityWelcome(),
     );
   }
 }
