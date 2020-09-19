@@ -1,6 +1,10 @@
+import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/ui/views/auth_screen.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 import 'home_screen.dart';
 
@@ -13,9 +17,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
   void _onIntroEnd(context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => HomePage()),
-    );
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => AuthScreen()));
   }
 
   Widget _buildImage(String assetName) {
@@ -25,11 +27,19 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
     );
   }
 
+  Widget _buildImageSvg(String assetName) {
+    return Align(
+      child: WebsafeSvg.asset('assets/svgs/$assetName.svg', width: 350.0),
+      alignment: Alignment.bottomCenter,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 19.0);
     const pageDecoration = const PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle: TextStyle(
+          fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.blue),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Colors.white,
@@ -40,30 +50,37 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       key: introKey,
       pages: [
         PageViewModel(
-          title: "Fractional shares",
+          title: "Build Teams and Communities",
           body:
               "Instead of having to buy an entire share, invest any amount you want.",
-          image: _buildImage('img1'),
+          image: Center(
+              child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child:
+                WebsafeSvg.asset('assets/svgs/Onboardin_p2.svg', width: 350.0),
+          )),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Learn as you go",
+          title: "Learn about the Sustainable Development Goals",
           body:
               "Download the Stockpile app and master the market with our mini-lesson.",
-          image: _buildImage('img2'),
+          image: Center(
+            child: Center(child: _buildImageSvg('Onboarding_2')),
+          ),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Kids and teens",
           body:
               "Kids and teens can track their stocks 24/7 and place trades that you approve.",
-          image: _buildImage('img3'),
+          image: _buildImageSvg('Onboarding_3'),
           decoration: pageDecoration,
         ),
         PageViewModel(
           title: "Another title page",
           body: "Another beautiful body text for this example onboarding",
-          image: _buildImage('img2'),
+          image: _buildImageSvg('Onboardin_p2'),
           footer: RaisedButton(
             onPressed: () {
               introKey.currentState?.animateScroll(0);
@@ -89,7 +106,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               Text(" to edit a post", style: bodyStyle),
             ],
           ),
-          image: _buildImage('img1'),
+          image: _buildImage('git'),
           decoration: pageDecoration,
         ),
       ],

@@ -29,11 +29,11 @@ class StartUpViewModel extends BaseModel {
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
     if (hasLoggedInUser) {
-      Future.delayed(Duration(seconds: 5),
-          () => _navigationService.navigateTo(NavBarView));
+      Future.delayed(
+          Duration(seconds: 5), () => _navigationService.navigateTo(OnBoarding));
     } else {
       Future.delayed(
-          Duration(seconds: 5), () => _navigationService.navigateTo(AuthView));
+          Duration(seconds: 5), () => _navigationService.navigateTo(OnBoarding));
     }
   }
 }
