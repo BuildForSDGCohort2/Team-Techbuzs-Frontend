@@ -1,5 +1,6 @@
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/views/auth_screen.dart';
+import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
+
 import 'package:flutter/material.dart';
 
 // import 'package:';
