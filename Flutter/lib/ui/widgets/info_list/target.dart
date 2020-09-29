@@ -22,9 +22,13 @@ class Targets extends StatelessWidget {
             SizedBox(
               height: 110,
             ),
-            // ListView.builder(
-            //     itemCount: 3,
-            //     itemBuilder: (context, index) {
+         Align(
+           alignment: Alignment.topLeft,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+         ),
             Card(
                 color: Colors.white,
                 elevation: 1,
