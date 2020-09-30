@@ -2,6 +2,7 @@
 // import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/ui/views/OnBoarding/coming_soon.dart';
 import 'package:flutter/material.dart';
+import 'package:Greeneva/Services/paypal.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 // import '../../../locator.dart';
@@ -28,9 +29,7 @@ class _DonatePageState extends State<DonatePage> {
     // var length = MediaQuery.of(context).size.height;
     // var width = MediaQuery.of(context).size.width;
     return Container(
-      child: ComingS(
-        name: 'Donate Page',
-      ),
+      child: PaypalWeb(),
     );
   }
 }
