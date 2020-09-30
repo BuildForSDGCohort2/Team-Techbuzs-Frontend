@@ -42,6 +42,7 @@ dependencies:
   # App Features
   ip_geolocation_api: ^0.0.1
   geocoder: ^0.2.1
+  flutter_widget_from_html_core: ^0.5.0+6
   graphql_flutter: ^3.1.0
   shared_preferences: ^0.5.10
   provider:
