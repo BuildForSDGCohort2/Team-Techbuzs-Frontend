@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 class PaypalWeb extends StatelessWidget {
-const kHtml = '''
+
+  @override
+  Widget build(BuildContext context) {
+    var kHtml = '''
 <div id="paypal-button"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
@@ -46,8 +49,6 @@ const kHtml = '''
 
 </script>
 ''';
-  @override
-  Widget build(BuildContext context) {
     return Container(
       
           child: HtmlWidget(kHtml),
