@@ -11,10 +11,10 @@ class PaypalWeb extends StatelessWidget {
 <script>
   paypal.Button.render({
     // Configure environment
-    env: 'sandbox',
+    env: 'production',
     client: {
       sandbox: 'demo_sandbox_client_id',
-      production: 'demo_production_client_id'
+      production: 'ATEWCOiV1_r1lirHruJEPVQhkon534MTBAs7lGWyTGvQihhUi8DfLnxw2FnYCOQlctV0fVPJAR28OsvJ'
     },
     // Customize button (optional)
     locale: 'en_US',
@@ -32,7 +32,7 @@ class PaypalWeb extends StatelessWidget {
       return actions.payment.create({
         transactions: [{
           amount: {
-            total: '0.01',
+            total: '10',
             currency: 'USD'
           }
         }]
