@@ -5,53 +5,53 @@ class PaypalWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var kHtml = '''
-<div id="paypal-button"></div>
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
-<script>
-  paypal.Button.render({
-    // Configure environment
-    env: 'production',
-    client: {
-      sandbox: 'demo_sandbox_client_id',
-      production: 'ATEWCOiV1_r1lirHruJEPVQhkon534MTBAs7lGWyTGvQihhUi8DfLnxw2FnYCOQlctV0fVPJAR28OsvJ'
-    },
-    // Customize button (optional)
-    locale: 'en_US',
-    style: {
-      size: 'small',
-      color: 'gold',
-      shape: 'pill',
-    },
+    
+    String pay = """
+    <div id="smart-button-container">
+      <div style="text-align: center;">
+        <div id="paypal-button-container"></div>
+      </div>
+    </div>
+  <script src="https://www.paypal.com/sdk/js?client-id=ATEWCOiV1_r1lirHruJEPVQhkon534MTBAs7lGWyTGvQihhUi8DfLnxw2FnYCOQlctV0fVPJAR28OsvJ&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script>
+    function initPayPalButton() {
+      paypal.Buttons({
+        style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'pay',
+          
+        },
 
-    // Enable Pay Now checkout flow (optional)
-    commit: true,
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{"amount":{"currency_code":"USD","value":1.4}}]
+          });
+        },
 
-    // Set up a payment
-    payment: function(data, actions) {
-      return actions.payment.create({
-        transactions: [{
-          amount: {
-            total: '10',
-            currency: 'USD'
-          }
-        }]
-      });
-    },
-    // Execute the payment
-    onAuthorize: function(data, actions) {
-      return actions.payment.execute().then(function() {
-        // Show a confirmation message to the buyer
-        window.alert('Thank you for your purchase!');
-      });
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+        },
+
+        onError: function(err) {
+          console.log(err);
+        }
+      }).render('#paypal-button-container');
     }
-  }, '#paypal-button');
-
-</script>
-''';
+    initPayPalButton();
+  </script>
+    """
+   
     return Container(
       
-          child: HtmlWidget(kHtml),
+          child: HtmlWidget(
+          """
+          
+          """
+          ),
        
     );
   }
