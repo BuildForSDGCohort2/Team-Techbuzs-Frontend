@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:websafe_svg/websafe_svg.dart';
+import 'package:Greeneva/ui/views/Auth/login_view.dart';
 
 import '../Home/home_screen.dart';
 
@@ -15,7 +16,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   void _onIntroEnd(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => HomePage()),
+      MaterialPageRoute(builder: (_) => LoginView()),
     );
   }
 
@@ -71,19 +72,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 "Kids and teens can track their stocks 24/7 and place trades that you approve.",
             image: _buildImage('Onboarding_3'),
             decoration: pageDecoration,
-            footer: MaterialButton(
-              onPressed: () {},
-              color: Color(0xff8383DE),
-              child: Row(
-                children: [
-                  Text('Continue'),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            )),
+            
       ],
       onDone: () => _onIntroEnd(context),
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
