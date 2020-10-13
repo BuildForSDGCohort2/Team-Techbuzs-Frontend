@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_scrollbar/flutter_web_scrollbar.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:Greeneva/extensions/hover_extension.dart';
-
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:Greeneva/Services/navigation_service.dart';
+import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/locator.dart';
 class HomeContentDesktop extends StatefulWidget {
   const HomeContentDesktop({Key key}) : super(key: key);
 
@@ -14,6 +17,8 @@ class HomeContentDesktop extends StatefulWidget {
 
 class _HomeContentDesktopState extends State<HomeContentDesktop>
     with SingleTickerProviderStateMixin {
+   
+
   ScrollController _controller;
 
   TabController tabController;
@@ -86,6 +91,15 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
 
   @override
   Widget build(BuildContext context) {
+     final NavigationService _navigationService = locator<NavigationService>();
+    String mapdata = 
+      """
+      <iframe src="https://ourworldindata.org/grapher/share-of-the-population-living-in-extreme-poverty?region=World" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
+      """;
+    String treepn = 
+      """
+      <iframe src="https://ourworldindata.org/grapher/proportion-of-forest-area-within-legally-established-protected-areas?time=2015" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
+      """;
     return SingleChildScrollView(
       controller: _controller,
       child: Container(
@@ -105,7 +119,8 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Container(
+                  GestureDetector(
+                 child: Container(
                     child: Card(
                       color: Colors.white,
                       elevation: 2,
@@ -152,10 +167,12 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
                       ),
                     ).showCursorOnHover.moveUpOnHover,
                   ),
+                    ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 15,
                   ),
-                  Container(
+                  GestureDetector(
+                 child: Container(
                     child: Card(
                       color: Colors.white,
                       elevation: 2,
@@ -202,6 +219,8 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
                       ),
                     ).showCursorOnHover.moveUpOnHover,
                   ),
+                    onTap: () =>  _navigationService.navigateTo(Help);
+                    ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 15,
                   ),
@@ -303,9 +322,11 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
                     ),
                   ),
                   Container(
-                    color: Colors.deepOrange,
+                    child: HtmlWidget(mapdata),
                   ),
-                  Icon(Icons.home),
+                   Container(
+                    child: HtmlWidget(treepn),
+                  ),
                   // Icon(Icons.home),
                   // Icon(Icons.home),
                   // Icon(Icons.settings),
