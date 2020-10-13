@@ -43,7 +43,7 @@ class PaypalWeb extends StatelessWidget {
     }
     initPayPalButton();
   </script>
-    """
+    """;
    
     return Container(
       
