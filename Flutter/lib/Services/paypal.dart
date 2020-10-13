@@ -47,11 +47,7 @@ class PaypalWeb extends StatelessWidget {
    
     return Container(
       
-          child: HtmlWidget(
-          """
-          
-          """
-          ),
+          child: HtmlWidget(pay),
        
     );
   }
