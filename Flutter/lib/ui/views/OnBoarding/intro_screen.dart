@@ -67,13 +67,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-            title: "Learn About \n The Sustainable Development Goals",
-            body:
-                "Kids and teens can track their stocks 24/7 and place trades that you approve.",
-            image: _buildImage('Onboarding_3'),
-            decoration: pageDecoration,
-            
+          title: "Learn About \n The Sustainable Development Goals",
+          body:
+              "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+          image: _buildImage('Onboarding_3'),
+          decoration: pageDecoration,
         ),
+      ],
       onDone: () => _onIntroEnd(context),
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: true,
