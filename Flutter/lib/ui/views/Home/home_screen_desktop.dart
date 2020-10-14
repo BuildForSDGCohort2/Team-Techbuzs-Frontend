@@ -8,6 +8,9 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/locator.dart';
+
+import '../../../constants/routename.dart';
+
 class HomeContentDesktop extends StatefulWidget {
   const HomeContentDesktop({Key key}) : super(key: key);
 
@@ -17,8 +20,6 @@ class HomeContentDesktop extends StatefulWidget {
 
 class _HomeContentDesktopState extends State<HomeContentDesktop>
     with SingleTickerProviderStateMixin {
-   
-
   ScrollController _controller;
 
   TabController tabController;
@@ -91,13 +92,11 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
 
   @override
   Widget build(BuildContext context) {
-     final NavigationService _navigationService = locator<NavigationService>();
-    String mapdata = 
-      """
+    final NavigationService _navigationService = locator<NavigationService>();
+    String mapdata = """
       <iframe src="https://ourworldindata.org/grapher/share-of-the-population-living-in-extreme-poverty?region=World" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
       """;
-    String treepn = 
-      """
+    String treepn = """
       <iframe src="https://ourworldindata.org/grapher/proportion-of-forest-area-within-legally-established-protected-areas?time=2015" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
       """;
     return SingleChildScrollView(
@@ -120,107 +119,107 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
               child: Row(
                 children: [
                   GestureDetector(
-                 child: Container(
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 2,
-                      child: SizedBox(
-                        width: 310,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 140,
-                              child: WebsafeSvg.asset(
-                                'assets/HomePage_1.svg',
-                                fit: BoxFit.contain,
+                    child: Container(
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 2,
+                        child: SizedBox(
+                          width: 310,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              SizedBox(
+                                height: 140,
+                                child: WebsafeSvg.asset(
+                                  'assets/HomePage_1.svg',
+                                  fit: BoxFit.contain,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15.0,
-                                vertical: 20,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Center(
-                                    child: Text(
-                                      'Communities',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0,
+                                  vertical: 20,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Center(
+                                      child: Text(
+                                        'Communities',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14,
+                                        ),
+                                        softWrap: true,
                                       ),
-                                      softWrap: true,
                                     ),
-                                  ),
-                                  // Text(
-                                  //   '',
-                                  //   // '${model.targets["1.1.1"]["name"]}',
-                                  //   style: TextStyle(fontSize: 10),
-                                  // )
-                                ],
+                                    // Text(
+                                    //   '',
+                                    //   // '${model.targets["1.1.1"]["name"]}',
+                                    //   style: TextStyle(fontSize: 10),
+                                    // )
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ).showCursorOnHover.moveUpOnHover,
-                  ),
+                      ).showCursorOnHover.moveUpOnHover,
                     ),
+                  ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 15,
                   ),
                   GestureDetector(
-                 child: Container(
-                    child: Card(
-                      color: Colors.white,
-                      elevation: 2,
-                      child: SizedBox(
-                        width: 310,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 140,
-                              child: WebsafeSvg.asset(
-                                'assets/HomePage_2.svg',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15.0,
-                                vertical: 20,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Center(
-                                    child: Text(
-                                      'Sustanable Development Goals',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
-                                      ),
-                                      softWrap: true,
-                                    ),
+                      child: Container(
+                        child: Card(
+                          color: Colors.white,
+                          elevation: 2,
+                          child: SizedBox(
+                            width: 310,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 140,
+                                  child: WebsafeSvg.asset(
+                                    'assets/HomePage_2.svg',
+                                    fit: BoxFit.contain,
                                   ),
-                                  // Text(
-                                  //   '',
-                                  //   // '${model.targets["1.1.1"]["name"]}',
-                                  //   style: TextStyle(fontSize: 10),
-                                  // )
-                                ],
-                              ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15.0,
+                                    vertical: 20,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Center(
+                                        child: Text(
+                                          'Sustanable Development Goals',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 14,
+                                          ),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                      // Text(
+                                      //   '',
+                                      //   // '${model.targets["1.1.1"]["name"]}',
+                                      //   style: TextStyle(fontSize: 10),
+                                      // )
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                        ).showCursorOnHover.moveUpOnHover,
                       ),
-                    ).showCursorOnHover.moveUpOnHover,
-                  ),
-                    onTap: () =>  _navigationService.navigateTo(Help);
-                    ),
+                      onTap: () => _navigationService.navigateTo(Help)),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 15,
                   ),
@@ -324,7 +323,7 @@ class _HomeContentDesktopState extends State<HomeContentDesktop>
                   Container(
                     child: HtmlWidget(mapdata),
                   ),
-                   Container(
+                  Container(
                     child: HtmlWidget(treepn),
                   ),
                   // Icon(Icons.home),

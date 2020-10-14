@@ -73,7 +73,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             image: _buildImage('Onboarding_3'),
             decoration: pageDecoration,
             
-      ],
+        ),
       onDone: () => _onIntroEnd(context),
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
       showSkipButton: true,
