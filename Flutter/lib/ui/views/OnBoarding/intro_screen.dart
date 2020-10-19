@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-import 'package:Greeneva/ui/views/Auth/login_view.dart';
+import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
 
 import '../Home/home_screen.dart';
 
@@ -16,7 +16,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   void _onIntroEnd(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => LoginView()),
+      MaterialPageRoute(builder: (_) => AuthScreen()),
     );
   }
 
