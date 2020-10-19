@@ -46,7 +46,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
          
           title: "Build Teams and Communities",
-          body: "Work with Other people to build Teams and Communities in order to come closer to achieve the Sustainable Development Goals "
+          body: "Work with Other people to build Teams and Communities in order to come closer to achieve the Sustainable Development Goals ",
           // "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.",
           image: _buildImage('Onboarding_1'),
           decoration: pageDecoration,
