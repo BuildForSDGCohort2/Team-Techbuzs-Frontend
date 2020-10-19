@@ -44,17 +44,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       key: introKey,
       pages: [
         PageViewModel(
-          bodyWidget: Align(
-            alignment: Alignment.topRight,
-            child: Column(
-              children: [
-                Text(
-                    'Build Teams and Communities\n \n Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.')
-              ],
-            ),
-          ),
-          title: "",
-          // body:
+         
+          title: "Build Teams and Communities",
+          body: "Work with Other people to build Teams and Communities in order to come closer to achieve the Sustainable Development Goals "
           // "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.",
           image: _buildImage('Onboarding_1'),
           decoration: pageDecoration,
@@ -62,14 +54,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Learn About \n The Sustainable Development Goals",
           body:
-              "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem.",
+              "Educate yourself on them Sustainable Development Goals and checkout targets and indicators for the Sustainable Development Goals",
           image: _buildImage('Onboarding_2'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Learn About \n The Sustainable Development Goals",
+          title: "Donate and Help Organizations",
           body:
-              "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+              "On Greeneva donate to organizations and help to achieve the Sustainable Development Goals",
           image: _buildImage('Onboarding_3'),
           decoration: pageDecoration,
         ),
