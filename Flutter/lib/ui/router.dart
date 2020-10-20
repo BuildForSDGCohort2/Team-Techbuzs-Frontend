@@ -3,6 +3,9 @@ import 'package:Greeneva/ui/views/Account/account_page.dart';
 import 'package:Greeneva/ui/views/Auth/auth.dart';
 // import 'package:Greeneva/ui/coming_soon.dart';
 import 'package:Greeneva/ui/views/Contacts/contact_page.dart';
+import 'package:Greeneva/ui/views/Donate/Sdg15.dart';
+import 'package:Greeneva/ui/views/Donate/Sdg16.dart';
+import 'package:Greeneva/ui/views/Donate/Sdg3.dart';
 import 'package:Greeneva/ui/views/Donate/donate_page.dart';
 import 'package:Greeneva/ui/views/Info/help_page.dart';
 import 'package:Greeneva/ui/views/Home/home_screen.dart';
@@ -25,12 +28,27 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: SplashView(),
       );
+    case Sdg15:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SDG15(),
+      );
+    case Sdg16:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SDG16(),
+      );
+    case Sdg3:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: SDG3(),
+      );
     case Help:
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: Info(),
       );
-      case Community:
+    case Community:
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: Commu(),

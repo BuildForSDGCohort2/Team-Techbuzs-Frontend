@@ -12,4 +12,6 @@ const String Donate = "/Donate";
 const String Contact = "/Contact";
 const String Account = "/Account";
 const String Community = "/Community";
-
+const String Sdg15 = "/Sdg15";
+const String Sdg16 = "/Sdg16";
+const String Sdg3 = "/Sdg3";
