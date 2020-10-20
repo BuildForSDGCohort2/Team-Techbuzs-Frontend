@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class LoginView extends StatelessWidget {
+class Commu extends StatelessWidget {
 
 
   @override
