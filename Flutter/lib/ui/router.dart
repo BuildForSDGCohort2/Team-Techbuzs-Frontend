@@ -30,7 +30,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: Info(),
       );
-      case Commu:
+      case Community:
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: Commu(),
