@@ -35,7 +35,7 @@ class NavigationBarTabletDesktop extends StatelessWidget {
               SizedBox(
                 width: 60,
               ),
-              NavBarItem('Community', Commu),
+              NavBarItem('Community', Community),
               SizedBox(
                 width: 60,
               ),
