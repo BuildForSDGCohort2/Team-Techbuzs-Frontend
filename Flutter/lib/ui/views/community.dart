@@ -11,7 +11,7 @@ class Commu extends StatelessWidget {
             child: Container(
                 child: Image.asset(
               'assets/community.png',
-              height: 50,
+              height: 200,
             )),
           ),
           SizedBox(
@@ -29,6 +29,13 @@ class Commu extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
+          MaterialButton(
+            height: 100,
+            minWidth: 40,
+            child: Text("Download"),
+            color: Colors.lightGreen,
+            onPressed: () => print("Icoming"),
+          )
         ],
       ),
     ));

@@ -24,7 +24,7 @@ class _DonatePageState extends State<DonatePage> {
     print('This Does Nothing LOL :)');
   }
 
-  final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
 
   @override
   Widget build(BuildContext context) {

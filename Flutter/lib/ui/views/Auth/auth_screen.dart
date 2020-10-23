@@ -25,8 +25,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final DialogService _dialogService = locator<DialogService>();
 
-  // final NavigationService _navigationService = locator<NavigationService>();
-
   @override
   Widget build(BuildContext context) {
     // String route = "Account";
@@ -166,7 +164,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ],
             ),
             SizedBox(
-              height: length / 7,
+              height: length / 10,
             ),
             GestureDetector(
               child: Center(

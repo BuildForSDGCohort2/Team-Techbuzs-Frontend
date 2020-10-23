@@ -35,10 +35,30 @@ class AuthenticationService {
   }
 
   Future<UserCredential> signInWithTwitter() async {
+    final User user = _firebaseAuth.currentUser;
+
     // Create a new provider
     TwitterAuthProvider twitterProvider = TwitterAuthProvider();
 
     // Once signed in, return the UserCredential
+
+    if (user != null) {
+      await _firestoreService.checkIfUserExist(user.uid)
+          ? nothing()
+          : await _firestoreService.createUser(_currentUser);
+      // : nothing();
+
+      await _firestoreService.checkIfUserExist(user.uid)
+          ? nothing()
+          : await EmailService().sendEmail(
+              'Thank You for Creating an Account ',
+              _currentUser.email != null ? _currentUser.email : user.email,
+              name);
+      await _analyticsService.setUserProperties(
+        userId: user.uid,
+        name: _currentUser.location,
+      );
+    }
     return await FirebaseAuth.instance.signInWithPopup(twitterProvider);
 
     // Or use signInWithRedirect
@@ -62,6 +82,13 @@ class AuthenticationService {
   }
 
   Future<UserCredential> signInWithFacebook() async {
+    final User user = _firebaseAuth.currentUser;
+    _currentUser = UserModel(
+      id: user.uid,
+      email: user.email,
+      fullName: user.displayName,
+      location: 'first.locality',
+    );
     // Create a new provider
     FacebookAuthProvider facebookProvider = FacebookAuthProvider();
 
@@ -70,6 +97,23 @@ class AuthenticationService {
       'display': 'popup',
     });
 
+    if (user != null) {
+      await _firestoreService.checkIfUserExist(user.uid)
+          ? nothing()
+          : await _firestoreService.createUser(_currentUser);
+      // : nothing();
+
+      await _firestoreService.checkIfUserExist(user.uid)
+          ? nothing()
+          : await EmailService().sendEmail(
+              'Thank You for Creating an Account ',
+              _currentUser.email != null ? _currentUser.email : user.email,
+              name);
+      await _analyticsService.setUserProperties(
+        userId: user.uid,
+        name: _currentUser.location,
+      );
+    }
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithPopup(facebookProvider);
 

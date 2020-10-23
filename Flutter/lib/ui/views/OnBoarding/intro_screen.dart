@@ -4,8 +4,6 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 import 'package:Greeneva/ui/views/Auth/auth_screen.dart';
 
-import '../Home/home_screen.dart';
-
 class OnBoardingPage extends StatefulWidget {
   @override
   _OnBoardingPageState createState() => _OnBoardingPageState();
@@ -44,9 +42,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       key: introKey,
       pages: [
         PageViewModel(
-         
           title: "Build Teams and Communities",
-          body: "Work with Other people to build Teams and Communities in order to come closer to achieve the Sustainable Development Goals ",
+          body:
+              "Work with Other people to build Teams and Communities in order to come closer to achieve the Sustainable Development Goals ",
           // "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.",
           image: _buildImage('Onboarding_1'),
           decoration: pageDecoration,

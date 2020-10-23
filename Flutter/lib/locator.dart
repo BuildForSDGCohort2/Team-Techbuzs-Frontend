@@ -17,9 +17,4 @@ Future setupLocator() async {
   locator.registerLazySingleton(() => Api());
 
   locator.registerLazySingleton(() => AnalyticsService());
-  // if (!kIsWeb) {
-
-  // var remoteConfigService = await RemoteConfigService.getInstance();
-  // locator.registerSingleton(remoteConfigService);
-  // }
 }
