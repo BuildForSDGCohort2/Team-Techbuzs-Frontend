@@ -11,6 +11,7 @@ import 'package:Greeneva/ui/home_screen.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'Auth/auth_screen.dart';
 
@@ -31,6 +32,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         routeName: settings.name,
         viewToShow: LoginView(),
       );
+    case Auth:
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: AuthScreen(),
+      );
     case SignUpViewRoute:
       return _getPageRoute(
         routeName: settings.name,
@@ -39,7 +45,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case NavBarView:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: NavBar(),
+        viewToShow: ChangeNotifierProvider<BottomNavigationBarProvider>(
+          child: NavBar(),
+          create: (BuildContext context) => BottomNavigationBarProvider(),
+        ),
       );
     case DiscoverView:
       return _getPageRoute(
@@ -87,4 +96,15 @@ PageRoute _getPageRoute({String routeName, Widget viewToShow}) {
         name: routeName,
       ),
       builder: (_) => viewToShow);
+}
+
+class BottomNavigationBarProvider with ChangeNotifier {
+  int _currentIndex = 0;
+
+  get currentIndex => _currentIndex;
+
+  set currentIndex(int index) {
+    _currentIndex = index;
+    notifyListeners();
+  }
 }

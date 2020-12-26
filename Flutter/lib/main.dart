@@ -3,10 +3,12 @@ import 'package:Greeneva/Services/dialog_service.dart';
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/managers/dialog_manager.dart';
+import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Community/state/app_state.dart';
 import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
 import 'package:Greeneva/ui/router.dart';
 import 'package:Greeneva/ui/views/startup_view.dart';
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -72,22 +74,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Greeneva',
-      builder: (context, child) => Navigator(
-        key: locator<DialogService>().dialogNavigationKey,
-        onGenerateRoute: (settings) => MaterialPageRoute(
-            builder: (context) => DialogManager(child: child)),
-      ),
-      navigatorKey: locator<NavigationService>().navigationKey,
-      navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: StartUpView(),
-      onGenerateRoute: generateRoute,
-    );
+    return ThemeProvider(
+        initTheme: kDarkTheme,
+        child: Builder(builder: (context) {
+          return MaterialApp(
+            title: 'Greeneva',
+            builder: (context, child) => Navigator(
+              key: locator<DialogService>().dialogNavigationKey,
+              onGenerateRoute: (settings) => MaterialPageRoute(
+                  builder: (context) => DialogManager(child: child)),
+            ),
+            navigatorKey: locator<NavigationService>().navigationKey,
+            navigatorObservers: [
+              locator<AnalyticsService>().getAnalyticsObserver()
+            ],
+            debugShowCheckedModeBanner: false,
+            home: StartUpView(),
+            onGenerateRoute: generateRoute,
+          );
+        }));
   }
 }

@@ -59,6 +59,10 @@ dependencies:
   bubble_bottom_bar: ^1.2.0
   websafe_svg: ^1.1.4
   flutter_spinkit: ^4.1.2+1
+  ff_navigation_bar:
+  line_awesome_flutter: 
+  flutter_screenutil: 
+  animated_theme_switcher: 
 
 
 
@@ -78,6 +82,7 @@ flutter:
 
   uses-material-design: true
   assets:
+    - Fonts/
     - assets/
     - assets/svgs/
     - assets/logo/
