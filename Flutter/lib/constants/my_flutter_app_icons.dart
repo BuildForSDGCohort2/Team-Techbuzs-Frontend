@@ -18,7 +18,7 @@ import 'package:flutter/widgets.dart';
 class Oreofe {
   Oreofe._();
 
-  static const _kFontFam = 'MyFlutterApp';
+  static const _kFontFam = 'AppIcons';
   static const _kFontPkg = null;
 
   static const IconData nav_community =

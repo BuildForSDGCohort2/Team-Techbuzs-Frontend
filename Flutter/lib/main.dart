@@ -80,11 +80,11 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Greeneva',
             builder: (context, child) => Navigator(
-              key: locator<DialogService>().dialogNavigationKey,
+              key: locator<DialogServiceM>().dialogNavigationKey,
               onGenerateRoute: (settings) => MaterialPageRoute(
                   builder: (context) => DialogManager(child: child)),
             ),
-            navigatorKey: locator<NavigationService>().navigationKey,
+            navigatorKey: locator<NavigationServiceM>().navigationKey,
             navigatorObservers: [
               locator<AnalyticsService>().getAnalyticsObserver()
             ],

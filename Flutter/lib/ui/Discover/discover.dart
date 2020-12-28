@@ -7,14 +7,10 @@ class Discover extends StatefulWidget {
 }
 
 class _DiscoverState extends State<Discover> {
-  var spinkit = SpinKitRotatingCircle(
-    color: Colors.blue,
-    size: 50.0,
-  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(child: spinkit),
+      body: Container(),
     );
   }
 }

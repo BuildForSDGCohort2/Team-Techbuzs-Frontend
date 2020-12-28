@@ -145,6 +145,10 @@ class AuthenticationService {
         location: location,
       );
 
+      FirebaseAuth.instance.currentUser != null
+          ? FirebaseAuth.instance.currentUser
+              .updateProfile(displayName: fullName)
+          : {};
       await _firestoreService.createUser(_currentUser);
       _firebaseAuth.currentUser != null
           ? await _firebaseAuth.currentUser.sendEmailVerification()
@@ -165,7 +169,7 @@ class AuthenticationService {
 
   Future<bool> isUserLoggedIn() async {
     var user = _firebaseAuth.currentUser;
-    await _populateCurrentUser(user);
+    //await _populateCurrentUser(user);
     return user != null;
   }
 

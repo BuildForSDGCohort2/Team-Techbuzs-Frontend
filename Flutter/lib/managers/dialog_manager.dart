@@ -11,7 +11,7 @@ class DialogManager extends StatefulWidget {
 }
 
 class _DialogManagerState extends State<DialogManager> {
-  DialogService _dialogService = locator<DialogService>();
+  DialogServiceM _dialogService = locator<DialogServiceM>();
 
   @override
   void initState() {

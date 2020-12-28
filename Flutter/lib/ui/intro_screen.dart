@@ -1,5 +1,7 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
+import 'package:Greeneva/ui/Auth/signup_view.dart';
+import 'package:Greeneva/ui/Sign_Up/sign_up_screen.dart';
 // import 'package:Greeneva/ui/views/auth_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +17,7 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
-  NavigationService _navigationService = locator<NavigationService>();
+  NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final introKey = GlobalKey<IntroductionScreenState>();
 
   Widget _buildImage(String assetName) {
@@ -75,8 +77,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => _navigationService.navigateTo(Auth),
-      onSkip: () => _navigationService.navigateTo(Auth),
+      onDone: () => _navigationService.navigateTo(SignUpViewRoute),
+      onSkip: () => _navigationService.navigateTo(SignUpViewRoute),
       showSkipButton: true,
       skipFlex: 0,
       nextFlex: 0,

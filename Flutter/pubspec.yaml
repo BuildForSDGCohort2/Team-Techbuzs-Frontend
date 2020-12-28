@@ -46,9 +46,12 @@ dependencies:
   get_it:
   stacked:
   provider:
+  stacked_hooks:
+  stacked_services:
 
   # App Features
-  ip_geolocation_api: ^0.0.1
+  # ip_geolocation_api: ^0.0.1
+  geolocator:
   geocoder: ^0.2.1
   graphql_flutter: ^3.1.0
   shared_preferences: ^0.5.10
@@ -82,7 +85,11 @@ flutter:
 
   uses-material-design: true
   assets:
-    - Fonts/
     - assets/
     - assets/svgs/
     - assets/logo/
+
+  fonts:
+    - family: AppIcons
+      fonts: 
+        - asset: Fonts/AppIcons.ttf

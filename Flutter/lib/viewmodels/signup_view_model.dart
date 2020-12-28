@@ -12,8 +12,8 @@ import 'base_model.dart';
 class SignUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  final DialogService _dialogService = locator<DialogService>();
-  final NavigationService _navigationService = locator<NavigationService>();
+  final DialogServiceM _dialogService = locator<DialogServiceM>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   String _selectedRole = 'Select a User Role';
@@ -43,7 +43,7 @@ class SignUpViewModel extends BaseModel {
     if (result is bool) {
       if (result) {
         await _analyticsService.logSignUp();
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(NavBarView);
       } else {
         await _dialogService.showDialog(
           title: 'Sign Up Failure',

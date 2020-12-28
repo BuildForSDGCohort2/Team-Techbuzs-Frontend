@@ -11,8 +11,8 @@ import 'base_model.dart';
 class LoginViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  final DialogService _dialogService = locator<DialogService>();
-  final NavigationService _navigationService = locator<NavigationService>();
+  final DialogServiceM _dialogService = locator<DialogServiceM>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
   Future googlelogin() async {
@@ -21,7 +21,7 @@ class LoginViewModel extends BaseModel {
       await _authenticationService.signInWithGoogle();
       setBusy(false);
       await _analyticsService.logLogingoogle();
-      _navigationService.navigateTo(HomeViewRoute);
+      _navigationService.navigateTo(NavBarView);
     } catch (e) {
       print(e.message);
       await _dialogService.showDialog(
@@ -36,7 +36,7 @@ class LoginViewModel extends BaseModel {
       await _authenticationService.signInWithFacebook();
       await _analyticsService.logLoginfacebook();
       setBusy(false);
-      _navigationService.navigateTo(HomeViewRoute);
+      _navigationService.navigateTo(NavBarView);
     } catch (e) {
       print(e.message);
       await _dialogService.showDialog(
@@ -51,7 +51,7 @@ class LoginViewModel extends BaseModel {
       await _authenticationService.signInWithTwitter();
       await _analyticsService.logTwitter();
       setBusy(false);
-      _navigationService.navigateTo(HomeViewRoute);
+      _navigationService.navigateTo(NavBarView);
     } catch (e) {
       print(e.message);
       await _dialogService.showDialog(
@@ -77,7 +77,7 @@ class LoginViewModel extends BaseModel {
     if (result is bool) {
       if (result) {
         await _analyticsService.logLogin();
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(NavBarView);
       } else {
         await _dialogService.showDialog(
           title: 'Login Failure',

@@ -16,7 +16,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  NavigationService _navigationService = locator<NavigationService>();
+  NavigationServiceM _navigationService = locator<NavigationServiceM>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

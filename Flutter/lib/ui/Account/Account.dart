@@ -79,7 +79,9 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
           Text(
-            user.displayName == null ? 'JohnDeo@greeneva.com' : user.email,
+            user.displayName == null
+                ? 'JohnDeo@greeneva.com'
+                : user.providerData,
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
@@ -136,10 +138,10 @@ class ProfileScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(width: kSpacingUnit.w * 3),
-        Icon(
-          LineAwesomeIcons.arrow_left,
-          size: ScreenUtil().setSp(kSpacingUnit.w * 3),
-        ),
+        // Icon(
+        //   // LineAwesomeIcons.arrow_left,
+        //   size: ScreenUtil().setSp(kSpacingUnit.w * 3),
+        // ),
         profileInfo,
         themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 3),

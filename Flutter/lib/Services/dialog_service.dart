@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:Greeneva/models/dialog_model.dart';
 import 'package:flutter/cupertino.dart';
 
-class DialogService {
+class DialogServiceM {
   GlobalKey<NavigatorState> _dialogNavigationKey = GlobalKey<NavigatorState>();
   Function(DialogRequest) _showDialogListener;
   Completer<DialogResponse> _dialogCompleter;

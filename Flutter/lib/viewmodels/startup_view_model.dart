@@ -9,7 +9,7 @@ import 'base_model.dart';
 class StartUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
-  final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   // final PushNotificationService _pushNotificationService =
   //     locator<PushNotificationService>();
   //TODO Work on dynamic Links
@@ -28,7 +28,7 @@ class StartUpViewModel extends BaseModel {
 
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
-    if (hasLoggedInUser) {
+    if (hasLoggedInUser ?? false) {
       Future.delayed(Duration(seconds: 5),
           () => _navigationService.navigateTo(NavBarView));
     } else {

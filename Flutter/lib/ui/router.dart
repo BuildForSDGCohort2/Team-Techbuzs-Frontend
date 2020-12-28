@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Auth/auth_screen.dart';
+import 'Sign_Up/sign_up_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
@@ -40,7 +41,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SignUpViewRoute:
       return _getPageRoute(
         routeName: settings.name,
-        viewToShow: SignUpView(),
+        viewToShow: SignUpPage(),
       );
     case NavBarView:
       return _getPageRoute(

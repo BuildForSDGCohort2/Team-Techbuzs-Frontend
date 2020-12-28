@@ -9,11 +9,12 @@ import 'Services/navigation_service.dart';
 GetIt locator = GetIt.instance;
 
 Future setupLocator() async {
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => DialogService());
+  locator.registerLazySingleton(() => NavigationServiceM());
+  locator.registerLazySingleton(() => DialogServiceM());
   locator.registerLazySingleton(() => AuthenticationService());
   locator.registerLazySingleton(() => FirestoreService());
   locator.registerLazySingleton(() => AnalyticsService());
+  // locator.registerLazySingleton(() => DialogService());
   // if (!kIsWeb) {
   // var remoteConfigService = await RemoteConfigService.getInstance();
   // locator.registerSingleton(remoteConfigService);

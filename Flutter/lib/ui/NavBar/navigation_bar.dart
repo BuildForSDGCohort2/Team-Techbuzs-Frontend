@@ -1,6 +1,5 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/my_flutter_app_icons.dart';
-import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/ui/Account/Account.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
@@ -8,9 +7,6 @@ import 'package:Greeneva/ui/Donation/Donation.dart';
 import 'package:Greeneva/ui/home_screen.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 import '../../locator.dart';
 
@@ -37,20 +33,24 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final NavigationService _navigationService = locator<NavigationService>();
+    // final NavigationServiceM _navigationService = locator<NavigationService>();
 
     return Scaffold(
-      body: currentIndex == 0
-          ? HomePage()
-          : currentIndex == 1
-              ? Discover()
-              : currentIndex == 2
-                  ? Community()
-                  : currentIndex == 3
-                      ? Donation()
-                      : currentIndex == 4
-                          ? Account()
-                          : {},
+      body: IndexedStack(
+        index: currentIndex,
+        children: [HomePage(), Discover(), Community(), Donation(), Account()],
+      ),
+      // body: currentIndex == 0
+      //     ? HomePage()
+      //     : currentIndex == 1
+      //         ? Discover()
+      //         : currentIndex == 2
+      //             ? Community()
+      //             : currentIndex == 3
+      //                 ? Donation()
+      //                 : currentIndex == 4
+      //                     ? Account()
+      //                     : {},
       // appBar: AppBar(
       //   title: Text.title),
       // ),
