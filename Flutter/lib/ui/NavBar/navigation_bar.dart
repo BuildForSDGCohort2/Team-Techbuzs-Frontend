@@ -4,7 +4,7 @@ import 'package:Greeneva/ui/Account/Account.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
-import 'package:Greeneva/ui/home_screen.dart';
+import 'package:Greeneva/ui/Home/home_screen.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int currentIndex;
+  int currentIndex = 0;
   @override
   void initState() {
     super.initState();

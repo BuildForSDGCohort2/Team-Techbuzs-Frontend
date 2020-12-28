@@ -6,7 +6,7 @@ import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
 import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
-import 'package:Greeneva/ui/home_screen.dart';
+import 'package:Greeneva/ui/Home/home_screen.dart';
 // import 'package:Greeneva/ui/home_screen.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 
