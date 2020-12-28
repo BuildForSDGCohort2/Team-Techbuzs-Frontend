@@ -1,9 +1,9 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
-import 'package:Greeneva/ui/Auth/signup_view.dart';
-import 'package:Greeneva/ui/Sign_Up/sign_up_screen.dart';
-// import 'package:Greeneva/ui/views/auth_screen.dart';
+// import ''
 import 'package:flutter/material.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
 
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -17,6 +17,9 @@ class OnBoardingPage extends StatefulWidget {
 }
 
 class _OnBoardingPageState extends State<OnBoardingPage> {
+  var long;
+  var lat;
+  var location;
   NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final introKey = GlobalKey<IntroductionScreenState>();
 
@@ -25,6 +28,33 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       child: Image.asset('assets/$assetName.jpg', width: 350.0),
       alignment: Alignment.bottomCenter,
     );
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permantly denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return Future.error(
+            'Location permissions are denied (actual value: $permission).');
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();
   }
 
   Widget _buildImageSvg(String assetName) {
@@ -73,7 +103,27 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Make your Impact In Your Community",
           body: "Get Started Today!! ",
-          image: _buildImageSvg('Onboarding_3.svg'),
+          image: _buildImageSvg('Onboarding_3'),
+          decoration: pageDecoration,
+        ),
+        PageViewModel(
+          title: "Location Servies",
+          bodyWidget: MaterialButton(
+              child: Text("Enable Now"),
+              color: Colors.green,
+              onPressed: () async {
+                _determinePosition();
+                var permission = await Geolocator.checkPermission();
+                if (permission == LocationPermission.always ||
+                    permission == LocationPermission.whileInUse) {
+                  print("success");
+                } else {
+                  print("Error");
+                }
+              }),
+          body:
+              "Accept Location Permission to have a better experience with the app ",
+          image: _buildImageSvg('Onboarding_3'),
           decoration: pageDecoration,
         ),
       ],

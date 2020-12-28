@@ -42,6 +42,7 @@ dependencies:
   flutter_facebook_auth: ^0.2.3
   flutter_twitter_login:
 
+
   # State Management
   get_it:
   stacked:
@@ -50,7 +51,7 @@ dependencies:
   stacked_services:
 
   # App Features
-  # ip_geolocation_api: ^0.0.1
+  dart_ipify:
   geolocator:
   geocoder: ^0.2.1
   graphql_flutter: ^3.1.0
