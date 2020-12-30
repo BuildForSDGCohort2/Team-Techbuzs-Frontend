@@ -10,4 +10,5 @@ const String CommunityView = "CommunityView";
 const String DonationView = "DonationView";
 const String AccountView = "AccountView";
 const String MainView = "MainView";
+const String ItemViewM = "ItemViewM";
 const String Auth = "Auth";

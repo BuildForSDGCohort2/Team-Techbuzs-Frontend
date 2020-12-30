@@ -16,10 +16,10 @@ var operationsData = [
   },
   {
     "name": "T.R.E.E Iniative Nigeria",
-    "selectedIcon": "assets/svg/onetree.png",
+    "selectedIcon": "assets/onetree.png",
   },
   {
     "name": "STANDUPTOCHILDABUSE",
-    "selectedIcon": "assets//stc.png",
+    "selectedIcon": "assets/stc.png",
   },
 ];

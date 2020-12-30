@@ -12,21 +12,17 @@ class Wait extends StatelessWidget {
     return ViewModelBuilder<ExploreItemView>.reactive(
       viewModelBuilder: () => ExploreItemView(),
       onModelReady: (model) => model.getGoals(),
-      builder: (context, model, child) => SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          SizedBox(
-            height: 100,
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          model.goals == null
-              ? CircularProgressIndicator()
-              : HomeScreen(vid: model.goals),
-        ],
+      builder: (context, model, child) => Scaffold(
+          body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            model.goals == null
+                ? CircularProgressIndicator()
+                : HomeScreen(vid: model.goals),
+          ],
+        ),
       )),
     );
   }

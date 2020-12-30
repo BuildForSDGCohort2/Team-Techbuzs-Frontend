@@ -14,7 +14,11 @@ class ExploreItemView extends ChangeNotifier {
 
     if (goalResults is String) {
       // show error
+      print("Error");
     } else {
+      print(goalResults);
+      print("Good");
+
       _goals = goalResults;
     }
 

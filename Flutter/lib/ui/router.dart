@@ -7,7 +7,7 @@ import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
 import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
 import 'package:Greeneva/ui/Home/home_screen.dart';
-// import 'package:Greeneva/ui/home_screen.dart';
+import 'package:Greeneva/ui/Home/item_view.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -42,6 +42,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: SignUpPage(),
+      );
+    case ItemViewM:
+      var arg = settings.arguments;
+      return _getPageRoute(
+        routeName: settings.name,
+        viewToShow: ItemView(
+          model: arg,
+        ),
       );
     case NavBarView:
       return _getPageRoute(

@@ -53,230 +53,236 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    print("I'm Here");
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ExploreItemView>.reactive(
-        viewModelBuilder: () => ExploreItemView(),
-        onModelReady: (model) => model.getGoals(),
-        builder: (context, model, child) => Scaffold(
-              body: SafeArea(
-                child: Container(
-                  margin: EdgeInsets.only(top: 8),
-                  child: ListView(
-                    physics: ClampingScrollPhysics(),
-                    children: <Widget>[
-                      // Custom AppBar
-                      Container(
-                        margin: EdgeInsets.only(left: 16, right: 16, top: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            GestureDetector(
-                                onTap: () {
-                                  print('Drawer Tapped!');
-                                },
-                                child: SvgPicture.asset(
-                                    'assets/svg/drawer_icon.svg')),
-                            Container(
-                              height: 59,
-                              width: 59,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/user_image.png'),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+    return Container(
+      margin: EdgeInsets.only(top: 8),
+      child: Column(
+        // physics: ClampingScrollPhysics(),
+        children: <Widget>[
+          // Custom AppBar
 
-                      // Card Section
-                      SizedBox(
-                        height: 25,
-                      ),
+          // Card Section
+          SizedBox(
+            height: 35,
+          ),
 
-                      Padding(
-                        padding: EdgeInsets.only(left: 16, bottom: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Good Morning',
-                              style: GoogleFonts.inter(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: kBlackColor),
-                            ),
-                            Text(
-                              '${user.displayName ?? ""}',
-                              style: GoogleFonts.inter(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w700,
-                                  color: kBlackColor),
-                            )
-                          ],
-                        ),
-                      ),
-
-                      ...widget.vid.map((vi) => ListM(
-                            model: vi,
-                          )),
-
-                      // Operation Section
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 16, bottom: 13, top: 29, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Organizations',
-                              style: GoogleFonts.inter(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: kBlackColor),
-                            ),
-                            Row(
-                              children: map<Widget>(
-                                datas,
-                                (index, selected) {
-                                  return Container(
-                                    alignment: Alignment.centerLeft,
-                                    height: 9,
-                                    width: 9,
-                                    margin: EdgeInsets.only(right: 6),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: current == index
-                                            ? kBlueColor
-                                            : kTwentyBlueColor),
-                                  );
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        height: 123,
-                        child: ListView.builder(
-                          itemCount: datas.length,
-                          padding: EdgeInsets.only(left: 16),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {},
-                              child: OperationCard(
-                                  operation: datas[index].name,
-                                  selectedIcon: datas[index].selectedIcon,
-                                  context: this),
-                            );
-                          },
-                        ),
-                      ),
-
-                      // Transaction Section
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 16, bottom: 13, top: 29, right: 10),
-                        child: Text(
-                          'Top Communities',
-                          style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: kBlackColor),
-                        ),
-                      ),
-                      ListView.builder(
-                        itemCount: 2,
-                        padding: EdgeInsets.only(left: 16, right: 16),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            height: 76,
-                            margin: EdgeInsets.only(bottom: 13),
-                            padding: EdgeInsets.only(
-                                left: 24, top: 12, bottom: 12, right: 22),
-                            decoration: BoxDecoration(
-                              color: kWhiteColor,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: kTenBlackColor,
-                                  blurRadius: 10,
-                                  spreadRadius: 5,
-                                  offset: Offset(8.0, 8.0),
-                                )
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Container(
-                                      height: 57,
-                                      width: 57,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                          image: AssetImage("assets/g.png"),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 13,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(
-                                          '',
-                                          // transactions[index].name,
-                                          style: GoogleFonts.inter(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w700,
-                                              color: kBlackColor),
-                                        ),
-                                        Text(
-                                          "",
-                                          // transactions[index].date,
-                                          style: GoogleFonts.inter(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w400,
-                                              color: kGreyColor),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      "",
-                                      // transactions[index].amount,
-                                      style: GoogleFonts.inter(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
-                                          color: kBlueColor),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                      )
-                    ],
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 16, bottom: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Good Morning',
+                    style: GoogleFonts.inter(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: kBlackColor),
                   ),
-                ),
+                  Text(
+                    '${user.displayName ?? ""}',
+                    style: GoogleFonts.inter(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: kBlackColor),
+                  )
+                ],
               ),
-            ));
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Featured',
+                style: GoogleFonts.inter(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: kBlackColor),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 9,
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                ...widget.vid.map((vi) => ListM(
+                      model: vi,
+                    )),
+                SizedBox(
+                  width: 30,
+                ),
+              ],
+            ),
+          ),
+
+          // Operation Section
+          Padding(
+            padding: EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Organizations',
+                  style: GoogleFonts.inter(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: kBlackColor),
+                ),
+                Row(
+                  children: map<Widget>(
+                    datas,
+                    (index, selected) {
+                      return Container(
+                        alignment: Alignment.centerLeft,
+                        height: 9,
+                        width: 9,
+                        margin: EdgeInsets.only(right: 6),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: current == index
+                                ? kBlueColor
+                                : kTwentyBlueColor),
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+
+          Container(
+            height: 130,
+            child: ListView.builder(
+              itemCount: datas.length,
+              padding: EdgeInsets.only(left: 16),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {},
+                  child: OperationCard(
+                      operation: datas[index].name,
+                      selectedIcon: datas[index].selectedIcon,
+                      context: this),
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          // Transaction Section
+          Padding(
+            padding: EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 10),
+            child: Text(
+              'Top Communities',
+              style: GoogleFonts.inter(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: kBlackColor),
+            ),
+          ),
+          ListView.builder(
+            itemCount: 2,
+            padding: EdgeInsets.only(left: 16, right: 16),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return Container(
+                height: 76,
+                margin: EdgeInsets.only(bottom: 13),
+                padding:
+                    EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 22),
+                decoration: BoxDecoration(
+                  color: kWhiteColor,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: kTenBlackColor,
+                      blurRadius: 10,
+                      spreadRadius: 5,
+                      offset: Offset(8.0, 8.0),
+                    )
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Container(
+                          height: 57,
+                          width: 57,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage("assets/g.png"),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 13,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '',
+                              // transactions[index].name,
+                              style: GoogleFonts.inter(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: kBlackColor),
+                            ),
+                            Text(
+                              "",
+                              // transactions[index].date,
+                              style: GoogleFonts.inter(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  color: kGreyColor),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "",
+                          // transactions[index].amount,
+                          style: GoogleFonts.inter(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: kBlueColor),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -298,21 +304,24 @@ class _OperationCardState extends State<OperationCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 16),
-      width: 123,
-      height: 123,
+      width: 130,
+      height: 130,
       decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: kTenBlackColor,
-          blurRadius: 10,
-          spreadRadius: 5,
-          offset: Offset(8.0, 8.0),
-        )
-      ], borderRadius: BorderRadius.circular(15), color: kWhiteColor),
+        // BoxShadow(
+        //   color: kTenBlackColor,
+        //   blurRadius: 10,
+        //   spreadRadius: 5,
+        //   offset: Offset(8.0, 8.0),
+        // )
+      ], borderRadius: BorderRadius.circular(15), color: kTenBlackColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset(widget.selectedIcon),
+          Image.asset(
+            widget.selectedIcon,
+            height: 85,
+          ),
           SizedBox(
             height: 9,
           ),
@@ -320,7 +329,7 @@ class _OperationCardState extends State<OperationCard> {
             widget.operation,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
-                fontSize: 15, fontWeight: FontWeight.w700, color: kWhiteColor),
+                fontSize: 15, fontWeight: FontWeight.w700, color: kBlackColor),
           )
         ],
       ),

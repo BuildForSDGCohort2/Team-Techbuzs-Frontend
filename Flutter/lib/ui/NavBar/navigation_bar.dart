@@ -3,6 +3,7 @@ import 'package:Greeneva/constants/my_flutter_app_icons.dart';
 import 'package:Greeneva/ui/Account/Account.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
+import 'package:Greeneva/ui/Home/wait_view.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
 import 'package:Greeneva/ui/Home/home_screen.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
@@ -38,7 +39,7 @@ class _NavBarState extends State<NavBar> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [HomePage(), Discover(), Community(), Donation(), Account()],
+        children: [Wait(), Discover(), Community(), Donation(), Account()],
       ),
       // body: currentIndex == 0
       //     ? HomePage()

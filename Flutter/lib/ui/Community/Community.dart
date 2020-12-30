@@ -20,21 +20,21 @@ class Community extends StatefulWidget {
 
 class _CommunityState extends State<Community> {
   // NavigationService _navigationServiceM = locator<NavigationService>()
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration(seconds: 3), () async {
-      // bool auth;
-      final SharedPreferences perfs = await SharedPreferences.getInstance();
-      bool auth = perfs.getBool('info');
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (_) => MaterialAppWidget(
-                    auth: auth,
-                  )));
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Future.delayed(Duration(seconds: 3), () async {
+  //     // bool auth;
+  //     final SharedPreferences perfs = await SharedPreferences.getInstance();
+  //     bool auth = perfs.getBool('info');
+  //     Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //             builder: (_) => MaterialAppWidget(
+  //                   auth: auth,
+  //                 )));
+  //   });
+  // }
 
   var spinkit = SpinKitDoubleBounce(
     color: Colors.red,

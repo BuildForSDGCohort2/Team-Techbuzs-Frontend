@@ -41,6 +41,7 @@ dependencies:
   google_sign_in:
   flutter_facebook_auth: ^0.2.3
   flutter_twitter_login:
+    git: git://github.com/eudangeld/flutter_twitter_login.git
 
 
   # State Management
@@ -55,7 +56,7 @@ dependencies:
   geolocator:
   geocoder: ^0.2.1
   graphql_flutter: ^3.1.0
-  shared_preferences: ^0.5.10
+  shared_preferences: 
   outline_material_icons:
   flutter_google_places:
   google_fonts: ^1.1.0
@@ -66,7 +67,8 @@ dependencies:
   ff_navigation_bar:
   line_awesome_flutter: 
   flutter_screenutil: 
-  animated_theme_switcher: 
+  animated_theme_switcher:
+  youtube_player_iframe: ^1.2.0+2 
 
 
 

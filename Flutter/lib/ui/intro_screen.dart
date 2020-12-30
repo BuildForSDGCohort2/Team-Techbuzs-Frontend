@@ -107,7 +107,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "Location Servies",
+          title:
+              "Location Servies \n Accept Location Permission to have a better experience with the app",
+          // body: "",
           bodyWidget: MaterialButton(
               child: Text("Enable Now"),
               color: Colors.green,
@@ -121,8 +123,8 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   print("Error");
                 }
               }),
-          body:
-              "Accept Location Permission to have a better experience with the app ",
+          // body:
+          //     "Accept Location Permission to have a better experience with the app ",
           image: _buildImageSvg('Onboarding_3'),
           decoration: pageDecoration,
         ),
