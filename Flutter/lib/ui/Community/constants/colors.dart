@@ -2,7 +2,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
-
 const kSpacingUnit = 10;
 
 const kDarkPrimaryColor = Color(0xFF212121);
@@ -26,7 +25,17 @@ final kButtonTextStyle = TextStyle(
   fontWeight: FontWeight.w400,
   color: kDarkPrimaryColor,
 );
-
+Color primaryTextColor = Color(0xFF414C6B);
+Color secondaryTextColor = Color(0xFFE4979E);
+Color titleTextColor = Colors.white;
+Color contentTextColor = Color(0xff868686);
+Color navigationColor = Color(0xFF6751B5);
+Color gradientStartColor = Colors.green;
+const kPrimaryColor = Color(0xFF0C9869);
+const kTextColor = Color(0xFF3C4046);
+// const kBackgroundColor = Color(0xFFF9F8FD);
+const double kDefaultPadding = 20.0;
+Color gradientEndColor = Colors.greenAccent;
 const kBlueColor = Color(0xFF1E1E99);
 const kTwentyBlueColor = Color(0x201E1E99);
 const kPinkColor = Color(0xFFFF70A3);

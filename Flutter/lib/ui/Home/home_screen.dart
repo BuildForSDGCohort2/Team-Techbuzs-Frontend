@@ -290,10 +290,15 @@ class OperationCard extends StatefulWidget {
   final String operation;
   final String selectedIcon;
   final String unselectedIcon;
+  final Function onP;
   _HomeScreenState context;
 
   OperationCard(
-      {this.operation, this.selectedIcon, this.unselectedIcon, this.context});
+      {this.operation,
+      this.selectedIcon,
+      this.unselectedIcon,
+      this.context,
+      this.onP});
 
   @override
   _OperationCardState createState() => _OperationCardState();
