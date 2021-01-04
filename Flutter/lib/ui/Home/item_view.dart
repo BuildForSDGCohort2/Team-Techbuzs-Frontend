@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:Greeneva/models/explore_model.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter/services.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class ItemView extends StatefulWidget {
   final ExploreItem model;
@@ -13,69 +16,59 @@ class ItemView extends StatefulWidget {
 
 class _ItemViewState extends State<ItemView> {
   YoutubePlayerController _controller;
-  YoutubePlayerController _controller2;
-  bool showy2 = false;
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: widget.model.y1,
-      flags: YoutubePlayerFlags(
-        mute: false,
-        autoPlay: true,
-      ),
-    );
-    _controller2 = YoutubePlayerController(
       initialVideoId: widget.model.y2,
-      flags: YoutubePlayerFlags(
-        mute: false,
-        autoPlay: true,
+      params: YoutubePlayerParams(
+        playlist: [
+          widget.model.y2,
+        ],
+        startAt: const Duration(minutes: 1, seconds: 36),
+        showControls: true,
+        showFullscreenButton: true,
+        desktopMode: true,
+        privacyEnhanced: true,
       ),
     );
+    _controller.onEnterFullscreen = () {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+      log('Entered Fullscreen');
+    };
+    _controller.onExitFullscreen = () {
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+      Future.delayed(const Duration(seconds: 1), () {
+        _controller.play();
+      });
+      Future.delayed(const Duration(seconds: 5), () {
+        SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+      });
+      log('Exited Fullscreen');
+    };
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 30,
+    const player = YoutubePlayerIFrame();
+
+    return YoutubePlayerControllerProvider(
+        controller: _controller,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
           ),
-          YoutubePlayer(
-            controller: _controller,
-            showVideoProgressIndicator: true,
-            onReady: () {
-              print('Player is ready.');
-            },
+          backgroundColor: Colors.white,
+
+          body: Column(
+            children: [SizedBox(height: 40), player],
           ),
-          SizedBox(
-            height: 30,
-          ),
-          MaterialButton(
-            onPressed: () {
-              setState(() {
-                showy2 = true;
-              });
-            },
-            child: Text("Show more!"),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          showy2 == true
-              ? YoutubePlayer(
-                  controller: _controller,
-                  showVideoProgressIndicator: true,
-                  onReady: () {
-                    print('Player is ready.');
-                  },
-                )
-              : SizedBox(height: 0)
-        ],
-      ),
-    );
+          // body: Contao,
+        ));
   }
 }

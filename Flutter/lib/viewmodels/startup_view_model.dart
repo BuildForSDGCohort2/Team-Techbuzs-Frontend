@@ -25,6 +25,7 @@ class StartUpViewModel extends BaseModel {
 
     // Register for push notifications
     // await _pushNotificationService.initialise();
+    print("Are u here");
 
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 

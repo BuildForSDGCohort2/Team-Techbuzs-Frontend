@@ -1,11 +1,14 @@
+import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/widgets/Profile.dart';
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+import '../../main.dart';
 
 var firebase = FirebaseAuth.instance;
 var user = firebase.currentUser;
@@ -17,7 +20,7 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   var spinkit = SpinKitRotatingCircle(
-    color: Colors.white,
+    color: Colors.red,
     size: 50.0,
   );
   @override
@@ -30,9 +33,36 @@ class _AccountState extends State<Account> {
   }
 }
 
+String provider(var info) {
+  if (info.toString().contains("twitter")) {
+    if (user.displayName == "twitter") {
+      return "";
+    }
+    return "Twitter";
+  } else {
+    if (info.toString().contains("facebook")) {
+      if (user.displayName == "facebook") {
+        return "";
+      }
+      return "Facebook";
+    } else {
+      if (info.toString().contains("google")) {
+        if (user.displayName == "google") {
+          return "";
+        }
+        return "Google";
+      } else {
+        return "Normal";
+      }
+    }
+  }
+}
+
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
 
     var profileInfo = Expanded(
@@ -79,13 +109,16 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 0.5),
           Text(
-            user.displayName == null
+            user.email == null
                 ? 'JohnDeo@greeneva.com'
-                : user.providerData,
+                : provider(user.providerData) == "Normal" ||
+                        provider(user.providerData) == "Google"
+                    ? user.email
+                    : provider(user.providerData),
             style: kCaptionTextStyle,
           ),
           SizedBox(height: kSpacingUnit.w * 2),
-          user.emailVerified == false
+          provider(user.providerData) == "Normal" && user.emailVerified == false
               ? Container(
                   height: kSpacingUnit.w * 4,
                   width: kSpacingUnit.w * 20,
@@ -100,37 +133,11 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 )
-              : {},
+              : SizedBox(
+                  height: 0,
+                )
         ],
       ),
-    );
-
-    var themeSwitcher = ThemeSwitcher(
-      builder: (context) {
-        return AnimatedCrossFade(
-          duration: Duration(milliseconds: 200),
-          crossFadeState:
-              ThemeProvider.of(context).brightness == Brightness.dark
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
-          firstChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kLightTheme),
-            child: Icon(
-              LineAwesomeIcons.sun,
-              size: ScreenUtil().setSp(kSpacingUnit.w * 3),
-            ),
-          ),
-          secondChild: GestureDetector(
-            onTap: () =>
-                ThemeSwitcher.of(context).changeTheme(theme: kDarkTheme),
-            child: Icon(
-              LineAwesomeIcons.moon,
-              size: ScreenUtil().setSp(kSpacingUnit.w * 3),
-            ),
-          ),
-        );
-      },
     );
 
     var header = Row(
@@ -143,54 +150,54 @@ class ProfileScreen extends StatelessWidget {
         //   size: ScreenUtil().setSp(kSpacingUnit.w * 3),
         // ),
         profileInfo,
-        themeSwitcher,
+        // themeSwitcher,
         SizedBox(width: kSpacingUnit.w * 3),
       ],
     );
 
-    return ThemeSwitchingArea(
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            body: Column(
+    return Scaffold(
+      backgroundColor:
+          themeProvider.isLightTheme ? Colors.white : Color(0xFF26242e),
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: kSpacingUnit.w * 5),
+          header,
+          Expanded(
+            child: ListView(
               children: <Widget>[
-                SizedBox(height: kSpacingUnit.w * 5),
-                header,
-                Expanded(
-                  child: ListView(
-                    children: <Widget>[
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_shield,
-                        text: 'Privacy',
-                      ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.history,
-                        text: 'Purchase History',
-                      ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.question_circle,
-                        text: 'Help & Support',
-                      ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.cog,
-                        text: 'Settings',
-                      ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.user_plus,
-                        text: 'Invite a Friend',
-                      ),
-                      ProfileListItem(
-                        icon: LineAwesomeIcons.alternate_sign_out,
-                        text: 'Logout',
-                        hasNavigation: false,
-                      ),
-                    ],
-                  ),
-                )
+                ProfileListItem(
+                  icon: LineAwesomeIcons.user_shield,
+                  text: 'Privacy',
+                ),
+                ProfileListItem(
+                  icon: LineAwesomeIcons.history,
+                  text: 'Purchase History',
+                ),
+                ProfileListItem(
+                  icon: LineAwesomeIcons.question_circle,
+                  text: 'Help & Support',
+                ),
+                ProfileListItem(
+                  icon: LineAwesomeIcons.cog,
+                  text: 'Settings',
+                ),
+                ProfileListItem(
+                  icon: LineAwesomeIcons.user_plus,
+                  text: 'Invite a Friend',
+                ),
+                ProfileListItem(
+                  onP: () {
+                    firebase.signOut();
+                    // RestartWidget.restartApp(context);
+                  },
+                  icon: LineAwesomeIcons.alternate_sign_out,
+                  text: 'Logout',
+                  hasNavigation: false,
+                ),
               ],
             ),
-          );
-        },
+          )
+        ],
       ),
     );
   }

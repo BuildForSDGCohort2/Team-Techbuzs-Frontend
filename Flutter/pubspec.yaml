@@ -68,11 +68,13 @@ dependencies:
   line_awesome_flutter: 
   flutter_screenutil: 
   animated_theme_switcher:
-  youtube_player_flutter:   
+  youtube_player_iframe: ^1.2.0+2
   firebase_ml_vision:
   simple_animations:
   image_picker:
   font_awesome_flutter:
+  path_provider:
+  hive:
 
   # Payment
   flutter_paystack: 
@@ -99,7 +101,7 @@ flutter:
     - assets/svgs/
     - assets/logo/
 
-  fonts:
-    - family: AppIcons
-      fonts: 
-        - asset: Fonts/AppIcons.ttf
+  # fonts:
+  #   - family: AppIcons
+  #     fonts: 
+  #       - asset: Fonts/AppIcons.ttf

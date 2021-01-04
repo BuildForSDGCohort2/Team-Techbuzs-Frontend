@@ -1,4 +1,5 @@
 import 'package:Greeneva/Services/navigation_service.dart';
+import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/constants/routename.dart';
 // import ''
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 
 // import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 import '../locator.dart';
@@ -66,13 +68,15 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     const bodyStyle = TextStyle(fontSize: 19.0);
-    const pageDecoration = const PageDecoration(
+    var pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
           fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.blue),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.white,
+      pageColor: themeProvider.isLightTheme ? Colors.white : Color(0xFF26242e),
       imagePadding: EdgeInsets.zero,
     );
 

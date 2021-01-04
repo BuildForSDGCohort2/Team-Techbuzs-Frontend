@@ -1,7 +1,9 @@
+import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ProfileListItem extends StatelessWidget {
   final IconData icon;
@@ -19,9 +21,16 @@ class ProfileListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return GestureDetector(
       onTap: onP,
       child: Container(
+        // color: themeProvider.isLightTheme
+        //     ? Colors.blue != null
+        //         ? Colors.white
+        //         : Colors.white
+        //     : Colors.white,
         height: kSpacingUnit.w * 5.5,
         margin: EdgeInsets.symmetric(
           horizontal: kSpacingUnit.w * 4,
@@ -33,7 +42,8 @@ class ProfileListItem extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-          color: Theme.of(context).backgroundColor,
+          color:
+              !(themeProvider.isLightTheme) ? Colors.white : Color(0xFF26242e),
         ),
         child: Row(
           children: <Widget>[

@@ -67,23 +67,28 @@ class _NavBarState extends State<NavBar> {
         onSelectTab: changePage,
         items: [
           FFNavigationBarItem(
-            iconData: Oreofe.nav_home,
+            iconData: Icons.access_alarm_sharp,
+            // iconData: Oreofe.nav_home,
             label: 'Home',
           ),
           FFNavigationBarItem(
-            iconData: Oreofe.nav_community,
+            iconData: Icons.access_alarm_sharp,
+            // iconData: Oreofe.nav_community,
             label: 'Discover',
           ),
           FFNavigationBarItem(
-            iconData: Oreofe.nav_community,
+            iconData: Icons.access_alarm_sharp,
+            // iconData: Oreofe.nav_community,
             label: 'Community',
           ),
           FFNavigationBarItem(
-            iconData: Oreofe.nav_donation,
+            iconData: Icons.access_alarm_sharp,
+            // iconData: Oreofe.nav_donation,
             label: 'Donation',
           ),
           FFNavigationBarItem(
-            iconData: Oreofe.nav_user,
+            iconData: Icons.access_alarm_sharp,
+            // iconData: Oreofe.nav_user,
             label: 'Account',
           ),
         ],
