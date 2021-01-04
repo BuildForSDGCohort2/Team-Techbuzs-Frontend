@@ -19,7 +19,6 @@ class _ItemViewState extends State<ItemView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = YoutubePlayerController(
       initialVideoId: widget.model.y2,

@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../main.dart';
+// import '../../main.dart';
 
 var firebase = FirebaseAuth.instance;
 var user = firebase.currentUser;

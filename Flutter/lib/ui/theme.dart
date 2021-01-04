@@ -1,5 +1,4 @@
 import 'package:Greeneva/ui/Auth/signup_view.dart';
-import 'package:Greeneva/ui/Sign_Up/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:provider/provider.dart';

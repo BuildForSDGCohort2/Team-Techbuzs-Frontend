@@ -1,6 +1,6 @@
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Community/constants/gradients.dart';
-import 'package:Greeneva/ui/Community/screens/about/about.dart';
+// import 'package:Greeneva/ui/Community/screens/about/about.dart';
 import 'package:Greeneva/ui/Community/screens/auth/auth.dart';
 import 'package:Greeneva/ui/Community/screens/settings/settings_gql.dart';
 import 'package:Greeneva/ui/Community/state/app_state.dart';

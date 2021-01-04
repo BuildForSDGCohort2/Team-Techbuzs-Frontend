@@ -3,8 +3,8 @@ class Goals {
   final String name;
   final String iconImage;
   final String description;
-  final String images;
-  final List<dynamic> target;
+  final String title;
+  final Map<String, dynamic> target;
 
   Goals(
       {this.position,
@@ -12,14 +12,14 @@ class Goals {
       this.iconImage,
       this.description,
       this.target,
-      this.images});
+      this.title});
 
   factory Goals.fromJson(Map<String, dynamic> json) {
     return Goals(
       position: json['goal'] as int,
       name: json['short'] as String,
-      target: json['target'] as List<dynamic>,
-      images: json['title'] as String,
+      target: json['target'] as Map<String, dynamic>,
+      title: json['title'] as String,
       iconImage: json['icon_url'] as String,
       description: json['keywords'] as String,
     );

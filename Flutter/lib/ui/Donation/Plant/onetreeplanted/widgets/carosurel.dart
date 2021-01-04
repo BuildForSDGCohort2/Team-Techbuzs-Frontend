@@ -29,7 +29,7 @@ List<TreeInfo> parseGoalss(String responseBody) {
 class Loading1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool country;
+    // bool country;
 
     return FutureBuilder<List<TreeInfo>>(
       future: fetchGoals(http.Client()),
@@ -50,7 +50,7 @@ class Loading1 extends StatelessWidget {
 }
 
 class Carousel extends StatefulWidget {
-  var tree;
+  final tree;
 
   Carousel({this.tree});
 
@@ -115,7 +115,7 @@ class _CarouselState extends State<Carousel> {
 }
 
 class Carousel1 extends StatelessWidget {
-  List<TreeInfo> tree;
+  final List<TreeInfo> tree;
 
   Carousel1({this.tree});
 

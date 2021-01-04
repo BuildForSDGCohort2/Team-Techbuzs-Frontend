@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:dart_ipify/dart_ipify.dart';
+// import 'package:dart_ipify/dart_ipify.dart'; // Later
 
 class EmailService {
   Future<http.Response> sendtrans(String message, String email, String name) {
@@ -14,7 +14,7 @@ class EmailService {
 }
 
 getip() async {
-  final ipv4 = await Ipify.ipv4();
+  // final ipv4 = await Ipify.ipv4();
 }
 
 class GetLocationIp {
@@ -29,5 +29,3 @@ class GetLocationIp {
   //       "https://geo.ipify.org/api/v1?apiKey=at_AArpcypFpqAOoDaB0rSvlKILdf2se&ipAddress=$ip");
   // }
 }
-
-

@@ -64,9 +64,9 @@ class LoadingOP extends StatelessWidget {
 
 class DetailP extends StatefulWidget {
   final String destination;
-  List<TreeInfo> info;
-  List<TreeInfo> _notesForDisplay = List<TreeInfo>();
-  List<TreeInfo> _notes = List<TreeInfo>();
+  final List<TreeInfo> info;
+//  final  List<TreeInfo> _notesForDisplay = List<TreeInfo>();
+//  final  List<TreeInfo> _notes = List<TreeInfo>();
 
   DetailP({this.info, this.destination});
 
@@ -75,7 +75,14 @@ class DetailP extends StatefulWidget {
 }
 
 class _DetailPState extends State<DetailP> {
+  // ignore: unused_field
+  // ignore: deprecated_member_use
+  // ignore: unused_field
+  // ignore: deprecated_member_use
+  // ignore: unused_field
+  // ignore: deprecated_member_use
   List<TreeInfo> _notesForDisplay = List<TreeInfo>();
+  // ignore: deprecated_member_use
   List<TreeInfo> _notes = List<TreeInfo>();
 
   Text _buildRatingStars(int rating) {
@@ -87,6 +94,7 @@ class _DetailPState extends State<DetailP> {
     return Text(stars);
   }
 
+  // ignore: unused_element
   _searchBar() {
     return Padding(
       padding: const EdgeInsets.all(8.0),

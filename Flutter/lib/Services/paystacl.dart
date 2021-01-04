@@ -37,9 +37,10 @@ class _LocalPaymentState extends State<LocalPayment> {
     super.initState();
   }
 
-  final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  // final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   static const _method = ["Card", "Bank"];
+  // ignore: unused_field
   bool _inProgress = false;
   String _selected = "";
   void _showViewMain() {

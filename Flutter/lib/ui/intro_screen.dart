@@ -3,7 +3,7 @@ import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/constants/routename.dart';
 // import ''
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
+// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
 // import 'package:';
@@ -24,13 +24,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   var location;
   NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final introKey = GlobalKey<IntroductionScreenState>();
-
-  Widget _buildImage(String assetName) {
-    return Align(
-      child: Image.asset('assets/$assetName.jpg', width: 350.0),
-      alignment: Alignment.bottomCenter,
-    );
-  }
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;

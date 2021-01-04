@@ -1,6 +1,3 @@
-import 'package:Greeneva/ui/shared/ui_helper.dart';
-import 'package:Greeneva/ui/widgets/busy_button.dart';
-import 'package:Greeneva/ui/widgets/input_field.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:Greeneva/viewmodels/signup_view_model.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,107 +6,6 @@ import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:stacked/stacked.dart';
 
-// class SignUpView extends StatefulWidget {
-//   @override
-//   _SignUpViewState createState() => _SignUpViewState();
-// }
-
-// class _SignUpViewState extends State<SignUpView> {
-//   var lat;
-//   var long;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//   }
-
-//   final emailController = TextEditingController();
-
-//   final passwordController = TextEditingController();
-
-//   final fullNameController = TextEditingController();
-//   final localityController = TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ViewModelBuilder<SignUpViewModel>.reactive(
-//       viewModelBuilder: () => SignUpViewModel(),
-//       builder: (context, model, child) => Scaffold(
-//         body: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 50.0),
-//           child: Column(
-//             mainAxisSize: MainAxisSize.max,
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: <Widget>[
-//               Text(
-//                 'Sign Up',
-//                 style: TextStyle(
-//                   fontSize: 38,
-//                 ),
-//               ),
-//               verticalSpaceLarge,
-//               InputField(
-//                 placeholder: 'Full Name',
-//                 controller: fullNameController,
-//               ),
-//               verticalSpaceSmall,
-//               InputField(
-//                 placeholder: 'Email',
-//                 controller: emailController,
-//               ),
-//               verticalSpaceSmall,
-//               InputField(
-//                 placeholder: 'Password',
-//                 password: true,
-//                 controller: passwordController,
-//                 additionalNote: 'Password has to be a minimum of 6 characters.',
-//               ),
-//               verticalSpaceSmall,
-//               InputField(
-//                 placeholder: 'Locality',
-//                 password: false,
-//                 controller: localityController,
-//               ),
-//               verticalSpaceSmall,
-//               Row(
-//                 mainAxisSize: MainAxisSize.max,
-//                 mainAxisAlignment: MainAxisAlignment.end,
-//                 children: [
-//                   BusyButton(
-//                     title: 'Sign Up',
-//                     busy: model.busy,
-//                     onPressed: () {
-//                       _determinePosition();
-//                       var permission = await Geolocator.checkPermission();
-//                       if (permission == LocationPermission.always ||
-//                           permission == LocationPermission.whileInUse) {
-//                         Position position = await Geolocator.getCurrentPosition(
-//                             desiredAccuracy: LocationAccuracy.high);
-//                         long = position.longitude;
-//                         lat = position.latitude;
-//                         final coordinates = new Coordinates(lat, long);
-//                         var addresses = await Geocoder.local
-//                             .findAddressesFromCoordinates(coordinates);
-//                         location = addresses.first;
-//                       }
-//                       model.signUp(
-//                           email: emailController.text,
-//                           password: passwordController.text,
-//                           fullName: fullNameController.text,
-//                           location: localityController.text);
-//                     },
-//                   )
-//                 ],
-//               )
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class SignUpPage extends StatelessWidget {
   final emailController = TextEditingController();
 
@@ -117,13 +13,14 @@ class SignUpPage extends StatelessWidget {
 
   final fullNameController = TextEditingController();
   final localityController = TextEditingController();
-  bool busy = false;
-  var lat;
-  var long;
-  var location;
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    bool busy = false;
+    var lat;
+    var long;
+    var location;
     var scrWidth = MediaQuery.of(context).size.width;
     var scrHeight = MediaQuery.of(context).size.height;
 
@@ -179,7 +76,7 @@ class SignUpPage extends StatelessWidget {
                             margin: EdgeInsets.only(left: 38),
                             child: Row(
                               children: [
-                                Neu_button(
+                                Newbutton(
                                   onP: () => LoginViewModel().googlelogin(),
                                   char:
                                       'https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/37468251556105321-512.png',
@@ -187,7 +84,7 @@ class SignUpPage extends StatelessWidget {
                                 SizedBox(
                                   width: 25,
                                 ),
-                                Neu_button(
+                                Newbutton(
                                   onP: () => LoginViewModel().facebooklogin(),
                                   char:
                                       'https://1000logos.net/wp-content/uploads/2016/11/Facebook-logo-500x350.png',
@@ -195,7 +92,7 @@ class SignUpPage extends StatelessWidget {
                                 SizedBox(
                                   width: 25,
                                 ),
-                                Neu_button(
+                                Newbutton(
                                   onP: () => LoginViewModel().twitterlogin(),
                                   char:
                                       'https://logos-world.net/wp-content/uploads/2020/04/Twitter-Logo.png',
@@ -249,7 +146,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                             //
                           ),
-                          busy == true
+                          model.busy == true
                               ? Container(
                                   margin: EdgeInsets.symmetric(vertical: 20),
                                   width: scrWidth * 0.35,
@@ -364,10 +261,11 @@ class SignUpPage extends StatelessWidget {
   }
 }
 
-class Neu_button extends StatelessWidget {
-  Neu_button({this.char, this.onP});
-  String char;
-  Function onP;
+class Newbutton extends StatelessWidget {
+  final String char;
+  final Function onP;
+  Newbutton({this.char, this.onP});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -436,9 +334,9 @@ class InnerClippedPart extends CustomClipper<Path> {
 }
 
 class MyCustomInputBox extends StatefulWidget {
-  String label;
-  String inputHint;
-  TextEditingController kTextEditingController;
+  final String label;
+  final String inputHint;
+  final TextEditingController kTextEditingController;
 
   MyCustomInputBox({this.label, this.inputHint, this.kTextEditingController});
   @override

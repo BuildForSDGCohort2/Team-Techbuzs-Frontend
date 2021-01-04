@@ -1,7 +1,7 @@
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/ui/Account/Account.dart';
 import 'package:Greeneva/ui/Auth/login_view.dart';
-import 'package:Greeneva/ui/Auth/signup_view.dart';
+// import 'package:Greeneva/ui/Auth/signup_view.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Auth/auth_screen.dart';
-import 'Sign_Up/sign_up_screen.dart';
+// import 'Sign_Up/sign_up_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {

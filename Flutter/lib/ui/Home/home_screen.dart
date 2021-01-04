@@ -1,14 +1,14 @@
 import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:Greeneva/models/explore_model.dart';
 import 'package:Greeneva/models/org.dart';
-import 'package:Greeneva/ui/Home/home_screen_view_model.dart';
+// import 'package:Greeneva/ui/Home/home_screen_view_model.dart';
 import 'package:Greeneva/ui/Home/item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:stacked/stacked.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:stacked/stacked.dart';
 
 import '../Community/constants/colors.dart';
 
@@ -291,7 +291,7 @@ class OperationCard extends StatefulWidget {
   final String selectedIcon;
   final String unselectedIcon;
   final Function onP;
-  _HomeScreenState context;
+  final _HomeScreenState context;
 
   OperationCard(
       {this.operation,

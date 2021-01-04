@@ -1,5 +1,5 @@
 import 'package:Greeneva/Services/theme_provider.dart';
-import 'package:Greeneva/ui/Community/constants/colors.dart';
+// import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/viewmodels/startup_view_model.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';

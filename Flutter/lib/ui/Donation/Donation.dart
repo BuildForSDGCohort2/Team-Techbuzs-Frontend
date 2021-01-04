@@ -99,7 +99,7 @@ class OperationCard extends StatefulWidget {
   final String selectedIcon;
   final String unselectedIcon;
   final Function onP;
-  _DonationState context;
+  final _DonationState context;
 
   OperationCard(
       {this.operation,

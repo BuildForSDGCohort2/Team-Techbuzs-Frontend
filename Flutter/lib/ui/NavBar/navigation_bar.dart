@@ -1,15 +1,16 @@
-import 'package:Greeneva/Services/navigation_service.dart';
+// import 'package:Greeneva/Services/navigation_service.dart';
+// ignore: unused_import
 import 'package:Greeneva/constants/my_flutter_app_icons.dart';
 import 'package:Greeneva/ui/Account/Account.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Home/wait_view.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
-import 'package:Greeneva/ui/Home/home_screen.dart';
+// import 'package:Greeneva/ui/Home/home_screen.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../locator.dart';
+// import '../../locator.dart';
 
 class NavBar extends StatefulWidget {
   NavBar({Key key, this.title}) : super(key: key);

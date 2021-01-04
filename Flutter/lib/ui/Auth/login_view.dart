@@ -1,7 +1,5 @@
-import 'package:Greeneva/ui/shared/ui_helper.dart';
-import 'package:Greeneva/ui/widgets/busy_button.dart';
-import 'package:Greeneva/ui/widgets/input_field.dart';
-import 'package:Greeneva/ui/widgets/text_link.dart';
+import 'package:Greeneva/ui/Auth/signup_view.dart';
+
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -12,66 +10,201 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var scrWidth = MediaQuery.of(context).size.width;
+    var scrHeight = MediaQuery.of(context).size.height;
+    final emailController = TextEditingController();
+
+    final passwordController = TextEditingController();
+
     return ViewModelBuilder<LoginViewModel>.reactive(
       viewModelBuilder: () => LoginViewModel(),
       builder: (context, model, child) => Scaffold(
-          backgroundColor: Colors.white,
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: 150,
-                  child: Image.asset('assets/images/title.png'),
+        body: SingleChildScrollView(
+          physics: PageScrollPhysics(),
+          child: Stack(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 40.0, top: 40),
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontFamily: 'Cardo',
+                          fontSize: 35,
+                          color: Color(0xff0C2551),
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      //
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 40, top: 5),
+                      child: Text(
+                        'Sign up with',
+                        style: TextStyle(
+                          fontFamily: 'Nunito Sans',
+                          fontSize: 15,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  //
+                  SizedBox(
+                    height: 30,
+                  ),
+                  //
+                  Container(
+                    margin: EdgeInsets.only(left: 38),
+                    child: Row(
+                      children: [
+                        Newbutton(
+                          onP: () => LoginViewModel().googlelogin(),
+                          char:
+                              'https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/37468251556105321-512.png',
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Newbutton(
+                          onP: () => LoginViewModel().facebooklogin(),
+                          char:
+                              'https://1000logos.net/wp-content/uploads/2016/11/Facebook-logo-500x350.png',
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Newbutton(
+                          onP: () => model.twitterlogin(),
+                          char:
+                              'https://logos-world.net/wp-content/uploads/2020/04/Twitter-Logo.png',
+                        )
+                      ],
+                    ),
+                  ),
+                  //
+
+                  //
+                  SizedBox(
+                    height: 30,
+                  ),
+                  //
+                  MyCustomInputBox(
+                    label: 'Email',
+                    inputHint: 'example@example.com',
+                    kTextEditingController: emailController,
+                  ),
+                  //
+                  SizedBox(
+                    height: 30,
+                  ),
+                  //
+                  MyCustomInputBox(
+                    label: 'Password',
+                    kTextEditingController: passwordController,
+                    inputHint: '8+ Characters,1 Capital letter',
+                  ),
+                  //
+                  SizedBox(
+                    height: 30,
+                  ),
+                  //
+
+                  model.busy == true
+                      ? Container(
+                          margin: EdgeInsets.symmetric(vertical: 20),
+                          width: scrWidth * 0.35,
+                          height: 53,
+                          decoration: BoxDecoration(
+                            // color: Colors.grey,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            // widthFactor: 2,
+                            child: CircularProgressIndicator(),
+                          ))
+                      : GestureDetector(
+                          onTap: () async {
+                            model.login(
+                                email: emailController.text,
+                                password: passwordController.text);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 20),
+                            width: scrWidth * 0.85,
+                            height: 75,
+                            decoration: BoxDecoration(
+                              color: Color(0xff0962ff),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Create an Account',
+                                style: TextStyle(
+                                  fontFamily: 'ProductSans',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Already have an account? ',
+                          style: TextStyle(
+                            fontFamily: 'Product Sans',
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff8f9db5).withOpacity(0.45),
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Sign In',
+                          style: TextStyle(
+                            fontFamily: 'Product Sans',
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff90b7ff),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              ClipPath(
+                clipper: OuterClippedPart(),
+                child: Container(
+                  color: Color(0xff0962ff),
+                  width: scrWidth,
+                  height: scrHeight,
                 ),
-                InputField(
-                  placeholder: 'Email',
-                  controller: emailController,
+              ),
+              //
+              ClipPath(
+                clipper: InnerClippedPart(),
+                child: Container(
+                  color: Color(0xff0c2551),
+                  width: scrWidth,
+                  height: scrHeight,
                 ),
-                verticalSpaceSmall,
-                InputField(
-                  placeholder: 'Password',
-                  password: true,
-                  controller: passwordController,
-                ),
-                verticalSpaceMedium,
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    BusyButton(
-                      title: 'Login',
-                      busy: model.busy,
-                      onPressed: () {
-                        model.login(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                      },
-                    )
-                  ],
-                ),
-                verticalSpaceMedium,
-                BusyButton(
-                  busy: model.busy,
-                  title: 'Google Sign in',
-                  onPressed: () {
-                    model.googlelogin();
-                  },
-                ),
-                verticalSpaceMedium,
-                TextLink(
-                  'Create an Account if you\'re new.',
-                  onPressed: () {
-                    model.navigateToSignUp();
-                  },
-                )
-              ],
-            ),
-          )),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

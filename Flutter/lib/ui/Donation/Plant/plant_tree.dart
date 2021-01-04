@@ -17,8 +17,9 @@ class _PlantDetState extends State<PlantDet> {
   bool imageLoaded = false;
 
   Future pickImage() async {
+    // ignore: deprecated_member_use
     var awaitImage = await ImagePicker.pickImage(source: ImageSource.gallery);
-
+    // var awaitImage = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       pickedImage = awaitImage;
       imageLoaded = true;

@@ -42,7 +42,7 @@ class Loading extends StatelessWidget {
 }
 
 class OPlant extends StatelessWidget {
-  List<TreeInfo> info;
+  final List<TreeInfo> info;
 
   OPlant({this.info});
   @override

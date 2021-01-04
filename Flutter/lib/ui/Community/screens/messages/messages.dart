@@ -11,9 +11,9 @@ import 'package:provider/provider.dart';
 class MessageScreen extends StatelessWidget {
   final ChatModel chatDetails;
   final messageController = TextEditingController();
-  VoidCallback _refetch;
+  final VoidCallback refetch;
 
-  MessageScreen({@required this.chatDetails});
+  MessageScreen({@required this.chatDetails, this.refetch});
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +148,7 @@ class MessageScreen extends StatelessWidget {
         },
       ),
       builder: (result, {refetch, fetchMore}) {
-        _refetch = refetch;
+        refetch = refetch;
         if (result.data != null &&
             !result.loading &&
             result.data['getMessages'] != null) {
@@ -260,7 +260,7 @@ class MessageScreen extends StatelessWidget {
       options: MutationOptions(
         documentNode: gql(createMessageMutation),
         onCompleted: (result) {
-          _refetch();
+          refetch();
         },
         context: {
           'headers': <String, String>{

@@ -51,6 +51,7 @@ class AuthenticationService {
   }
 
   Future<UserCredential> signInWithTwitter() async {
+    var me;
     // Create a TwitterLogin instance
     final TwitterLogin twitterLogin = new TwitterLogin(
       consumerKey: 'pRsGZkKEgMFwbij8NgFcCgQi9',
@@ -66,14 +67,15 @@ class AuthenticationService {
       final AuthCredential twitterAuthCredential =
           TwitterAuthProvider.credential(
               accessToken: twitterSession.token, secret: twitterSession.secret);
-
+      me = await FirebaseAuth.instance
+          .signInWithCredential(twitterAuthCredential);
       // Once signed in, return the UserCredential
       return await FirebaseAuth.instance
           .signInWithCredential(twitterAuthCredential);
     } catch (e) {
       print(e);
     }
-
+    return me;
     // Get the Logged In session
   }
 
@@ -148,6 +150,7 @@ class AuthenticationService {
       FirebaseAuth.instance.currentUser != null
           ? FirebaseAuth.instance.currentUser
               .updateProfile(displayName: fullName)
+          // ignore: unnecessary_statements
           : {};
       await _firestoreService.createUser(_currentUser);
       _firebaseAuth.currentUser != null

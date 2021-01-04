@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Greeneva/models/goal_model.dart';
+import 'package:Greeneva/ui/Discover/goalmain.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +24,11 @@ List<Goals> parseGoalss(String responseBody) {
   return parsed.map<Goals>((json) => Goals.fromJson(json)).toList();
 }
 
+var spinkit = SpinKitRotatingCircle(
+  color: Colors.red,
+  size: 50.0,
+);
+
 class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,221 +39,292 @@ class Loading extends StatelessWidget {
 
         return snapshot.hasData
             ? Discover(goals: snapshot.data)
-            : Center(
-                child: CircularProgressIndicator(
-                backgroundColor: Colors.greenAccent,
-              ));
+            : Center(child: spinkit);
       },
     );
   }
 }
 
 class Discover extends StatefulWidget {
-  List<Goals> goals;
+  final List<Goals> goals;
 
   Discover({this.goals});
   @override
   _DiscoverState createState() => _DiscoverState();
 }
 
-class _DiscoverState extends State<Discover> {
+class _DiscoverState extends State<Discover>
+    with SingleTickerProviderStateMixin {
+  TabController _tabController;
+  PageController _pageController;
+  int _selectedPage = 0;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Stack(
+  void initState() {
+    super.initState();
+    _tabController = TabController(initialIndex: 0, length: 5, vsync: this);
+    _pageController = PageController(initialPage: 0, viewportFraction: 0.8);
+  }
+
+  _plantSelector(int index) {
+    return AnimatedBuilder(
+      animation: _pageController,
+      builder: (BuildContext context, Widget widget) {
+        double value = 1;
+        if (_pageController.position.haveDimensions) {
+          value = _pageController.page - index;
+          value = (1 - (value.abs() * 0.3)).clamp(0.0, 1.0);
+        }
+        return Center(
+          child: SizedBox(
+            height: Curves.easeInOut.transform(value) * 500.0,
+            width: Curves.easeInOut.transform(value) * 400.0,
+            child: widget,
+          ),
+        );
+      },
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => GoalMain(goal: widget.goals[index]),
+            ),
+          );
+        },
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: Color(0xFF32A060),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
+              child: Stack(
                 children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(
-                      left: 30.0,
-                      right: 30.0,
-                      top: 60.0,
+                  Center(
+                    child: Hero(
+                      tag: widget.goals[index].position,
+                      child: Image(
+                        height: 280.0,
+                        width: 280.0,
+                        image: AssetImage(
+                          widget.goals[index].iconImage,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    height: 520.0,
-                    color: Color(0xFF32A060),
+                  ),
+                  Positioned(
+                    top: 30.0,
+                    right: 30.0,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            GestureDetector(
-                              onTap: () => Navigator.pop(context),
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 30.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Icon(
-                              Icons.shopping_cart,
-                              size: 30.0,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20.0),
                         Text(
-                          widget.goals
+                          'GOAL',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
                           ),
                         ),
-                        SizedBox(height: 5.0),
                         Text(
-                          widget.plant.name,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 40.0),
-                        Text(
-                          'FROM',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          '\$${widget.plant.price}',
+                          '\$${widget.goals[index].position}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                           ),
-                        ),
-                        SizedBox(height: 40.0),
-                        Text(
-                          'SIZE',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          widget.plant.size,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 40.0),
-                        RawMaterialButton(
-                          padding: EdgeInsets.all(20.0),
-                          shape: CircleBorder(),
-                          elevation: 2.0,
-                          fillColor: Colors.black,
-                          child: Icon(
-                            Icons.add_shopping_cart,
-                            color: Colors.white,
-                            size: 35.0,
-                          ),
-                          onPressed: () => print('Add to cart'),
                         ),
                       ],
                     ),
                   ),
                   Positioned(
-                    right: 20.0,
-                    bottom: 30.0,
-                    child: Hero(
-                      tag: widget.plant.imageUrl,
-                      child: Image(
-                        height: 280.0,
-                        width: 280.0,
-                        image: AssetImage(widget.plant.imageUrl),
-                        fit: BoxFit.cover,
-                      ),
+                    left: 30.0,
+                    bottom: 40.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.goals[index].name,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                        SizedBox(height: 5.0),
+                        Text(
+                          widget.goals[index].title,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              Container(
-                height: 400.0,
-                transform: Matrix4.translationValues(0.0, -20.0, 0.0),
-                decoration: BoxDecoration(
+            ),
+            Positioned(
+              bottom: 4.0,
+              child: RawMaterialButton(
+                padding: EdgeInsets.all(15.0),
+                shape: CircleBorder(),
+                elevation: 2.0,
+                fillColor: Colors.black,
+                child: Icon(
+                  Icons.add_shopping_cart,
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(20.0),
+                  size: 30.0,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 30.0,
-                        right: 30.0,
-                        top: 40.0,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'All to know...',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            widget.plant.description,
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30.0,
-                        vertical: 40.0,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Details',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          SizedBox(height: 10.0),
-                          Text(
-                            'Plant height: 35-45cm',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          Text(
-                            'Nursery pot width: 12cm',
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                onPressed: () => print('Add to cart'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.dark,
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: 60.0),
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Icon(
+                    Icons.menu,
+                    size: 30.0,
+                    color: Colors.grey,
+                  ),
+                  Icon(
+                    Icons.shopping_cart,
+                    size: 30.0,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Padding(
+              padding: EdgeInsets.only(left: 30.0),
+              child: Text(
+                'Top Picks',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-            ],
-          ),
+            ),
+            SizedBox(height: 20.0),
+            TabBar(
+              controller: _tabController,
+              indicatorColor: Colors.transparent,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey.withOpacity(0.6),
+              labelPadding: EdgeInsets.symmetric(horizontal: 35.0),
+              isScrollable: true,
+              tabs: <Widget>[
+                Tab(
+                  child: Text(
+                    'Top',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'Outdoor',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'Indoor',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'New Arrivals',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Text(
+                    'Limited Edition',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.0),
+            Container(
+              height: 500.0,
+              width: double.infinity,
+              child: PageView.builder(
+                controller: _pageController,
+                onPageChanged: (int index) {
+                  setState(() {
+                    _selectedPage = index;
+                  });
+                },
+                itemCount: widget.goals.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _plantSelector(index);
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Description',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 10.0),
+                  Text(
+                    widget.goals[_selectedPage].description,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
