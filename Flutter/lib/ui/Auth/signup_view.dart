@@ -4,7 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:Greeneva/Services/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:stacked/stacked.dart';
+import 'dart:developer';
 
 class SignUpPage extends StatelessWidget {
   final emailController = TextEditingController();
@@ -20,14 +23,18 @@ class SignUpPage extends StatelessWidget {
     bool busy = false;
     var lat;
     var long;
-    var location;
+    var location = "";
     var scrWidth = MediaQuery.of(context).size.width;
     var scrHeight = MediaQuery.of(context).size.height;
+    final themeProvider = Provider.of<ThemeProvider>(context);
 
     return ViewModelBuilder<SignUpViewModel>.reactive(
         viewModelBuilder: () => SignUpViewModel(),
         builder: (context, model, child) => SafeArea(
               child: Scaffold(
+                backgroundColor: !(themeProvider.isLightTheme)
+                    ? Color(0xFF26242e)
+                    : Colors.white,
                 body: SingleChildScrollView(
                   physics: PageScrollPhysics(),
                   child: Stack(
@@ -45,7 +52,9 @@ class SignUpPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: 'Cardo',
                                   fontSize: 35,
-                                  color: Color(0xff0C2551),
+                                  color: themeProvider.isLightTheme
+                                      ? Color(0xff0C2551)
+                                      : Colors.white,
                                   fontWeight: FontWeight.w900,
                                 ),
                               ),
@@ -61,7 +70,9 @@ class SignUpPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: 'Nunito Sans',
                                   fontSize: 15,
-                                  color: Colors.grey,
+                                  color: (themeProvider.isLightTheme)
+                                      ? Colors.grey
+                                      : Colors.white24,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -95,7 +106,7 @@ class SignUpPage extends StatelessWidget {
                                 Newbutton(
                                   onP: () => LoginViewModel().twitterlogin(),
                                   char:
-                                      'https://logos-world.net/wp-content/uploads/2020/04/Twitter-Logo.png',
+                                      'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c53e.png',
                                 )
                               ],
                             ),
@@ -108,7 +119,7 @@ class SignUpPage extends StatelessWidget {
                           //
                           MyCustomInputBox(
                             label: 'Name',
-                            inputHint: 'John',
+                            inputHint: '',
                             kTextEditingController: fullNameController,
                           ),
                           //
@@ -180,7 +191,9 @@ class SignUpPage extends StatelessWidget {
                                       var addresses = await Geocoder.local
                                           .findAddressesFromCoordinates(
                                               coordinates);
-                                      location = addresses.first;
+
+                                      location = addresses.first.toString();
+                                      log(location);
                                     }
                                     model.signUp(
                                         email: emailController.text,

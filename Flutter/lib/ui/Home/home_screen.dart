@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           ListView.builder(
-            itemCount: 2,
+            itemCount: 1,
             padding: EdgeInsets.only(left: 16, right: 16),
             shrinkWrap: true,
             itemBuilder: (context, index) {
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              '',
+                              'Plant A Tree',
                               // transactions[index].name,
                               style: GoogleFonts.inter(
                                   fontSize: 18,

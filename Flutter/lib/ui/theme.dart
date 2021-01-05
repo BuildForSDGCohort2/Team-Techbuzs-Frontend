@@ -38,6 +38,8 @@ class _ThemePState extends State<ThemeP> with SingleTickerProviderStateMixin {
     // Now we have access to the theme properties
     final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
+      backgroundColor:
+          !(themeProvider.isLightTheme) ? Color(0xFF26242e) : Colors.white,
       key: _scaffoldKey,
       body: SafeArea(
         child: Container(

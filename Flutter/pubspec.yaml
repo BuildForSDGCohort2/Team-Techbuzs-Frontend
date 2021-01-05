@@ -100,8 +100,9 @@ flutter:
     - assets/
     - assets/svgs/
     - assets/logo/
+    - assets/SDGs/
 
-  # fonts:
-  #   - family: AppIcons
-  #     fonts: 
-  #       - asset: Fonts/AppIcons.ttf
+  fonts:
+    - family: AppIcons
+      fonts: 
+        - asset: Fonts/AppIcons.ttf

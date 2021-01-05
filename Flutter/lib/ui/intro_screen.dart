@@ -63,7 +63,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    const bodyStyle = TextStyle(fontSize: 19.0);
+    var bodyStyle = TextStyle(
+        fontSize: 19.0,
+        color: themeProvider.isLightTheme ? Colors.black : Colors.white);
     var pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(
           fontSize: 28.0, fontWeight: FontWeight.w700, color: Colors.blue),
@@ -131,9 +133,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       showSkipButton: true,
       skipFlex: 0,
       nextFlex: 0,
-      skip: const Text('Skip'),
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+      skip: Text('Skip',
+          style: TextStyle(
+              color: themeProvider.isLightTheme ? Colors.black : Colors.white)),
+      next: Icon(
+        Icons.arrow_forward,
+        color: themeProvider.isLightTheme ? Colors.black : Colors.white,
+      ),
+      done: Text('Done',
+          style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: themeProvider.isLightTheme ? Colors.black : Colors.white)),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
         color: Color(0xFFBDBDBD),

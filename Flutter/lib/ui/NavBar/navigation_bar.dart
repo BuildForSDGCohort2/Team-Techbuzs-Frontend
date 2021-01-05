@@ -40,7 +40,7 @@ class _NavBarState extends State<NavBar> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [Wait(), Discover(), Community(), Donation(), Account()],
+        children: [Wait(), Loading(), Community(), Donation(), Account()],
       ),
       // body: currentIndex == 0
       //     ? HomePage()
@@ -68,28 +68,28 @@ class _NavBarState extends State<NavBar> {
         onSelectTab: changePage,
         items: [
           FFNavigationBarItem(
-            iconData: Icons.access_alarm_sharp,
-            // iconData: Oreofe.nav_home,
+            // iconData: Icons.access_alarm_sharp,
+            iconData: Oreofe.nav_home,
             label: 'Home',
           ),
           FFNavigationBarItem(
-            iconData: Icons.access_alarm_sharp,
-            // iconData: Oreofe.nav_community,
+            // iconData: Icons.access_alarm_sharp,
+            iconData: Oreofe.nav_discover,
             label: 'Discover',
           ),
           FFNavigationBarItem(
-            iconData: Icons.access_alarm_sharp,
-            // iconData: Oreofe.nav_community,
+            // iconData: Icons.access_alarm_sharp,
+            iconData: Oreofe.nav_community,
             label: 'Community',
           ),
           FFNavigationBarItem(
-            iconData: Icons.access_alarm_sharp,
-            // iconData: Oreofe.nav_donation,
+            // iconData: Icons.access_alarm_sharp,
+            iconData: Oreofe.nav_donation,
             label: 'Donation',
           ),
           FFNavigationBarItem(
-            iconData: Icons.access_alarm_sharp,
-            // iconData: Oreofe.nav_user,
+            // iconData: Icons.access_alarm_sharp,
+            iconData: Oreofe.nav_user,
             label: 'Account',
           ),
         ],
@@ -97,52 +97,3 @@ class _NavBarState extends State<NavBar> {
     );
   }
 }
-
-// BubbleBottomBar(
-//         // hasNotch: true,
-//         fabLocation: BubbleBottomBarFabLocation.end,
-//         opacity: .2,
-//         currentIndex: currentIndex,
-//         onTap: changePage,
-//         // borderRadius: BorderRadius.vertical(
-//         //     top: Radius.circular(
-//         //         16)), //border radius doesn't work when the notch is enabled.
-//         elevation: 8,
-//         items: <BubbleBottomBarItem>[
-//           BubbleBottomBarItem(
-//               backgroundColor: Colors.red,
-//               icon: WebsafeSvg.asset("assets/nav_home.svg",
-//                   height: 30, color: Colors.green),
-//               activeIcon: WebsafeSvg.asset("assets/nav_home.svg",
-//                   height: 30, color: Colors.blue),
-//               title: Text("Home")),
-//           BubbleBottomBarItem(
-//               backgroundColor: Colors.deepPurple,
-//               icon: WebsafeSvg.asset("assets/nav_discover.svg",
-//                   height: 30, color: Colors.green),
-//               activeIcon: WebsafeSvg.asset("assets/nav_discover.svg",
-//                   height: 30, color: Colors.blue),
-//               title: Text("Discover")),
-//           BubbleBottomBarItem(
-//               backgroundColor: Colors.indigo,
-//               icon: WebsafeSvg.asset("assets/nav_community.svg",
-//                   height: 30, color: Colors.green),
-//               activeIcon: WebsafeSvg.asset("assets/nav_community.svg",
-//                   height: 30, color: Colors.blue),
-//               title: Text("Community")),
-//           BubbleBottomBarItem(
-//               backgroundColor: Colors.green,
-//               icon: WebsafeSvg.asset("assets/nav_donation.svg",
-//                   height: 30, color: Colors.green),
-//               activeIcon: WebsafeSvg.asset("assets/nav_donation.svg",
-//                   height: 30, color: Colors.blue),
-//               title: Text("Donate")),
-//           BubbleBottomBarItem(
-//               backgroundColor: Colors.green,
-//               icon: WebsafeSvg.asset("assets/nav_user.svg",
-//                   height: 30, color: Colors.green),
-//               activeIcon: WebsafeSvg.asset("assets/nav_user.svg",
-//                   height: 30, color: Colors.blue),
-//               title: Text("Me"))
-//         ],
-//       ),

@@ -58,15 +58,17 @@ class _DiscoverState extends State<Discover>
   TabController _tabController;
   PageController _pageController;
   int _selectedPage = 0;
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(initialIndex: 0, length: 5, vsync: this);
+    // _tabController = TabController(initialIndex: 0, length: 5, vsync: this);
     _pageController = PageController(initialPage: 0, viewportFraction: 0.8);
   }
 
   _plantSelector(int index) {
+    int col = int.parse("0xff" + "${widget.goals[index].color}");
+    // int ficol
+
     return AnimatedBuilder(
       animation: _pageController,
       builder: (BuildContext context, Widget widget) {
@@ -97,7 +99,7 @@ class _DiscoverState extends State<Discover>
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: Color(0xFF32A060),
+                color: Color(col),
                 borderRadius: BorderRadius.circular(20.0),
               ),
               margin: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 30.0),
@@ -106,13 +108,14 @@ class _DiscoverState extends State<Discover>
                   Center(
                     child: Hero(
                       tag: widget.goals[index].position,
-                      child: Image(
+                      child: SizedBox(
                         height: 280.0,
                         width: 280.0,
-                        image: AssetImage(
-                          widget.goals[index].iconImage,
+                        child: FadeInImage.assetNetwork(
+                          image: widget.goals[index].linkImage,
+                          placeholder: widget.goals[index].iconImage,
                         ),
-                        fit: BoxFit.cover,
+                        // fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -130,7 +133,7 @@ class _DiscoverState extends State<Discover>
                           ),
                         ),
                         Text(
-                          '\$${widget.goals[index].position}',
+                          '${widget.goals[index].position.toString()}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 25.0,
@@ -147,7 +150,7 @@ class _DiscoverState extends State<Discover>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          widget.goals[index].name,
+                          widget.goals[index].name.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,
@@ -155,10 +158,10 @@ class _DiscoverState extends State<Discover>
                         ),
                         SizedBox(height: 5.0),
                         Text(
-                          widget.goals[index].title,
+                          widget.goals[index].title.toString(),
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25.0,
+                            fontSize: 10.0,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -176,7 +179,7 @@ class _DiscoverState extends State<Discover>
                 elevation: 2.0,
                 fillColor: Colors.black,
                 child: Icon(
-                  Icons.add_shopping_cart,
+                  Icons.info_outline,
                   color: Colors.white,
                   size: 30.0,
                 ),
@@ -198,90 +201,16 @@ class _DiscoverState extends State<Discover>
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 60.0),
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Icon(
-                    Icons.menu,
-                    size: 30.0,
-                    color: Colors.grey,
-                  ),
-                  Icon(
-                    Icons.shopping_cart,
-                    size: 30.0,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            ),
             SizedBox(height: 20.0),
             Padding(
               padding: EdgeInsets.only(left: 30.0),
               child: Text(
-                'Top Picks',
+                'Goals',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            TabBar(
-              controller: _tabController,
-              indicatorColor: Colors.transparent,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey.withOpacity(0.6),
-              labelPadding: EdgeInsets.symmetric(horizontal: 35.0),
-              isScrollable: true,
-              tabs: <Widget>[
-                Tab(
-                  child: Text(
-                    'Top',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'Outdoor',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'Indoor',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'New Arrivals',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'Limited Edition',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
             ),
             SizedBox(height: 20.0),
             Container(
@@ -314,8 +243,9 @@ class _DiscoverState extends State<Discover>
                   ),
                   SizedBox(height: 10.0),
                   Text(
-                    widget.goals[_selectedPage].description,
-                    maxLines: 1,
+                    widget.goals[_selectedPage].description.toString() ??
+                        "Error",
+                    maxLines: 3,
                     style: TextStyle(
                       color: Colors.black87,
                       fontSize: 16.0,
