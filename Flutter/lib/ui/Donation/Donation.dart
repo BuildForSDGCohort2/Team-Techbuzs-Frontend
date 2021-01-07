@@ -2,7 +2,83 @@ import 'package:Greeneva/models/org.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter/services.dart';
+import 'Plant/onetreeplanted/widgets/carosurel.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
+  final double expandedHeight;
+  final double rounded_container_height;
+
+  DetailSliverDelegate(this.expandedHeight, this.rounded_container_height);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Hero(
+            tag: "https://techbuzs.github.io/I/A.png",
+            child: Image.network(
+              "https://techbuzs.github.io/I/A.png",
+              width: MediaQuery.of(context).size.width,
+              height: expandedHeight,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            top: expandedHeight - rounded_container_height - shrinkOffset,
+            left: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: rounded_container_height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: expandedHeight - 120 - shrinkOffset,
+            left: 30,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Donate to Help the Global Goals!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => expandedHeight;
+
+  @override
+  double get minExtent => 0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+}
 
 class Donation extends StatefulWidget {
   @override
@@ -14,6 +90,9 @@ class _DonationState extends State<Donation> {
     color: Colors.white,
     size: 50.0,
   );
+  final double expanded_height = 200;
+
+  final double rounded_container_height = 50;
   int current = 0;
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -23,101 +102,108 @@ class _DonationState extends State<Donation> {
     return result;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            elevation: 2,
-            expandedHeight: 60,
-            stretch: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network("https://techbuzs.github.io/I/A.png"),
-              stretchModes: <StretchMode>[
-                StretchMode.fadeTitle,
-                StretchMode.zoomBackground,
-                // StretchMode.fadeTitle
-              ],
-            ),
-            // stretchModes:
-            // onStretchTrigger: <StretchMode>[],
-            title: Text(
-              "Donate to Help the Global Goals!",
-              style: GoogleFonts.inter(fontSize: 20, color: Colors.black),
-            ),
+  Widget _buildSliverHead() {
+    return SliverPersistentHeader(
+      delegate: DetailSliverDelegate(
+        expanded_height,
+        rounded_container_height,
+      ),
+    );
+  }
+
+  Widget _buildDetail() {
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 16,
           ),
-          SliverFillRemaining(
-              child: Container(
-            child: Column(
-              children: [
+          Padding(
+            padding: EdgeInsets.only(left: 16, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Organizations',
+                  style: GoogleFonts.inter(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: kBlackColor),
+                ),
                 SizedBox(
-                  height: 40,
+                  height: 30,
                 ),
-                Text("Donate to Help the Global Goals!",
-                    style:
-                        GoogleFonts.inter(fontSize: 20, color: Colors.black)),
-                SizedBox(
-                  height: 16,
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Organizations',
-                        style: GoogleFonts.inter(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: kBlackColor),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        children: map<Widget>(
-                          datas,
-                          (index, selected) {
-                            return Container(
-                              alignment: Alignment.centerLeft,
-                              height: 9,
-                              width: 9,
-                              margin: EdgeInsets.only(right: 6),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: current == index
-                                      ? kBlueColor
-                                      : kTwentyBlueColor),
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 130,
-                  child: ListView.builder(
-                    itemCount: datas.length,
-                    padding: EdgeInsets.only(left: 16),
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: OperationCard(
-                            onP: () {},
-                            operation: datas[index].name,
-                            selectedIcon: datas[index].selectedIcon,
-                            context: this),
+                Row(
+                  children: map<Widget>(
+                    datas,
+                    (index, selected) {
+                      return Container(
+                        alignment: Alignment.centerLeft,
+                        height: 9,
+                        width: 9,
+                        margin: EdgeInsets.only(right: 6),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: current == index
+                                ? kBlueColor
+                                : kTwentyBlueColor),
                       );
                     },
                   ),
-                ),
+                )
               ],
             ),
-          ))
+          ),
+          Container(
+            height: 130,
+            child: ListView.builder(
+              itemCount: datas.length,
+              padding: EdgeInsets.only(left: 16),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => index == 0
+                                ? Loading1()
+                                : index == 1
+                                    ? Loading1()
+                                    : index == 2
+                                        ? Loading1()
+                                        : Loading1()));
+                  },
+                  child: OperationCard(
+                      onP: () {},
+                      operation: datas[index].name,
+                      selectedIcon: datas[index].selectedIcon,
+                      context: this),
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          CustomScrollView(
+            slivers: <Widget>[
+              _buildSliverHead(),
+              SliverToBoxAdapter(
+                child: _buildDetail(),
+              )
+            ],
+          ),
         ],
       ),
     );

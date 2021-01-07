@@ -15,7 +15,7 @@ List<OperationModel> datas = operationsData
 var operationsData = [
   {
     "name": "TechBuzs NGO",
-    "selectedIcon": "assets/stc.png",
+    "selectedIcon": "assets/g.png",
     "goals": "3",
     "info":
         "Techbuzs NGO is an NGO which aims to help achieve the Sustainable Development Goals by the UN"
@@ -23,13 +23,13 @@ var operationsData = [
   {
     "name": "OneTreePlanted",
     "goals": "15",
-    "selectedIcon": "assets/treeinit.png",
+    "selectedIcon": "assets/onetree.png",
     "info":
         "One Tree Planted is a 501 charity with a mission to help global reforestation efforts. The organization is built on a network of individuals, businesses, and schools who either donate monitarily or volunteer to help plant trees around the world. As an environmental charity, we are dedicated to making it easier for individuals and businesses to give back to the environment, create a healthier climate, protect biodiversity and help reforestation efforts around the world. All by planting trees! \n Started in 2014, we have more than doubled the number of trees planted year over year. Fast-forward to today, we now work with awesome reforestations partners in North America, South America, Asia, and Africa who help us get trees in the ground to restore forests after fires and floods, create jobs, build communities, and protect habitat for biodiversity."
   },
   {
     "name": "T.R.E.E Iniative Nigeria",
-    "selectedIcon": "assets/onetree.png",
+    "selectedIcon": "assets/treeinit.png",
     "goals": "15",
     "info":
         "The Rural Environmental Empowerment Initiative (T.R.E.E. Initiative) is a Nigerian registered non-proﬁt, non-government, non-political volunteer based advocacy organization actively committed to mitigating climate change via climate actions in thematic areas such as tree planting (afforestation, agroforestry & re-vegetation), food security and sustainable livelihood. \n As part of our climate action advocacy, T.R.E.E. Initiative have been promoting interventions particularly as regards the protection of the environment from degradation, carbon sequestration via massive tree planting, food security via the introduction and promotion of climate smart agriculture to rural smallholder farmers and promoting strategies that can sustain rural economic livelihood in communities across Nigeria."

@@ -1,169 +1,569 @@
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/more.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
+import 'package:google_fonts/google_fonts.dart';
 
-class NextP extends StatelessWidget {
+int _itemCount = 1;
+var treeplanted = "1";
+int numberOfItems = 1;
+var country = "";
+var pfinal = int.parse(treeplanted) * numberOfItems;
+String vrate;
+double car;
+
+class NextP extends StatefulWidget {
   final TreeInfo trees;
 
   const NextP({Key key, this.trees}) : super(key: key);
 
   @override
+  _NextPState createState() => _NextPState();
+}
+
+class _NextPState extends State<NextP> {
+  final double expanded_height = 400;
+  List<String> currencies;
+  String fromCurrency = "USD";
+  String toCurrency = "NGN";
+  String result;
+  final double rounded_container_height = 50;
+  Future<String> _loadCurrencies() async {
+    String uri = "https://api.exchangeratesapi.io/latest";
+    var response = await http
+        .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
+    var responseBody = json.decode(response.body);
+    Map curMap = responseBody['rates'];
+    currencies = curMap.keys.toList();
+    setState(() {});
+    print(currencies);
+    return "Success";
+  }
+
+  Future<String> lookupUserCountry() async {
+    final response = await http.get('https://api.ipregistry.co?key=tryout');
+
+    if (response.statusCode == 200) {
+      print(json.decode(response.body)['location']['country']['name']);
+      return country =
+          json.decode(response.body)['location']['country']['name'];
+    } else {
+      throw Exception('Failed to get user country from IP address');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    lookupUserCountry();
+    print(country);
+    _doConversion();
+  }
+
+  Future<String> _doConversion() async {
+    String uri =
+        "https://api.currencyfreaks.com/latest?apikey=845e68ba6781496883d437f02f804886";
+    var response = await http
+        .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
+    var responseBody = json.decode(response.body);
+    print(responseBody);
+
+    vrate = responseBody["rates"]["NGN"].toString();
+
+    print("$vrate is it");
+    vrate = vrate.replaceRange(6, vrate.length, "");
+    car = double.parse(vrate);
+    assert(car is double);
+
+    return "Success";
+  }
+
+  _onFromChanged(String value) {
+    setState(() {
+      fromCurrency = value;
+    });
+  }
+
+  _onToChanged(String value) {
+    setState(() {
+      toCurrency = value;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: <Widget>[
+          CustomScrollView(
+            slivers: <Widget>[
+              _buildSliverHead(),
+              SliverToBoxAdapter(
+                child: _buildDetail(),
+              )
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+            ),
+            child: SizedBox(
+              height: kToolbarHeight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(height: 300),
-                        Text(
-                          trees.name,
-                          style: TextStyle(
-                            fontFamily: 'Avenir',
-                            fontSize: 56,
-                            color: primaryTextColor,
-                            fontWeight: FontWeight.w900,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          'Sustainable Development Goals',
-                          style: TextStyle(
-                            fontFamily: 'Avenir',
-                            fontSize: 28,
-                            color: primaryTextColor,
-                            fontWeight: FontWeight.w300,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                        Divider(color: Colors.black38),
-                        SizedBox(height: 32),
-                        Text(
-                          trees.overview,
-                          maxLines: 8,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontFamily: 'Avenir',
-                            fontSize: 17,
-                            color: contentTextColor,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        GestureDetector(
-                          child: Text(
-                            'Read More',
-                            textAlign: TextAlign.right,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (context, a, b) => Next1(
-                                  trees: trees,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        Divider(color: Colors.black38),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 32.0),
-                    child: Text(
-                      'More Info',
-                      style: TextStyle(
-                        fontFamily: 'Avenir',
-                        fontSize: 25,
-                        color: const Color(0xff47455f),
-                        fontWeight: FontWeight.w300,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15,
                       ),
-                      textAlign: TextAlign.left,
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                  Container(
-                    height: 250,
-                    padding: const EdgeInsets.only(left: 32.0),
-                    // child: Text(trees.description),
-                    child: ListView.builder(
-                        itemCount: trees.images.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            clipBehavior: Clip.antiAlias,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Image.network(
-                                  trees.images[index],
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (BuildContext context,
-                                      Widget child,
-                                      ImageChunkEvent loadingProgress) {
-                                    if (loadingProgress == null) return child;
-                                    return Center(
-                                      child: CircularProgressIndicator(
-                                        value: loadingProgress
-                                                    .expectedTotalBytes !=
-                                                null
-                                            ? loadingProgress
-                                                    .cumulativeBytesLoaded /
-                                                loadingProgress
-                                                    .expectedTotalBytes
-                                            : null,
-                                      ),
-                                    );
-                                  },
-                                )),
-                            // child: Container(),
-                          );
-                        }),
-                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 15,
+                    ),
+                    child: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                  )
                 ],
               ),
             ),
-            Positioned(
-              right: -34,
-              child: Container(
-                  width: MediaQuery.of(context).size.width / 2,
-                  child:
-                      Hero(tag: trees, child: Image.network(trees.imagelink))),
-            ),
-            Positioned(
-              top: 60,
-              left: 32,
-              child: Text(
-                trees.name,
-                style: TextStyle(
-                  fontFamily: 'Avenir',
-                  fontSize: 247,
-                  color: primaryTextColor.withOpacity(0.08),
-                  fontWeight: FontWeight.w900,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSliverHead() {
+    return SliverPersistentHeader(
+      delegate: DetailSliverDelegate(
+        expanded_height,
+        widget.trees,
+        rounded_container_height,
+      ),
+    );
+  }
+
+  Widget _item() {
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          width: 10,
+        ),
+
+        // Image.asset("assets/flutter.png", width: 100),
+        _decrementButton(),
+        SizedBox(
+          width: 15,
+        ),
+        Text(
+          '$numberOfItems',
+          style: TextStyle(fontSize: 18.0),
+        ),
+        SizedBox(
+          width: 15,
+        ),
+
+        _incrementButton(),
+      ],
+    );
+  }
+
+  Widget _incrementButton() {
+    return FloatingActionButton(
+      child: Icon(Icons.add, color: Colors.black87),
+      backgroundColor: Colors.white,
+      onPressed: () {
+        setState(() {
+          numberOfItems++;
+        });
+      },
+    );
+  }
+
+  Widget _decrementButton() {
+    return FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            numberOfItems--;
+          });
+        },
+        child: new Icon(Icons.remove, color: Colors.black),
+        backgroundColor: Colors.white);
+  }
+
+  Widget _buildDetail() {
+    // var mymoney = vrate.toInt() * (7 * int.parse(treeplanted));
+    return Container(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "TREES PLANTED",
+                  style: GoogleFonts.inter(fontSize: 21),
                 ),
-                textAlign: TextAlign.left,
+              ),
+              TPlanted(
+                onSelected: (tree) {
+                  setState(() {
+                    treeplanted = tree;
+                  });
+                  print(tree);
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  "QTY",
+                  style: GoogleFonts.inter(fontSize: 21),
+                ),
+              ),
+              _item(),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text("Price"),
+                  ),
+                  (country) != "Nigeria"
+                      ? Text("₦" +
+                          (car.toInt() *
+                                      (numberOfItems * int.parse(treeplanted)) +
+                                  200)
+                              .toString())
+                      : Text("\$ "),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  MaterialButton(
+                    child: Text("Plant"),
+                    color: Colors.teal,
+                    onPressed: () {},
+                  )
+                ],
+              ),
+            ],
+          ),
+          _buildUserInfo("Overview"),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 15,
+            ),
+            child: Text(
+              widget.trees.overview,
+              style: TextStyle(
+                color: Colors.black38,
+                height: 1.4,
+                fontSize: 14,
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+          ),
+          _buildUserInfo("Impact"),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 15,
             ),
-          ],
-        ),
+            child: Text(
+              widget.trees.impact,
+              style: TextStyle(
+                color: Colors.black38,
+                height: 1.4,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          _buildUserInfo("Tree Species"),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 15,
+            ),
+            child: Text(
+              widget.trees.treespecies,
+              style: TextStyle(
+                color: Colors.black38,
+                height: 1.4,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: 15,
+              right: 30,
+              top: 10,
+              bottom: 10,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Featured",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    letterSpacing: 1.6,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+              height: 150,
+              child: FeaturedWidget(
+                trees: widget.trees,
+              )),
+          SizedBox(
+            height: 30,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserInfo(String info) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      child: Row(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                info,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FeaturedWidget extends StatelessWidget {
+  // List<TreeInfo> _list = ();
+  final TreeInfo trees;
+  FeaturedWidget({this.trees});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(
+        horizontal: 15,
+      ),
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        return Container(
+          height: 150,
+          width: 150,
+          margin: EdgeInsets.only(
+            right: 15,
+          ),
+          child: Image.network(
+            trees.images[index],
+            fit: BoxFit.cover,
+          ),
+        );
+      },
+      itemCount: trees.images.length,
+    );
+  }
+}
+
+class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
+  final double expandedHeight;
+  final TreeInfo tree;
+  final double rounded_container_height;
+
+  DetailSliverDelegate(
+      this.expandedHeight, this.tree, this.rounded_container_height);
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Hero(
+            tag: tree.imagelink,
+            child: Image.network(
+              tree.imagelink,
+              width: MediaQuery.of(context).size.width,
+              height: expandedHeight,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned(
+            top: expandedHeight - rounded_container_height - shrinkOffset,
+            left: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: rounded_container_height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: expandedHeight - 120 - shrinkOffset,
+            left: 30,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  tree.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                  ),
+                ),
+                Text(
+                  tree.country + "," + tree.region,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => expandedHeight;
+
+  @override
+  double get minExtent => 0;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
+    return true;
+  }
+}
+
+class TPlanted extends StatefulWidget {
+  // final List TPlanteds;
+  final Function(String) onSelected;
+  TPlanted({this.onSelected});
+
+  @override
+  _TPlantedState createState() => _TPlantedState();
+}
+
+class _TPlantedState extends State<TPlanted> {
+  int _selected = 0;
+  var planted = ["1", "20", "60", "100"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 20.0,
+      ),
+      child: Row(
+        children: [
+          for (var i = 0; i < 4; i++)
+            GestureDetector(
+              onTap: () {
+                widget.onSelected("${planted[i]}");
+                setState(() {
+                  _selected = i;
+                });
+              },
+              child: Container(
+                width: 42.0,
+                height: 42.0,
+                decoration: BoxDecoration(
+                  color: _selected == i
+                      ? Theme.of(context).accentColor
+                      : Color(0xFFDCDCDC),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 4.0,
+                ),
+                child: Text(
+                  "${planted[i]}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: _selected == i ? Colors.white : Colors.black,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ),
+            )
+        ],
+      ),
+    );
+  }
+}
+
+class ListTileItem extends StatefulWidget {
+  @override
+  _ListTileItemState createState() => new _ListTileItemState();
+}
+
+class _ListTileItemState extends State<ListTileItem> {
+  // int _itemCount = 0;
+  @override
+  Widget build(BuildContext context) {
+    return new ListTile(
+      // title: new Text("widgettitle"),
+      trailing: new Row(
+        children: <Widget>[
+          _itemCount != 0
+              ? new IconButton(
+                  icon: new Icon(Icons.remove),
+                  onPressed: () => setState(() => _itemCount--),
+                )
+              : new Container(),
+          new Text(_itemCount.toString()),
+          new IconButton(
+              icon: new Icon(Icons.add),
+              onPressed: () => setState(() => _itemCount++))
+        ],
       ),
     );
   }
