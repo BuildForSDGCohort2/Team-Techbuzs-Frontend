@@ -86,7 +86,11 @@ class _ThemePState extends State<ThemeP> with SingleTickerProviderStateMixin {
               Text(
                 'Choose a style',
                 style: TextStyle(
-                    fontSize: width * .06, fontWeight: FontWeight.bold),
+                    fontSize: width * .06,
+                    fontWeight: FontWeight.bold,
+                    color: themeProvider.isLightTheme
+                        ? Colors.black
+                        : Colors.white),
               ),
               SizedBox(height: height * 0.03),
               Container(
@@ -94,6 +98,10 @@ class _ThemePState extends State<ThemeP> with SingleTickerProviderStateMixin {
                 child: Text(
                   'Pop or subtle. Day or night. Customize your interface',
                   textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: themeProvider.isLightTheme
+                          ? Colors.black
+                          : Colors.white),
                 ),
               ),
               SizedBox(height: height * 0.1),

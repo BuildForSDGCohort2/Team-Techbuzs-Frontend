@@ -165,9 +165,11 @@ packages:
   ff_navigation_bar:
     dependency: "direct main"
     description:
-      name: ff_navigation_bar
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: e09b839444d3126046cd0426eee4752e28c43397
+      url: "git://github.com/DEVSOG12/Flutter-FFNavigationBar.git"
+    source: git
     version: "0.1.5"
   file:
     dependency: transitive

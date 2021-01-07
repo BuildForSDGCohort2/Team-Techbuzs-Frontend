@@ -26,68 +26,99 @@ class _DonationState extends State<Donation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            elevation: 2,
+            expandedHeight: 60,
+            stretch: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.network("https://techbuzs.github.io/I/A.png"),
+              stretchModes: <StretchMode>[
+                StretchMode.fadeTitle,
+                StretchMode.zoomBackground,
+                // StretchMode.fadeTitle
+              ],
             ),
-            Text("Donate to Help the Global Goals!",
-                style: GoogleFonts.inter(fontSize: 20, color: Colors.black)),
-            Padding(
-              padding:
-                  EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    'Organizations',
-                    style: GoogleFonts.inter(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: kBlackColor),
+            // stretchModes:
+            // onStretchTrigger: <StretchMode>[],
+            title: Text(
+              "Donate to Help the Global Goals!",
+              style: GoogleFonts.inter(fontSize: 20, color: Colors.black),
+            ),
+          ),
+          SliverFillRemaining(
+              child: Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 40,
+                ),
+                Text("Donate to Help the Global Goals!",
+                    style:
+                        GoogleFonts.inter(fontSize: 20, color: Colors.black)),
+                SizedBox(
+                  height: 16,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Organizations',
+                        style: GoogleFonts.inter(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                            color: kBlackColor),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        children: map<Widget>(
+                          datas,
+                          (index, selected) {
+                            return Container(
+                              alignment: Alignment.centerLeft,
+                              height: 9,
+                              width: 9,
+                              margin: EdgeInsets.only(right: 6),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: current == index
+                                      ? kBlueColor
+                                      : kTwentyBlueColor),
+                            );
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                  Row(
-                    children: map<Widget>(
-                      datas,
-                      (index, selected) {
-                        return Container(
-                          alignment: Alignment.centerLeft,
-                          height: 9,
-                          width: 9,
-                          margin: EdgeInsets.only(right: 6),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: current == index
-                                  ? kBlueColor
-                                  : kTwentyBlueColor),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Container(
+                  height: 130,
+                  child: ListView.builder(
+                    itemCount: datas.length,
+                    padding: EdgeInsets.only(left: 16),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: OperationCard(
+                            onP: () {},
+                            operation: datas[index].name,
+                            selectedIcon: datas[index].selectedIcon,
+                            context: this),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-            Container(
-              height: 130,
-              child: ListView.builder(
-                itemCount: datas.length,
-                padding: EdgeInsets.only(left: 16),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: OperationCard(
-                        onP: () {},
-                        operation: datas[index].name,
-                        selectedIcon: datas[index].selectedIcon,
-                        context: this),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ))
+        ],
       ),
     );
   }

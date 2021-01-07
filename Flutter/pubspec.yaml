@@ -65,6 +65,7 @@ dependencies:
   websafe_svg: ^1.1.4
   flutter_spinkit: ^4.1.2+1
   ff_navigation_bar:
+    git: git://github.com/DEVSOG12/Flutter-FFNavigationBar.git
   line_awesome_flutter: 
   flutter_screenutil: 
   animated_theme_switcher:
@@ -101,8 +102,5 @@ flutter:
     - assets/svgs/
     - assets/logo/
     - assets/SDGs/
+    - assets/nav/
 
-  fonts:
-    - family: AppIcons
-      fonts: 
-        - asset: Fonts/AppIcons.ttf

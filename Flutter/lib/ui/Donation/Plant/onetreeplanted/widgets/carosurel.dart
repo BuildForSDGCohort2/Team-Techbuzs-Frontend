@@ -3,6 +3,7 @@ import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/screen1.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/widgets/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
@@ -26,10 +27,15 @@ List<TreeInfo> parseGoalss(String responseBody) {
   return parsed.map<TreeInfo>((json) => TreeInfo.fromJson(json)).toList();
 }
 
+String selectedCategorie = "OneTreePlanted";
+
 class Loading1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // bool country;
+    var spinkit = SpinKitCircle(
+      color: Colors.amber,
+    );
 
     return FutureBuilder<List<TreeInfo>>(
       future: fetchGoals(http.Client()),
@@ -38,13 +44,45 @@ class Loading1 extends StatelessWidget {
 
         return snapshot.hasData
             ? Carousel(tree: snapshot.data)
-            : Scaffold(
-                body: Container(
-                    child: Center(
-                        child: CircularProgressIndicator(
-                backgroundColor: Colors.greenAccent,
-              ))));
+            : Scaffold(body: Container(child: Center(child: spinkit)));
       },
+    );
+  }
+}
+
+class CategorieTile extends StatefulWidget {
+  final String categorie;
+  final bool isSelected;
+  final _CarouselState context;
+  CategorieTile({this.categorie, this.isSelected, this.context});
+
+  @override
+  _CategorieTileState createState() => _CategorieTileState();
+}
+
+class _CategorieTileState extends State<CategorieTile> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        widget.context.setState(() {
+          selectedCategorie = widget.categorie;
+        });
+      },
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        margin: EdgeInsets.only(left: 8),
+        height: 30,
+        decoration: BoxDecoration(
+            color: widget.isSelected ? Color(0xffFFD0AA) : Colors.white,
+            borderRadius: BorderRadius.circular(30)),
+        child: Text(
+          widget.categorie,
+          style: TextStyle(
+              color: widget.isSelected ? Color(0xffFC9535) : Color(0xffA1A1A1)),
+        ),
+      ),
     );
   }
 }
@@ -86,6 +124,7 @@ class _CarouselState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     // bool showonet = false;
+    List<String> titles = ["OneTreePlanted", "T.R.E.E Initiative"];
 
     return Scaffold(
       appBar: AppBar(
@@ -94,19 +133,32 @@ class _CarouselState extends State<Carousel> {
         backgroundColor: Colors.accents[3],
       ),
       body: SafeArea(
-        child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 30.0),
-          children: <Widget>[
-            Center(
-              child: CupertinoButton(
-                color: Colors.amber,
-                child: Text('Plant With OneTreePlanted'),
-                onPressed: !viewVisible ? showWidget : hideWidget,
-              ),
+        child: Column(
+          children: [
+            Container(
+              height: 30,
+              child: ListView.builder(
+                  itemCount: titles.length,
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return CategorieTile(
+                      categorie: titles[index],
+                      isSelected: selectedCategorie == titles[index],
+                      context: this,
+                    );
+                  }),
             ),
+            Text('Plant With OneTreePlanted'),
             // print(showonet),
-            Visibility(
-                visible: viewVisible, child: Carousel1(tree: widget.tree))
+            selectedCategorie == "OneTreePlanted"
+                ? Carousel1(tree: widget.tree)
+                : selectedCategorie == "T.R.E.E Initiative"
+                    ? Container()
+                    : SizedBox(
+                        height: 0,
+                      )
           ],
         ),
       ),

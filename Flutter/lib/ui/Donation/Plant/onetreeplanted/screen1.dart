@@ -85,15 +85,6 @@ class _DetailPState extends State<DetailP> {
   // ignore: deprecated_member_use
   List<TreeInfo> _notes = List<TreeInfo>();
 
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
-    }
-    stars.trim();
-    return Text(stars);
-  }
-
   // ignore: unused_element
   _searchBar() {
     return Padding(
@@ -136,14 +127,18 @@ class _DetailPState extends State<DetailP> {
                     ),
                 child: Hero(
                   tag: widget.destination == "North America"
-                      ? 'https://cdn.shopify.com/s/files/1/0326/7189/collections/NORTH_AMERICA_7e760cad-7caf-467f-a412-223a9123cf99_200x.jpg'
+                      ? 'https://techbuzs.github.io/OTP/North.jpg'
                       : widget.destination == "Latin America"
-                          ? ''
+                          ? 'https://techbuzs.github.io/OTP/Latin.jpg'
                           : widget.destination == 'Africa'
-                              ? ''
-                              : widget.destination == 'Asia & Australia'
-                                  ? ''
-                                  : '',
+                              ? 'https://techbuzs.github.io/OTP/Africa.jpg'
+                              : widget.destination == 'Asia'
+                                  ? 'https://techbuzs.github.io/OTP/Asia.jpg'
+                                  : widget.destination == 'Europe'
+                                      ? "https://techbuzs.github.io/OTP/Europe.jpg"
+                                      : widget.destination == "The Pacific"
+                                          ? "https://techbuzs.github.io/OTP/pacific.png"
+                                          : "https://techbuzs.github.io/OTP/USDA.jpg",
                   child: Container(
                     constraints: BoxConstraints(
                         // maxWidth: 250.0,
@@ -171,14 +166,19 @@ class _DetailPState extends State<DetailP> {
                         },
                         image: NetworkImage(
                           widget.destination == "North America"
-                              ? 'https://cdn.shopify.com/s/files/1/0326/7189/collections/NORTH_AMERICA_7e760cad-7caf-467f-a412-223a9123cf99_200x.jpg'
+                              ? 'https://techbuzs.github.io/OTP/North.jpg'
                               : widget.destination == "Latin America"
-                                  ? 'https://cdn.shopify.com/s/files/1/0326/7189/collections/9_200x.jpg'
+                                  ? 'https://techbuzs.github.io/OTP/Latin.jpg'
                                   : widget.destination == 'Africa'
-                                      ? 'https://cdn.shopify.com/s/files/1/0326/7189/collections/africa2_200x.jpg'
-                                      : widget.destination == 'Asia & Australia'
-                                          ? 'https://cdn.shopify.com/s/files/1/0326/7189/collections/4_200x.jpg'
-                                          : 'https://cdn.shopify.com/s/files/1/0326/7189/collections/africa2_200x.jpg',
+                                      ? 'https://techbuzs.github.io/OTP/Africa.jpg'
+                                      : widget.destination == 'Asia'
+                                          ? 'https://techbuzs.github.io/OTP/Asia.jpg'
+                                          : widget.destination == 'Europe'
+                                              ? "https://techbuzs.github.io/OTP/Europe.jpg"
+                                              : widget.destination ==
+                                                      "The Pacific"
+                                                  ? "https://techbuzs.github.io/OTP/pacific.png"
+                                                  : "https://techbuzs.github.io/OTP/USDA.jpg",
                         ),
                       ),
                     ),
@@ -334,7 +334,6 @@ class _DetailPState extends State<DetailP> {
                                   color: Colors.grey,
                                 ),
                               ),
-                              _buildRatingStars(4),
                               SizedBox(height: 10.0),
                               Row(
                                 children: <Widget>[

@@ -1,16 +1,10 @@
-// import 'package:Greeneva/Services/navigation_service.dart';
-// ignore: unused_import
-import 'package:Greeneva/constants/my_flutter_app_icons.dart';
 import 'package:Greeneva/ui/Account/Account.dart';
 import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Home/wait_view.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
-// import 'package:Greeneva/ui/Home/home_screen.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter/material.dart';
-
-// import '../../locator.dart';
 
 class NavBar extends StatefulWidget {
   NavBar({Key key, this.title}) : super(key: key);
@@ -69,27 +63,32 @@ class _NavBarState extends State<NavBar> {
         items: [
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
-            iconData: Oreofe.nav_home,
+            // iconData: Oreofe.nav_home,
+            svgasset: "assets/nav/nav_home.svg",
             label: 'Home',
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
-            iconData: Oreofe.nav_discover,
+            // iconData: Oreofe.nav_discover,
+            svgasset: "assets/nav/nav_discover.svg",
             label: 'Discover',
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
-            iconData: Oreofe.nav_community,
+            // iconData: Oreofe.nav_community,
+            svgasset: "assets/nav/nav_community.svg",
             label: 'Community',
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
-            iconData: Oreofe.nav_donation,
+            // iconData: Oreofe.nav_donation,
+            svgasset: "assets/nav/nav_donation.svg",
             label: 'Donation',
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
-            iconData: Oreofe.nav_user,
+            // iconData: Oreofe.nav_user,
+            svgasset: "assets/nav/nav_user.dart",
             label: 'Account',
           ),
         ],

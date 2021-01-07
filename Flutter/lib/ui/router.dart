@@ -81,11 +81,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: Account(),
       );
 
-    case HomeViewRoute:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: HomePage(),
-      );
+    // case HomeViewRoute:
+    //   return _getPageRoute(
+    //     routeName: settings.name,
+    //     viewToShow: HomePage(),
+    //   );
     case OnBoarding:
       return _getPageRoute(
         routeName: settings.name,

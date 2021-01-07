@@ -112,8 +112,10 @@ class _DiscoverState extends State<Discover>
                         height: 280.0,
                         width: 280.0,
                         child: FadeInImage.assetNetwork(
-                          image: widget.goals[index].linkImage,
-                          placeholder: widget.goals[index].iconImage,
+                          image: widget.goals[index].linkImage ??
+                              "https://techbuzs.github.io/SDG/sdg2.gif",
+                          placeholder: widget.goals[index].iconImage ??
+                              "assets/SDGs/sdg1.png",
                         ),
                         // fit: BoxFit.cover,
                       ),
