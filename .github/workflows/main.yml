@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: master
       - name: Reset master branch
         run: |
           git fetch origin develop:develop
