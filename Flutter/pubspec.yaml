@@ -53,6 +53,7 @@ dependencies:
 
   # App Features
   dart_ipify:
+  device_info:
   geolocator:
   geocoder: ^0.2.1
   graphql_flutter: ^3.1.0

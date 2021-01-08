@@ -1,12 +1,19 @@
-import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
 
+import 'dart:io';
+import 'package:Greeneva/Services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:device_info/device_info.dart';
+import 'package:flutter/services.dart';
+
 import 'package:http/http.dart' as http;
 
 String backendUrl = 'https://sdgfortb.herokuapp.com/paystack';
+final user = FirebaseAuth.instance.currentUser;
 // Set this to a public key that matches the secret key you supplied while creating the heroku instance
 String paystackPublicKey = 'pk_live_b45cc4b29a81090d3ecb50b74cc4797d3893e840';
 String kTpaystackPublicKey = 'pk_test_fbb50baa301b6d403f5c13b678a638c57e652061';
@@ -16,6 +23,7 @@ const String appName = 'Paystack Example';
 class LocalPayment extends StatefulWidget {
   final double amount;
   final String quantity;
+  final String donation;
   final bool isrecurring;
   final int treeplanted;
 
@@ -23,6 +31,7 @@ class LocalPayment extends StatefulWidget {
     Key key,
     this.amount,
     this.quantity,
+    this.donation,
     this.isrecurring,
     this.treeplanted,
   }) : super(key: key);
@@ -31,12 +40,85 @@ class LocalPayment extends StatefulWidget {
 }
 
 class _LocalPaymentState extends State<LocalPayment> {
+  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
   @override
   void initState() {
     PaystackPlugin.initialize(publicKey: paystackPublicKey);
     super.initState();
+    initPlatformState();
   }
 
+  Future<void> initPlatformState() async {
+    Map<String, dynamic> deviceData = <String, dynamic>{};
+
+    try {
+      if (Platform.isAndroid) {
+        deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+      } else if (Platform.isIOS) {
+        deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+      }
+    } on PlatformException {
+      deviceData = <String, dynamic>{
+        'Error:': 'Failed to get platform version.'
+      };
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _deviceData = deviceData;
+    });
+  }
+
+  Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
+    return <String, dynamic>{
+      'version.securityPatch': build.version.securityPatch,
+      'version.sdkInt': build.version.sdkInt,
+      'version.release': build.version.release,
+      'version.previewSdkInt': build.version.previewSdkInt,
+      'version.incremental': build.version.incremental,
+      'version.codename': build.version.codename,
+      'version.baseOS': build.version.baseOS,
+      'board': build.board,
+      'bootloader': build.bootloader,
+      'brand': build.brand,
+      'device': build.device,
+      'display': build.display,
+      'fingerprint': build.fingerprint,
+      'hardware': build.hardware,
+      'host': build.host,
+      'id': build.id,
+      'manufacturer': build.manufacturer,
+      'model': build.model,
+      'product': build.product,
+      'supported32BitAbis': build.supported32BitAbis,
+      'supported64BitAbis': build.supported64BitAbis,
+      'supportedAbis': build.supportedAbis,
+      'tags': build.tags,
+      'type': build.type,
+      'isPhysicalDevice': build.isPhysicalDevice,
+      'androidId': build.androidId,
+      'systemFeatures': build.systemFeatures,
+    };
+  }
+
+  Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
+    return <String, dynamic>{
+      'name': data.name,
+      'systemName': data.systemName,
+      'systemVersion': data.systemVersion,
+      'model': data.model,
+      'localizedModel': data.localizedModel,
+      'identifierForVendor': data.identifierForVendor,
+      'isPhysicalDevice': data.isPhysicalDevice,
+      'utsname.sysname:': data.utsname.sysname,
+      'utsname.nodename:': data.utsname.nodename,
+      'utsname.release:': data.utsname.release,
+      'utsname.version:': data.utsname.version,
+      'utsname.machine:': data.utsname.machine,
+    };
+  }
   // final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   static const _method = ["Card", "Bank"];
@@ -132,12 +214,19 @@ class _LocalPaymentState extends State<LocalPayment> {
     var user = a.email;
     var name = a.displayName;
 
-    String url =
-        '$backendUrl/new-access-code?email=${user ?? "oreofesolarin@gmail.com"}&amount=${widget.amount}&name=${name ?? "No Name"}&reference=$reference';
+    String url = '$backendUrl/new-access-code';
     String accessCode;
     try {
       print("Access code url = $url");
-      http.Response response = await http.get(url);
+      http.Response response = await http.post(
+        url,
+        body: jsonEncode(<String, dynamic>{
+          "email": user,
+          "name": name,
+          "reference": reference,
+          "amount": widget.amount
+        }),
+      );
       accessCode = response.body;
       print('Response for access code = $accessCode');
     } catch (e) {
@@ -151,6 +240,24 @@ class _LocalPaymentState extends State<LocalPayment> {
     return accessCode;
   }
 
+  String whatD() {
+    if (widget.donation.contains("Tree")) {
+      return "Plant A Tree";
+    } else if (widget.donation.contains("Donation")) {
+      return "Make A Donation to An NGO";
+    }
+    return "Donation";
+  }
+
+  String donat() {
+    if (widget.donation.contains("Plant")) {
+      return "This is a Payment Made Through Greeneva to $whatD()}. Thank You for participating to making the world a better Place";
+    } else if (widget.donation.contains("Donation")) {
+      return "This is a Payment Made Through Greeneva to $whatD()}. Thank You for participating to making the world a better Place. And Help the NGO ";
+    }
+    return "Donation";
+  }
+
   _chargeCard(Charge charge) async {
     final response = await PaystackPlugin.chargeCard(context, charge: charge);
 
@@ -159,6 +266,14 @@ class _LocalPaymentState extends State<LocalPayment> {
     // Checking if the transaction is successful
     if (response.status) {
       _verifyOnServer(reference);
+      FirestoreService().addPayment(
+          user.uid,
+          "Local Payment Made by Paystack to ${whatD()}",
+          widget.donation,
+          widget.isrecurring,
+          widget.amount,
+          donat(),
+          "");
       return;
     }
 
@@ -245,6 +360,6 @@ class _LocalPaymentState extends State<LocalPayment> {
       platform = 'Android';
     }
 
-    return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch}';
+    return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch} on The Greeneva App and ${isR()}';
   }
 }
