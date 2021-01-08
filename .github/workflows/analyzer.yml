@@ -13,6 +13,9 @@ jobs:
   build:
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Flutter
     steps:
 
       # Setup Java environment in order to build the Android app.
