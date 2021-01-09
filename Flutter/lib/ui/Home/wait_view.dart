@@ -23,7 +23,7 @@ class Wait extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            model.goals == null ? spinkit : HomeScreen(vid: model.goals),
+            model.goals == null ? Center(child: spinkit) : HomeScreen(vid: model.goals),
           ],
         ),
       )),

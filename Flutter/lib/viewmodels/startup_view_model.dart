@@ -1,6 +1,7 @@
 import 'package:Greeneva/Services/authenication_service.dart';
+import 'package:Greeneva/Services/dynamic_link.dart';
 import 'package:Greeneva/Services/navigation_service.dart';
-// import 'package:Greeneva/Services/remote_config_service.dart';
+import 'package:Greeneva/Services/push_not.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:Greeneva/locator.dart';
 
@@ -10,23 +11,16 @@ class StartUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final NavigationServiceM _navigationService = locator<NavigationServiceM>();
-  // final PushNotificationService _pushNotificationService =
-  //     locator<PushNotificationService>();
-  //TODO Work on dynamic Links
-  // final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
-  // final RemoteConfigService _remoteConfigService =
-  //     locator<RemoteConfigService>();
-
-  // Timer(Duration(seconds: 5), () => )\
+    final PushNotificationService _pushNotificationService =
+      locator<PushNotificationService>();
+  final DynamicLinkService _dynamicLinkService = locator<DynamicLinkService>();
 
   Future handleStartUpLogic() async {
-    // await _dynamicLinkService.handleDynamicLinks();
-    // await _remoteConfigService.initialise();
-
-    // Register for push notifications
-    // await _pushNotificationService.initialise();
-    print("Are u here");
-
+    /// Handle Dynamic Link Before the App Start 
+ await _dynamicLinkService.handleDynamicLinks();
+    
+    /// And Also Register for push notifications
+    await _pushNotificationService.initialise();
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
 
     if (hasLoggedInUser ?? false) {

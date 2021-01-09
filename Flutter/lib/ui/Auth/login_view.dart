@@ -31,7 +31,7 @@ class LoginView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 40.0, top: 40),
                       child: Text(
-                        'Sign Up',
+                        'Sign In',
                         style: TextStyle(
                           fontFamily: 'Cardo',
                           fontSize: 35,
@@ -47,7 +47,7 @@ class LoginView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 40, top: 5),
                       child: Text(
-                        'Sign up with',
+                        'Sign In with',
                         style: TextStyle(
                           fontFamily: 'Nunito Sans',
                           fontSize: 15,
@@ -69,7 +69,7 @@ class LoginView extends StatelessWidget {
                         Newbutton(
                           onP: () => LoginViewModel().googlelogin(),
                           char:
-                              'https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/37468251556105321-512.png',
+                              'https://techbuzs.github.io/I/Google.png',
                         ),
                         SizedBox(
                           width: 25,
@@ -77,7 +77,7 @@ class LoginView extends StatelessWidget {
                         Newbutton(
                           onP: () => LoginViewModel().facebooklogin(),
                           char:
-                              'https://1000logos.net/wp-content/uploads/2016/11/Facebook-logo-500x350.png',
+                              'https://techbuzs.github.io/I/FB.png',
                         ),
                         SizedBox(
                           width: 25,
@@ -85,7 +85,7 @@ class LoginView extends StatelessWidget {
                         Newbutton(
                           onP: () => model.twitterlogin(),
                           char:
-                              'https://logos-world.net/wp-content/uploads/2020/04/Twitter-Logo.png',
+                              'https://techbuzs.github.io/I/Twitter-Logo.png',
                         )
                       ],
                     ),
@@ -99,7 +99,7 @@ class LoginView extends StatelessWidget {
                   //
                   MyCustomInputBox(
                     label: 'Email',
-                    inputHint: 'example@example.com',
+                    inputHint: 'juwonr@greeneva.com',
                     kTextEditingController: emailController,
                   ),
                   //
@@ -110,7 +110,7 @@ class LoginView extends StatelessWidget {
                   MyCustomInputBox(
                     label: 'Password',
                     kTextEditingController: passwordController,
-                    inputHint: '8+ Characters,1 Capital letter',
+                    inputHint: '',
                   ),
                   //
                   SizedBox(
@@ -147,7 +147,7 @@ class LoginView extends StatelessWidget {
                             ),
                             child: Center(
                               child: Text(
-                                'Create an Account',
+                                'Login',
                                 style: TextStyle(
                                   fontFamily: 'ProductSans',
                                   fontSize: 20,

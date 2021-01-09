@@ -24,10 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // AnimationController _ColorAnimationController;
-  // AnimationController _TextAnimationController;
-  // Animation _colorTween, _iconColorTween;
-  // Animation<Offset> _transTween;
+ 
 
   int current = 0;
 
@@ -40,34 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return result;
   }
-
-  @override
-  void initState() {
-    // _ColorAnimationController =
-    //     AnimationController(vsync: this, duration: Duration(seconds: 0));
-    // _colorTween = ColorTween(begin: Colors.transparent, end: Color(0xFFee4c4f))
-    //     .animate(_ColorAnimationController);
-    // _iconColorTween = ColorTween(begin: Colors.grey, end: Colors.white)
-    //     .animate(_ColorAnimationController);
-
-    // _TextAnimationController =
-    //     AnimationController(vsync: this, duration: Duration(seconds: 0));
-
-    // _transTween = Tween(begin: Offset(-10, 40), end: Offset(-10, 0))
-    //     .animate(_TextAnimationController);
-    super.initState();
-    print("I'm Here");
-  }
-
-  // bool _scrollListener(ScrollNotification scrollInfo) {
-  //   if (scrollInfo.metrics.axis == Axis.vertical) {
-  //     _ColorAnimationController.animateTo(scrollInfo.metrics.pixels / 350);
-
-  //     _TextAnimationController.animateTo(
-  //         (scrollInfo.metrics.pixels - 350) / 50);
-  //     return true;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -120,30 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          // Container(
-          //   height: 80,
-          //   child: AnimatedBuilder(
-          //     animation: _ColorAnimationController,
-          //     builder: (context, child) => AppBar(
-          //       backgroundColor: _colorTween.value,
-          //       elevation: 0,
-          //       titleSpacing: 0.0,
-          //       title: Transform.translate(
-          //         offset: _transTween.value,
-          //         child: Text(
-          //           'Good ${greeting()}',
-          //           style: TextStyle(
-          //               color: Colors.white,
-          //               fontWeight: FontWeight.bold,
-          //               fontSize: 16),
-          //         ),
-          //       ),
-          //       iconTheme: IconThemeData(
-          //         color: _iconColorTween.value,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          
           SizedBox(
             height: 20,
           ),
@@ -246,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: EdgeInsets.only(left: 16, bottom: 13, top: 29, right: 10),
             child: Text(
-              'Top Communities',
+              'To Do..',
               style: GoogleFonts.inter(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
@@ -291,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: AssetImage("assets/g.png"),
+                                image: NetworkImage("https://techbuzs.github.io/I/tree.png"),
                               ),
                             ),
                           ),
@@ -310,28 +256,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w700,
                                     color: kBlackColor),
                               ),
-                              Text(
-                                "",
-                                // transactions[index].date,
-                                style: GoogleFonts.inter(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: kGreyColor),
-                              )
+                              
                             ],
                           )
                         ],
                       ),
                       Row(
                         children: <Widget>[
-                          Text(
-                            "",
-                            // transactions[index].amount,
-                            style: GoogleFonts.inter(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                                color: kBlueColor),
-                          )
+                         Text("The true meaning of life is to plant trees, under whose shade you do not expect to sit.", style: TextStyle(fontSize: 9),)
                         ],
                       )
                     ],

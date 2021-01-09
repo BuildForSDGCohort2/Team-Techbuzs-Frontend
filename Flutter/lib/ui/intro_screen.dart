@@ -1,12 +1,10 @@
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/constants/routename.dart';
-// import ''
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 
-// import 'package:';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -109,7 +107,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           title:
               "Location Servies \n Accept Location Permission to have a better experience with the app",
           // body: "",
-          bodyWidget: MaterialButton(
+          bodyWidget: CupertinoButton(
               child: Text("Enable Now"),
               color: Colors.green,
               onPressed: () async {

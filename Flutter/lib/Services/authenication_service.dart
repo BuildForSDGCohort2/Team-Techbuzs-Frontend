@@ -53,6 +53,8 @@ class AuthenticationService {
   Future<UserCredential> signInWithTwitter() async {
     var me;
     // Create a TwitterLogin instance
+    /// Not Very Sure if this are Safe On GitHUb
+    ///  Will Recheck and .....
     final TwitterLogin twitterLogin = new TwitterLogin(
       consumerKey: 'pRsGZkKEgMFwbij8NgFcCgQi9',
       consumerSecret: 'fXSLtaBrdgBK6pikRLi96ILd3xKZZKxvlPh0xadCirR9fetoDX',
@@ -105,7 +107,8 @@ class AuthenticationService {
       id: user.uid,
       email: user.email,
       fullName: user.displayName,
-      location: "locality",
+      /// For Now We don't really need to Commit This to Firestore
+      // location: "locality",
     );
     // Create a new credential
     try {
@@ -158,10 +161,10 @@ class AuthenticationService {
           // ignore: unnecessary_statements
           : {};
       EmailService().sendtrans('Thank You for Creating an Account ',
-          email != null ? email : authResult.user.email, name);
+          email != null ? email ?? "techbuzsgroup@gmail.com" : authResult.user.email ?? "techbuzsgroup@gmail.com", name ?? "No Name");
       await _analyticsService.setUserProperties(
         userId: authResult.user.uid,
-        name: _currentUser.location,
+        name: _currentUser.location ?? "Nigeria ))",
       );
 
       return authResult.user != null;
@@ -172,7 +175,8 @@ class AuthenticationService {
 
   Future<bool> isUserLoggedIn() async {
     var user = _firebaseAuth.currentUser;
-    //await _populateCurrentUser(user);
+   /// ignore: unnecessary_statements
+   user !=null ?  await _populateCurrentUser(user) :{};
     return user != null;
   }
 
@@ -184,5 +188,6 @@ class AuthenticationService {
         name: _currentUser.location,
       );
     }
+    print("I can't Do Nothing ");
   }
 }

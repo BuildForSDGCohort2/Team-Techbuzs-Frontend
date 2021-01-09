@@ -19,30 +19,29 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:Greeneva/Services/theme_provider.dart';
 
 void main() async {
+  /// Initialize WidgetBinding For Some Packages
+  /// This is need to ensure app does not crash
   WidgetsFlutterBinding.ensureInitialized();
+  /// Firebase Requires that the app has to initialize before any of the Firebase Services are called
+  /// It is asynchronous so it has to be awaited
   await Firebase.initializeApp();
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // var token = prefs.getString('token');
-
-  // HttpLink httpLink = HttpLink(uri: 'https://communityfortb.herokuapp.com/');
-
-  // ValueNotifier<GraphQLClient> client = ValueNotifier(
-  //   GraphQLClient(cache: InMemoryCache(), link: httpLink),
-  // );
-
+  /// Using Hive Right Here I seem this is unnecessary Shared Preferences does better 
+  /// So.... In future updates this should be looked at and changed :)
   final appDocumentDirectory =
       await pathProvider.getApplicationDocumentsDirectory();
-
   Hive.init(appDocumentDirectory.path);
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-//  var token = prefs.getString('token');
+  /// Setting up Hive 
   final settings = await Hive.openBox('settings');
+  /// Light theme boolean is set to as false by defeult 
   bool isLightTheme = settings.get('isLightTheme') ?? false;
-  // // Register all the models and services before the app starts
+
+  /// Register all the models and services before the app starts
+  /// The Locator is called to initaize all Models And Services
   await setupLocator();
-  print("Models Done");
-  print(isLightTheme);
-  runApp(ChangeNotifierProvider(
+  runApp(
+    /// I'm still a baby in using Provider 
+    /// But Here it is  :) 
+    ChangeNotifierProvider(
       create: (_) => ThemeProvider(isLightTheme: isLightTheme),
       child: AppStart()));
   // runApp(App(auth: token != null, client: client));
@@ -55,6 +54,7 @@ class AppStart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+// to ensure we have the themeProvider before the app starts lets make a few more changes.
     ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
     return MyApp(
       themeProvider: themeProvider,
@@ -62,80 +62,19 @@ class AppStart extends StatelessWidget {
   }
 }
 
-// class RestartWidget extends StatefulWidget {
-//   RestartWidget({this.child});
-
-//   final Widget child;
-
-//   static void restartApp(BuildContext context) {
-//     context.findAncestorStateOfType<_RestartWidgetState>().restartApp();
-//   }
-
-//   @override
-//   _RestartWidgetState createState() => _RestartWidgetState();
-// }
-
-// class _RestartWidgetState extends State<RestartWidget> {
-//   Key key = UniqueKey();
-
-//   void restartApp() {
-//     setState(() {
-//       key = UniqueKey();
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return KeyedSubtree(
-//       key: key,
-//       child: widget.child,
-//     );
-//   }
-// }
-
-// class App extends StatelessWidget {
-//   final bool auth;
-//   final client;
-//   final ThemeProvider themeProvider;
-
-//   App({this.auth = false, this.client, this.themeProvider});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GraphQLProvider(
-//       client: client,
-//       child: MyApp(
-//         auth: auth,
-//         themeProvider: themeProvider,
-//       ),
-//     );
-//   }
-// }
 
 class MyApp extends StatefulWidget with WidgetsBindingObserver {
-  // This widget is the root of your application.
-  // final bool auth;
+
   final ThemeProvider themeProvider;
 
-  const MyApp({Key key, @required this.themeProvider}) : super(key: key);
+  const MyApp({Key key, @required   this.themeProvider}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-// Future setinfodat(bool kauth) async {
-//   SharedPreferences prefs = await SharedPreferences.getInstance();
-//   await prefs.setBool('info', kauth);
-// }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-    print("Hello World");
-    // setinfodat(widget.auth);
-    // print(widget.auth);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,7 +88,7 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: locator<NavigationServiceM>().navigationKey,
       navigatorObservers: [locator<AnalyticsService>().getAnalyticsObserver()],
       debugShowCheckedModeBanner: false,
-      // theme: widget.themeProvider.themeData(),
+      theme: widget.themeProvider.themeData(),
       home: StartUpView(),
       onGenerateRoute: generateRoute,
     );

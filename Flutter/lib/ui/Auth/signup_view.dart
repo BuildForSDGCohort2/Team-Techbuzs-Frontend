@@ -1,5 +1,7 @@
+import 'package:Greeneva/ui/Auth/login_view.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:Greeneva/viewmodels/signup_view_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoder/geocoder.dart';
@@ -87,27 +89,27 @@ class SignUpPage extends StatelessWidget {
                             margin: EdgeInsets.only(left: 38),
                             child: Row(
                               children: [
-                                Newbutton(
-                                  onP: () => LoginViewModel().googlelogin(),
-                                  char:
-                                      'https://ddo0fzhfvians.cloudfront.net/uploads/icons/png/37468251556105321-512.png',
-                                ),
-                                SizedBox(
-                                  width: 25,
-                                ),
-                                Newbutton(
-                                  onP: () => LoginViewModel().facebooklogin(),
-                                  char:
-                                      'https://1000logos.net/wp-content/uploads/2016/11/Facebook-logo-500x350.png',
-                                ),
-                                SizedBox(
-                                  width: 25,
-                                ),
-                                Newbutton(
-                                  onP: () => LoginViewModel().twitterlogin(),
-                                  char:
-                                      'https://assets.stickpng.com/thumbs/580b57fcd9996e24bc43c53e.png',
-                                )
+                                 Newbutton(
+                          onP: () => LoginViewModel().googlelogin(),
+                          char:
+                              'https://techbuzs.github.io/I/Google.png',
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Newbutton(
+                          onP: () => LoginViewModel().facebooklogin(),
+                          char:
+                              'https://techbuzs.github.io/I/FB.png',
+                        ),
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Newbutton(
+                          onP: () => LoginViewModel().twitterlogin(),
+                          char:
+                              'https://techbuzs.github.io/I/Twitter-Logo.png',
+                        )
                               ],
                             ),
                           ),
@@ -119,7 +121,7 @@ class SignUpPage extends StatelessWidget {
                           //
                           MyCustomInputBox(
                             label: 'Name',
-                            inputHint: '',
+                            inputHint: 'Juwon R.',
                             kTextEditingController: fullNameController,
                           ),
                           //
@@ -129,7 +131,7 @@ class SignUpPage extends StatelessWidget {
                           //
                           MyCustomInputBox(
                             label: 'Email',
-                            inputHint: 'example@example.com',
+                            inputHint: 'juwonr@greeneva.com',
                             kTextEditingController: emailController,
                           ),
                           //
@@ -170,8 +172,8 @@ class SignUpPage extends StatelessWidget {
                                     // widthFactor: 2,
                                     child: CircularProgressIndicator(),
                                   ))
-                              : GestureDetector(
-                                  onTap: () async {
+                              : CupertinoButton(
+                                 onPressed: () async {
                                     busy = true;
                                     _determinePosition();
                                     var permission =
@@ -202,49 +204,43 @@ class SignUpPage extends StatelessWidget {
                                         location: location);
                                     busy = false;
                                   },
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(vertical: 20),
-                                    width: scrWidth * 0.85,
-                                    height: 75,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff0962ff),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Create an Account',
-                                        style: TextStyle(
-                                          fontFamily: 'ProductSans',
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white70,
-                                        ),
-                                      ),
+                                child: Center(
+                                  child: Text(
+                                    'Create an Account',
+                                    style: TextStyle(
+                                     
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white70,
                                     ),
                                   ),
                                 ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Already have an account? ',
-                                  style: TextStyle(
-                                    fontFamily: 'Product Sans',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff8f9db5).withOpacity(0.45),
+                              ),
+                          GestureDetector(
+                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginView())),
+                                                      child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Already have an account? ',
+                                    style: TextStyle(
+                                      fontFamily: 'Product Sans',
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff8f9db5).withOpacity(0.45),
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: 'Sign In',
-                                  style: TextStyle(
-                                    fontFamily: 'Product Sans',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff90b7ff),
-                                  ),
-                                )
-                              ],
+                                  TextSpan(
+                                    text: 'Sign In',
+                                    style: TextStyle(
+                                      fontFamily: 'Product Sans',
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xff90b7ff),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -392,13 +388,13 @@ class _MyCustomInputBoxState extends State<MyCustomInputBox> {
               });
             },
             style: TextStyle(
-                fontSize: 19,
+                fontSize: 10,
                 color: Color(0xff0962ff),
                 fontWeight: FontWeight.bold),
             decoration: InputDecoration(
               hintText: widget.inputHint,
               hintStyle: TextStyle(
-                  fontSize: 18,
+                  fontSize: 10,
                   color: Colors.grey[350],
                   fontWeight: FontWeight.w600),
               contentPadding:
