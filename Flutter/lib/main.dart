@@ -3,18 +3,15 @@ import 'package:Greeneva/Services/dialog_service.dart';
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/locator.dart';
 import 'package:Greeneva/managers/dialog_manager.dart';
-// import 'package:Greeneva/ui/Community/constants/colors.dart';
-// import 'package:Greeneva/ui/Community/state/app_state.dart';
-// import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
+
 import 'package:Greeneva/ui/router.dart';
 import 'package:Greeneva/ui/views/startup_view.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-// import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:Greeneva/Services/theme_provider.dart';
 
@@ -41,9 +38,11 @@ void main() async {
   runApp(
     /// I'm still a baby in using Provider 
     /// But Here it is  :) 
-    ChangeNotifierProvider(
+    /// the Phoenix widget Helps ReBirth The App
+    Phoenix(
+   child: ChangeNotifierProvider(
       create: (_) => ThemeProvider(isLightTheme: isLightTheme),
-      child: AppStart()));
+      child: AppStart())));
   // runApp(App(auth: token != null, client: client));
 }
 

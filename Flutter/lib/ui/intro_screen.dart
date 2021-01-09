@@ -7,7 +7,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:websafe_svg/websafe_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../locator.dart';
 
@@ -52,7 +52,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   Widget _buildImageSvg(String assetName) {
     return Align(
-      child: WebsafeSvg.asset('assets/svgs/$assetName.svg', width: 350.0),
+      child: SvgPicture.asset('assets/svgs/$assetName.svg', width: 350.0),
       alignment: Alignment.bottomCenter,
     );
   }
@@ -84,7 +84,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               child: Padding(
             padding: const EdgeInsets.all(20.0),
             child:
-                WebsafeSvg.asset('assets/svgs/Onboardin_p2.svg', width: 350.0),
+                SvgPicture.asset('assets/svgs/Onboardin_p2.svg', width: 350.0),
           )),
           decoration: pageDecoration,
         ),

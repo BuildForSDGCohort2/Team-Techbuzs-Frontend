@@ -24,21 +24,21 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     //     routeName: settings.name,
     //     viewToShow: LoginView(),
     //   );
-    case AuthView:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: AuthScreen(),
-      );
+    // case AuthView:
+    //   return _getPageRoute(
+    //     routeName: settings.name,
+    //     viewToShow: AuthScreen(),
+    //   );
     case LoginViewRoute:
       return _getPageRoute(
         routeName: settings.name,
         viewToShow: LoginView(),
       );
-    case Auth:
-      return _getPageRoute(
-        routeName: settings.name,
-        viewToShow: AuthScreen(),
-      );
+    // case Auth:
+    //   return _getPageRoute(
+    //     routeName: settings.name,
+    //     viewToShow: AuthScreen(),
+    //   );
     case SignUpViewRoute:
       return _getPageRoute(
         routeName: settings.name,

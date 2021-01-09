@@ -53,18 +53,18 @@ dependencies:
   stacked_services:
 
   # App Features
-  dart_ipify:
+  # dart_ipify:
   device_info:
   geolocator:
   geocoder: ^0.2.1
   graphql_flutter: ^3.1.0
   shared_preferences: 
-  outline_material_icons:
+  # outline_material_icons:
   flutter_google_places:
   google_fonts: ^1.1.0
   flare_flutter:
-  bubble_bottom_bar: ^1.2.0
-  websafe_svg: ^1.1.4
+  # bubble_bottom_bar: ^1.2.0
+  # websafe_svg: ^1.1.4
   flutter_spinkit: ^4.1.2+1
   ff_navigation_bar:
     git: git://github.com/DEVSOG12/Flutter-FFNavigationBar.git

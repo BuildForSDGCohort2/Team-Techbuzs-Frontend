@@ -5,7 +5,7 @@ import 'package:Greeneva/ui/Community/screens/messages/model.dart';
 import 'package:Greeneva/ui/Community/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
+// import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class MessageScreen extends StatelessWidget {
@@ -282,7 +282,7 @@ class MessageScreen extends StatelessWidget {
             ))
         : IconButton(
             color: PURPLE_COLOR,
-            icon: Icon(OMIcons.send),
+            icon: Icon(Icons.ac_unit),
             onPressed: () {
               var text = messageController.text.trim();
               if (text != '')

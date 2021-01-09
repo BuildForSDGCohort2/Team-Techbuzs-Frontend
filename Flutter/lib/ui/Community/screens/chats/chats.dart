@@ -10,7 +10,7 @@ import 'package:Greeneva/ui/Community/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
+// import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class ChatListScreen extends StatelessWidget {
@@ -142,7 +142,8 @@ class ChatListScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            icon: Icon(OMIcons.settings),
+            icon: Icon(Icons.ac_unit_outlined),
+            // icon: Icon(OMIcons.settings),
             color: Colors.grey[500],
             onPressed: () {
               Navigator.push(context,
