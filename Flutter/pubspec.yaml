@@ -70,7 +70,10 @@ dependencies:
   line_awesome_flutter: 
   flutter_screenutil: 
   animated_theme_switcher:
-  youtube_player_iframe: ^1.2.0+2
+  youtube_player_flutter:
+  flutter_markdown:
+  animations:
+  flutter_phoenix:
   firebase_ml_vision:
   simple_animations:
   image_picker:

@@ -1,4 +1,5 @@
 import 'package:Greeneva/Components/FadeAnimation.dart';
+import 'package:Greeneva/ui/Donation/Plant/plant_tree.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,12 +26,25 @@ class _TreesState extends State<Trees> {
             child: Column(
               children: <Widget>[
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 3,
+                  height: MediaQuery.of(context).size.height / 9,
                 ),
                 FadeAnimation(
-                    1,
+                  1.5,
+                  Image.network(
+                    'https://i.pinimg.com/originals/36/dc/47/36dc479b454578408d96c4a6c7ce1a98.png',
+                    height: MediaQuery.of(context).size.height / 3.5,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                FadeAnimation(
+                    2,
                     CupertinoButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => PlantDet()));
+                      },
                       color: Colors.greenAccent,
                       child: Text('Plant A Tree By Yourself'),
                     )),
@@ -38,7 +52,7 @@ class _TreesState extends State<Trees> {
                   height: 30,
                 ),
                 FadeAnimation(
-                    1.5,
+                    2.5,
                     CupertinoButton(
                       onPressed: () {
                         Navigator.push(context,
@@ -50,13 +64,6 @@ class _TreesState extends State<Trees> {
                 SizedBox(
                   height: 21,
                 ),
-                FadeAnimation(
-                  2,
-                  Image.asset(
-                    'assets/images/94.jpg',
-                    height: MediaQuery.of(context).size.height / 3.5,
-                  ),
-                )
               ],
             ),
           ),

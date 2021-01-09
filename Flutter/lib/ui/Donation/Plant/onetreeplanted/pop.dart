@@ -1,6 +1,8 @@
+import 'package:Greeneva/Services/paystacl.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/more.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +16,7 @@ var country = "";
 var pfinal = int.parse(treeplanted) * numberOfItems;
 String vrate;
 double car;
+bool isrecurring = false;
 
 class NextP extends StatefulWidget {
   final TreeInfo trees;
@@ -242,24 +245,46 @@ class _NextPState extends State<NextP> {
               _item(),
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Text("Price"),
-                  ),
-                  (country) != "Nigeria"
-                      ? Text("₦" +
-                          (car.toInt() *
-                                      (numberOfItems * int.parse(treeplanted)) +
-                                  200)
-                              .toString())
+                  (country) == "Nigeria"
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text("Price:   " +
+                              "₦" +
+                              (car * (numberOfItems * int.parse(treeplanted)) +
+                                      (.10 *
+                                          (car *
+                                              (numberOfItems *
+                                                  int.parse(treeplanted)))))
+                                  .toString()),
+                        )
                       : Text("\$ "),
                   SizedBox(
                     width: 30,
                   ),
-                  MaterialButton(
+                  CupertinoButton(
                     child: Text("Plant"),
                     color: Colors.teal,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => LocalPayment(
+                                    amount: (car *
+                                                (numberOfItems *
+                                                    int.parse(treeplanted)) +
+                                            (.10 *
+                                                (car *
+                                                    (numberOfItems *
+                                                        int.parse(
+                                                            treeplanted)))))
+                                        .toDouble(),
+                                    treeplanted: int.parse(treeplanted),
+                                    quantity: numberOfItems.toString(),
+                                    donation:
+                                        "One Tree Planted To Plant A Tree",
+                                    isrecurring: isrecurring,
+                                  )));
+                    },
                   )
                 ],
               ),

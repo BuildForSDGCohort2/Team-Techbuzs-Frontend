@@ -102,10 +102,17 @@ class LabelDetectorPainter extends CustomPainter {
     );
 
     builder.pushStyle(ui.TextStyle(color: Colors.green));
-    for (ImageLabel label in labels) {
-      builder.addText('Label: ${label.text}, '
-          'Confidence: ${label.confidence.toStringAsFixed(2)}\n');
+    ImageLabel label = labels[0];
+    // builder.addText("${label.text}");
+    if (label.text.contains("Plant") && label.confidence > 5) {
+// ScaffoldMessenger.of(context).showSnackBar(snackBar)
+      // builder.build()
+
     }
+    // for (ImageLabel label in labels) {
+    // builder.addText('Label: ${label.text[0]}, '
+    //     'Confidence: ${label.confidence.toStringAsFixed(2)}\n');
+    // }
     builder.pop();
 
     canvas.drawParagraph(

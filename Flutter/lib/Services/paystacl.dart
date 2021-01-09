@@ -124,7 +124,7 @@ class _LocalPaymentState extends State<LocalPayment> {
   static const _method = ["Card", "Bank"];
   // ignore: unused_field
   bool _inProgress = false;
-  String _selected = "";
+  String _selected = "Card";
   void _showViewMain() {
     showModalBottomSheet(
         context: context,
@@ -221,7 +221,7 @@ class _LocalPaymentState extends State<LocalPayment> {
       http.Response response = await http.post(
         url,
         body: jsonEncode(<String, dynamic>{
-          "email": user,
+          "email": user ?? "oreofesolarin@gmail.com",
           "name": name,
           "reference": reference,
           "amount": widget.amount
@@ -339,7 +339,13 @@ class _LocalPaymentState extends State<LocalPayment> {
               : MaterialButton(
                   onPressed: () async {
                     Charge charge = Charge();
+                    CheckoutMethod method = CheckoutMethod.selectable;
 
+                    if (_selected == "Bank") {
+                      method = CheckoutMethod.bank;
+                    } else {
+                      method = CheckoutMethod.card;
+                    }
                     charge.accessCode =
                         await _fetchAccessCodeFrmServer(_getReference());
                     _chargeCard(charge);
@@ -360,6 +366,6 @@ class _LocalPaymentState extends State<LocalPayment> {
       platform = 'Android';
     }
 
-    return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch} on The Greeneva App and ${isR()}';
+    return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch}onTheGreenevaAppand${isR().trim()}';
   }
 }

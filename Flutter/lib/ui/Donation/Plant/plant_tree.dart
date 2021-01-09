@@ -171,7 +171,7 @@ class _PlantDetState extends State<PlantDet> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Picture Scanner'),
+        title: const Text('Plant Detector'),
         actions: <Widget>[
           PopupMenuButton<Detector>(
             onSelected: (Detector result) {

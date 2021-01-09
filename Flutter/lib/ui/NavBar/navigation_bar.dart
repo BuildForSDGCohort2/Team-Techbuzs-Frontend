@@ -34,7 +34,7 @@ class _NavBarState extends State<NavBar> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [Wait(), Loading(), Community(), Donation(), Account()],
+        children: [Wait(), Loading(), Donation(), Account()],
       ),
       // body: currentIndex == 0
       //     ? HomePage()
@@ -66,30 +66,28 @@ class _NavBarState extends State<NavBar> {
             // iconData: Oreofe.nav_home,
             svgasset: "assets/nav/nav_home.svg",
             label: 'Home',
+            itemWidth: 19,
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
             // iconData: Oreofe.nav_discover,
             svgasset: "assets/nav/nav_discover.svg",
             label: 'Discover',
-          ),
-          FFNavigationBarItem(
-            // iconData: Icons.access_alarm_sharp,
-            // iconData: Oreofe.nav_community,
-            svgasset: "assets/nav/nav_community.svg",
-            label: 'Community',
+            itemWidth: 19,
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
             // iconData: Oreofe.nav_donation,
             svgasset: "assets/nav/nav_donation.svg",
             label: 'Donation',
+            itemWidth: 19,
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
             // iconData: Oreofe.nav_user,
             svgasset: "assets/nav/nav_user.dart",
             label: 'Account',
+            itemWidth: 19,
           ),
         ],
       ),

@@ -1,6 +1,8 @@
 import 'package:Greeneva/Services/theme_provider.dart';
+import 'package:Greeneva/ui/Account/Purchase.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/widgets/Profile.dart';
+import 'package:animations/animations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +10,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'Privacy.dart';
+
 // import '../../main.dart';
 
 var firebase = FirebaseAuth.instance;
 var user = firebase.currentUser;
+// var s = user.de
 
 class Account extends StatefulWidget {
   @override
@@ -119,17 +124,20 @@ class ProfileScreen extends StatelessWidget {
           ),
           SizedBox(height: kSpacingUnit.w * 2),
           provider(user.providerData) == "Normal" && user.emailVerified == false
-              ? Container(
-                  height: kSpacingUnit.w * 4,
-                  width: kSpacingUnit.w * 20,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
-                    color: Theme.of(context).accentColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Verify Email',
-                      style: kButtonTextStyle,
+              ? GestureDetector(
+                  onTap: () => user.sendEmailVerification(),
+                  child: Container(
+                    height: kSpacingUnit.w * 4,
+                    width: kSpacingUnit.w * 20,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(kSpacingUnit.w * 3),
+                      color: Theme.of(context).accentColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Verify Email',
+                        style: kButtonTextStyle,
+                      ),
                     ),
                   ),
                 )
@@ -166,12 +174,23 @@ class ProfileScreen extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 ProfileListItem(
-                  icon: LineAwesomeIcons.user_shield,
-                  text: 'Privacy',
-                ),
+                    icon: LineAwesomeIcons.user_shield,
+                    text: 'Privacy',
+                    onP: () {
+                      showModal(
+                          context: context,
+                          configuration: FadeScaleTransitionConfiguration(),
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'privacy.md',
+                            );
+                          });
+                    }),
                 ProfileListItem(
                   icon: LineAwesomeIcons.history,
                   text: 'Purchase History',
+                  onP: () => Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Purchases())),
                 ),
                 ProfileListItem(
                   icon: LineAwesomeIcons.question_circle,
@@ -185,6 +204,19 @@ class ProfileScreen extends StatelessWidget {
                   icon: LineAwesomeIcons.user_plus,
                   text: 'Invite a Friend',
                 ),
+                ProfileListItem(
+                    icon: LineAwesomeIcons.user_shield,
+                    text: 'Terms & Conditions',
+                    onP: () {
+                      showModal(
+                          context: context,
+                          configuration: FadeScaleTransitionConfiguration(),
+                          builder: (context) {
+                            return PolicyDialog(
+                              mdFileName: 'tandc.md',
+                            );
+                          });
+                    }),
                 ProfileListItem(
                   onP: () {
                     firebase.signOut();
