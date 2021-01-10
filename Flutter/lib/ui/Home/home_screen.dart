@@ -266,10 +266,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'Plant A Tree \n ,The true meaning of life is to plant trees. under whose shade you do not expect to sit',
+                                'Plant A Tree',
                                 // transactions[index].name,
                                 style: GoogleFonts.inter(
                                     fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: kBlackColor),
+                              ),
+                              Text(
+                                'The true meaning of life is to plant trees.\n under whose shade you do not expect to sit',
+                                // transactions[index].name,
+                                style: GoogleFonts.inter(
+                                    fontSize: 11,
                                     fontWeight: FontWeight.w700,
                                     color: kBlackColor),
                               ),
