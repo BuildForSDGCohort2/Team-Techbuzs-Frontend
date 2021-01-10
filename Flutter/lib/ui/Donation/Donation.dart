@@ -57,7 +57,7 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
                   "Donate to Help the Global Goals!",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: 25,
                   ),
                 ),
               ],
@@ -111,6 +111,14 @@ class _DonationState extends State<Donation> {
     );
   }
 
+  Widget viewtoShow(int index) {
+    if (index == 0) return Loading1();
+    if (index == 1) return Loading1();
+    if (index == 2) return Loading1();
+    if (index == 3) return Loading1();
+    return Loading1();
+  }
+
   Widget _buildDetail() {
     return Container(
       child: Column(
@@ -132,24 +140,6 @@ class _DonationState extends State<Donation> {
                 ),
                 SizedBox(
                   height: 30,
-                ),
-                Row(
-                  children: map<Widget>(
-                    datas,
-                    (index, selected) {
-                      return Container(
-                        alignment: Alignment.centerLeft,
-                        height: 9,
-                        width: 9,
-                        margin: EdgeInsets.only(right: 6),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: current == index
-                                ? kBlueColor
-                                : kTwentyBlueColor),
-                      );
-                    },
-                  ),
                 )
               ],
             ),
@@ -163,16 +153,8 @@ class _DonationState extends State<Donation> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => index == 0
-                                ? Loading1()
-                                : index == 1
-                                    ? Loading1()
-                                    : index == 2
-                                        ? Loading1()
-                                        : Loading1()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => viewtoShow(index)));
                   },
                   child: OperationCard(
                       onP: () {},

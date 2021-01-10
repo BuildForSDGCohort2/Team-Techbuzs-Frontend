@@ -257,7 +257,13 @@ class _NextPState extends State<NextP> {
                                                   int.parse(treeplanted)))))
                                   .toString()),
                         )
-                      : Text("\$ "),
+                      : Text("\$ " +
+                          ((numberOfItems * int.parse(treeplanted)) +
+                                  (.10 *
+                                      (car *
+                                          (numberOfItems *
+                                              int.parse(treeplanted)))))
+                              .toString()),
                   SizedBox(
                     width: 30,
                   ),
