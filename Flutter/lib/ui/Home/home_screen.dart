@@ -1,4 +1,5 @@
 import 'package:Greeneva/Services/authenication_service.dart';
+import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/models/explore_model.dart';
 import 'package:Greeneva/models/org.dart';
 import 'package:Greeneva/ui/Donation/Plant/main_tree.dart';
@@ -9,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:stacked/stacked.dart';
 
@@ -24,8 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
-
   int current = 0;
 
   var user = FirebaseAuth.instance.currentUser;
@@ -40,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     String greeting() {
       var hour = DateTime.now().hour;
       print(hour);
@@ -76,20 +78,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: GoogleFonts.inter(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
-                        color: kBlackColor),
+                        color: !(themeProvider.isLightTheme)
+                            ? Colors.white
+                            : Color(0xFF26242e)),
                   ),
                   Text(
                     '${user.displayName ?? ""}',
                     style: GoogleFonts.inter(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: kBlackColor),
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      color: !(themeProvider.isLightTheme)
+                          ? Colors.white
+                          : Color(0xFF26242e),
+                    ),
                   )
                 ],
               ),
             ),
           ),
-          
+
           SizedBox(
             height: 20,
           ),
@@ -100,9 +107,12 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text(
                 'Featured',
                 style: GoogleFonts.inter(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    color: kBlackColor),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: !(themeProvider.isLightTheme)
+                      ? Colors.white
+                      : Color(0xFF26242e),
+                ),
               ),
             ),
           ),
@@ -135,28 +145,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   'Organizations',
                   style: GoogleFonts.inter(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: kBlackColor),
-                ),
-                Row(
-                  children: map<Widget>(
-                    datas,
-                    (index, selected) {
-                      return Container(
-                        alignment: Alignment.centerLeft,
-                        height: 9,
-                        width: 9,
-                        margin: EdgeInsets.only(right: 6),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: current == index
-                                ? kBlueColor
-                                : kTwentyBlueColor),
-                      );
-                    },
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: !(themeProvider.isLightTheme)
+                        ? Colors.white
+                        : Color(0xFF26242e),
                   ),
-                )
+                ),
+                // Row(
+                //   children: map<Widget>(
+                //     datas,
+                //     (index, selected) {
+                //       return Container(
+                //         alignment: Alignment.centerLeft,
+                //         height: 9,
+                //         width: 9,
+                //         margin: EdgeInsets.only(right: 6),
+                //         decoration: BoxDecoration(
+                //             shape: BoxShape.circle,
+                //             color: current == index
+                //                 ? kBlueColor
+                //                 : kTwentyBlueColor),
+                //       );
+                //     },
+                //   ),
+                // )
               ],
             ),
           ),
@@ -194,9 +207,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               'To Do..',
               style: GoogleFonts.inter(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: kBlackColor),
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: !(themeProvider.isLightTheme)
+                    ? Colors.white
+                    : Color(0xFF26242e),
+              ),
             ),
           ),
           ListView.builder(
@@ -237,7 +253,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage("https://techbuzs.github.io/I/tree.png"),
+                                image: NetworkImage(
+                                    "https://techbuzs.github.io/I/tree.png"),
                               ),
                             ),
                           ),
@@ -256,14 +273,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontWeight: FontWeight.w700,
                                     color: kBlackColor),
                               ),
-                              
                             ],
                           )
                         ],
                       ),
-                      Row(
+                      Column(
                         children: <Widget>[
-                         Text("The true meaning of life is to plant trees, under whose shade you do not expect to sit.", style: TextStyle(fontSize: 9),)
+                          Text(
+                            "The true meaning of life is to plant trees, under whose shade you do not expect to sit.",
+                            style: TextStyle(
+                              fontSize: 7,
+                              color: !(themeProvider.isLightTheme)
+                                  ? Colors.white
+                                  : Color(0xFF26242e),
+                            ),
+                          )
                         ],
                       )
                     ],
@@ -299,6 +323,8 @@ class OperationCard extends StatefulWidget {
 class _OperationCardState extends State<OperationCard> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Container(
       margin: EdgeInsets.only(right: 16),
       width: 130,
@@ -326,7 +352,12 @@ class _OperationCardState extends State<OperationCard> {
             widget.operation,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
-                fontSize: 15, fontWeight: FontWeight.w700, color: kBlackColor),
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: !(themeProvider.isLightTheme)
+                  ? Colors.white
+                  : Color(0xFF26242e),
+            ),
           )
         ],
       ),

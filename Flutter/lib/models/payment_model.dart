@@ -1,4 +1,4 @@
-class Payment {
+class PaymentP {
   final String uid;
   final String paymentType;
   final String donation;
@@ -7,7 +7,7 @@ class Payment {
   final String description;
   final String deviceInfo;
 
-  Payment(
+  PaymentP(
       {this.uid,
       this.paymentType,
       this.amount,
@@ -16,7 +16,7 @@ class Payment {
       this.donation,
       this.isRecurring});
 
-  Payment.fromData(Map<String, dynamic> data)
+  PaymentP.fromData(Map<String, dynamic> data)
       : uid = data['uid'],
         paymentType = data['paymentType'],
         amount = data['amount'],
@@ -24,4 +24,12 @@ class Payment {
         deviceInfo = data['deviceInfo'],
         donation = data['donation'],
         isRecurring = data['isRecurring'];
+}
+
+class Payment {
+  Map<String, dynamic> payment;
+
+  Payment({this.payment});
+
+  Payment.fromData(Map<String, dynamic> data) : payment = data;
 }

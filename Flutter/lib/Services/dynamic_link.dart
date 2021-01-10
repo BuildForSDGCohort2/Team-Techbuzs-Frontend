@@ -1,4 +1,4 @@
-
+import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -6,7 +6,7 @@ import 'package:stacked_services/stacked_services.dart';
 import '../locator.dart';
 
 class DynamicLinkService {
-  final NavigationService _navigationService = locator<NavigationService>();
+  final NavigationServiceM _navigationService = locator<NavigationServiceM>();
 
   Future handleDynamicLinks() async {
     // Get the initial dynamic link if the app is opened with a dynamic link
@@ -50,9 +50,6 @@ class DynamicLinkService {
         packageName: 'com.techbuzs.greeneva',
       ),
 
-
-
-      
       // Other things to add as an example. We don't need it now
       // iosParameters: IosParameters(
       //   bundleId: 'com.example.ios',

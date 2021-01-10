@@ -50,12 +50,18 @@ class ProfileListItem extends StatelessWidget {
             Icon(
               this.icon,
               size: kSpacingUnit.w * 2.5,
+              color: (themeProvider.isLightTheme)
+                  ? Colors.white
+                  : Color(0xFF26242e),
             ),
             SizedBox(width: kSpacingUnit.w * 1.5),
             Text(
               this.text,
               style: kTitleTextStyle.copyWith(
                 fontWeight: FontWeight.w500,
+                color: (themeProvider.isLightTheme)
+                    ? Colors.white
+                    : Color(0xFF26242e),
               ),
             ),
             Spacer(),

@@ -23,7 +23,7 @@ class FirestoreService {
   final CollectionReference _usersCollectionReference =
       FirebaseFirestore.instance.collection('users');
   final CollectionReference _paymentCollectionReference =
-      FirebaseFirestore.instance.collection('payment');
+      FirebaseFirestore.instance.collection('payments');
   Future addPayment(
       String uid,
       String paymentType,
@@ -75,8 +75,22 @@ class FirestoreService {
 
   Future getPayments(String uid) async {
     try {
-      var userData = await _paymentCollectionReference.doc(uid).get();
-      return Payment.fromData(userData.data());
+      var done;
+      // var userData = await _paymentCollectionReference
+      //     .doc("Tj5K5VWuyvhjwKO5GmJQGyUCr3i2")
+      //     .get();
+      final DocumentReference document = FirebaseFirestore.instance
+          .collection("payments")
+          .doc('Tj5K5VWuyvhjwKO5GmJQGyUCr3i2');
+      await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
+        //  setState(() {
+        //    data =snapshot.data;
+        //  });
+        print(snapshot.data().toString());
+        done = snapshot.data();
+        return done;
+      });
+      return done;
     } catch (e) {
       if (e is PlatformException) {
         return e.message;

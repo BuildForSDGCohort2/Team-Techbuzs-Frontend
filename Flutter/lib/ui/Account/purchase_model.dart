@@ -16,21 +16,22 @@ class PaymentVM extends BaseModel {
 
   // final DialogService _dialogService = locator<DialogService>();
 
-  List<Payment> _payment;
-  List<Payment> get payment => _payment;
+  Map<String, dynamic> _payment;
+  Map<String, dynamic> get payment => _payment;
 
   Future getPay() async {
     setBusy(true);
     var info = await _firestoreService.getPayments(user.uid);
     setBusy(false);
 
-    if (info is List<Payment>) {
+    if (true) {
+      print(info.toString());
       _payment = info;
       notifyListeners();
     } else {
       await _dialogService.showDialog(
         title: 'Failed',
-        description: info,
+        description: info.toString() ?? "OP",
       );
     }
   }

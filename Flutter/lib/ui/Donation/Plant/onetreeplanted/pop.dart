@@ -270,14 +270,12 @@ class _NextPState extends State<NextP> {
                           MaterialPageRoute(
                               builder: (_) => LocalPayment(
                                     amount: (car *
+                                            (numberOfItems *
+                                                int.parse(treeplanted)) +
+                                        (.10 *
+                                            (car *
                                                 (numberOfItems *
-                                                    int.parse(treeplanted)) +
-                                            (.10 *
-                                                (car *
-                                                    (numberOfItems *
-                                                        int.parse(
-                                                            treeplanted)))))
-                                        .toDouble(),
+                                                    int.parse(treeplanted))))),
                                     treeplanted: int.parse(treeplanted),
                                     quantity: numberOfItems.toString(),
                                     donation:

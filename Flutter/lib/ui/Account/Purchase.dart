@@ -25,6 +25,7 @@ class _PurchasesState extends State<Purchases> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PaymentVM>.reactive(
       builder: (context, model, child) => Scaffold(
+        appBar: AppBar(),
         body: Column(
           children: [
             Expanded(
@@ -32,7 +33,8 @@ class _PurchasesState extends State<Purchases> {
                     ? ListView.builder(
                         itemCount: model.payment.length,
                         itemBuilder: (context, index) => PostItem(
-                          pay: model.payment[index],
+                          pay: model
+                              .payment["payment_${index.toString() ?? "0"}"],
                         ),
                       )
                     : Center(child: spinkit))
@@ -46,7 +48,7 @@ class _PurchasesState extends State<Purchases> {
 }
 
 class PostItem extends StatelessWidget {
-  final Payment pay;
+  final dynamic pay;
   const PostItem({
     Key key,
     this.pay,
@@ -54,31 +56,59 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String res() {
+      if (pay["isRecurring"] == true) return "Yes";
+
+      return "NO";
+    }
+
     return Container(
-      height: 60,
+      height: 120,
       margin: const EdgeInsets.only(top: 20),
       alignment: Alignment.center,
-      child: Row(
+      child: Column(
         children: <Widget>[
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: Text(pay.paymentType),
+            child: Text("User Code: " + pay["uid"] ?? "errpor",
+                style: TextStyle(color: Colors.black)),
           )),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: Text(pay.amount.toString()),
+            child: Text("Amount: " + pay["amount"].toString() ?? "error",
+                style: TextStyle(color: Colors.black)),
           )),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: Text(pay.description),
+            child: Text("Description: " + pay["description"] ?? "error",
+                style: TextStyle(color: Colors.black)),
           )),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.only(left: 15.0),
-            child: Text(pay.donation),
+            child: Text("Donation: " + pay["donation"] ?? "error",
+                style: TextStyle(color: Colors.black)),
+          )),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Text("Payment Type: " + pay["paymentType"] ?? "error",
+                style: TextStyle(color: Colors.black)),
+          )),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Text("Payment Recurring: " + res(),
+                style: TextStyle(color: Colors.black)),
+          )),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: Text("Device Info: " + pay["deviceInfo"],
+                style: TextStyle(color: Colors.black)),
           )),
         ],
       ),

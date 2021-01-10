@@ -49,7 +49,7 @@ class _NavBarState extends State<NavBar> {
             // iconData: Oreofe.nav_home,
             svgasset: "assets/nav/nav_home.svg",
             label: 'Home',
-            itemWidth: 10,
+            itemWidth: 4,
           ),
           FFNavigationBarItem(
             // iconData: Icons.access_alarm_sharp,
