@@ -25,7 +25,9 @@ class _PurchasesState extends State<Purchases> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<PaymentVM>.reactive(
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text("Payment History"),
+        ),
         body: Column(
           children: [
             Expanded(

@@ -266,7 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                'Plant A Tree',
+                                'Plant A Tree \n ,The true meaning of life is to plant trees. under whose shade you do not expect to sit',
                                 // transactions[index].name,
                                 style: GoogleFonts.inter(
                                     fontSize: 18,
@@ -277,19 +277,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         ],
                       ),
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            "The true meaning of life is to plant trees, under whose shade you do not expect to sit.",
-                            style: TextStyle(
-                              fontSize: 7,
-                              color: !(themeProvider.isLightTheme)
-                                  ? Colors.white
-                                  : Color(0xFF26242e),
-                            ),
-                          )
-                        ],
-                      )
+                      // Column(
+                      //   children: <Widget>[
+                      //     Text(
+                      //       "The true meaning of life is to plant trees.",
+                      //       style: TextStyle(
+                      //         fontSize: 7,
+                      //         color: !(themeProvider.isLightTheme)
+                      //             ? Colors.white
+                      //             : Color(0xFF26242e),
+                      //       ),
+                      //     )
+                      //   ],
+                      // )
                     ],
                   ),
                 ),

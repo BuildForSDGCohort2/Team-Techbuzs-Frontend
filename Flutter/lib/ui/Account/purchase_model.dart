@@ -16,8 +16,8 @@ class PaymentVM extends BaseModel {
 
   // final DialogService _dialogService = locator<DialogService>();
 
-  Map<String, dynamic> _payment;
-  Map<String, dynamic> get payment => _payment;
+  dynamic _payment;
+  dynamic get payment => _payment;
 
   Future getPay() async {
     setBusy(true);
