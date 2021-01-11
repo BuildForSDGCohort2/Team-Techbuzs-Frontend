@@ -1,8 +1,10 @@
+import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/models/org.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'Plant/onetreeplanted/widgets/carosurel.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +17,8 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -39,7 +43,9 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
               width: MediaQuery.of(context).size.width,
               height: rounded_container_height,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: themeProvider.isLightTheme
+                    ? Colors.white
+                    : Color(0x66000000),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -152,12 +158,13 @@ class _DonationState extends State<Donation> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => viewtoShow(index)));
-                  },
                   child: OperationCard(
-                      onP: () {},
+                      onP: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => viewtoShow(index)));
+                      },
                       operation: datas[index].name,
                       selectedIcon: datas[index].selectedIcon,
                       context: this),
@@ -214,20 +221,25 @@ class OperationCard extends StatefulWidget {
 class _OperationCardState extends State<OperationCard> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return GestureDetector(
       onTap: widget.onP,
       child: Container(
         margin: EdgeInsets.only(right: 16),
         width: 130,
         height: 130,
-        decoration: BoxDecoration(boxShadow: [
-          // BoxShadow(
-          //   color: kTenBlackColor,
-          //   blurRadius: 10,
-          //   spreadRadius: 5,
-          //   offset: Offset(8.0, 8.0),
-          // )
-        ], borderRadius: BorderRadius.circular(15), color: kTenBlackColor),
+        decoration: BoxDecoration(
+            boxShadow: [
+              // BoxShadow(
+              //   color: kTenBlackColor,
+              //   blurRadius: 10,
+              //   spreadRadius: 5,
+              //   offset: Offset(8.0, 8.0),
+              // )
+            ],
+            borderRadius: BorderRadius.circular(15),
+            color: themeProvider.isLightTheme ? kTenBlackColor : Colors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -245,7 +257,8 @@ class _OperationCardState extends State<OperationCard> {
               style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color: kBlackColor),
+                  color:
+                      themeProvider.isLightTheme ? Colors.black : Colors.white),
             )
           ],
         ),

@@ -102,20 +102,22 @@ class AuthenticationService {
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
 
-    final User user = _firebaseAuth.currentUser;
-    _currentUser = UserModel(
-      id: user.uid,
-      email: user.email,
-      fullName: user.displayName,
-      /// For Now We don't really need to Commit This to Firestore
-      // location: "locality",
-    );
     // Create a new credential
     try {
       final GoogleAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+      final User user = _firebaseAuth.currentUser;
+      _currentUser = UserModel(
+        id: user.uid,
+        email: user.email,
+        fullName: user.displayName,
+
+        /// For Now We don't really need to Commit This to Firestore
+        // location: "locality",
+      );
+      var d = await FirebaseAuth.instance.signInWithCredential(credential);
       if (user != null) {
         await _firestoreService.createUser(_currentUser);
         await _analyticsService.setUserProperties(
@@ -123,7 +125,7 @@ class AuthenticationService {
           name: _currentUser.location,
         );
       }
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      return d;
     } catch (e) {
       return e.message;
     }
@@ -160,8 +162,12 @@ class AuthenticationService {
           ? await _firebaseAuth.currentUser.sendEmailVerification()
           // ignore: unnecessary_statements
           : {};
-      EmailService().sendtrans('Thank You for Creating an Account ',
-          email != null ? email ?? "techbuzsgroup@gmail.com" : authResult.user.email ?? "techbuzsgroup@gmail.com", name ?? "No Name");
+      EmailService().sendtrans(
+          'Thank You for Creating an Account ',
+          email != null
+              ? email ?? "techbuzsgroup@gmail.com"
+              : authResult.user.email ?? "techbuzsgroup@gmail.com",
+          name ?? "No Name");
       await _analyticsService.setUserProperties(
         userId: authResult.user.uid,
         name: _currentUser.location ?? "Nigeria ))",
@@ -175,8 +181,9 @@ class AuthenticationService {
 
   Future<bool> isUserLoggedIn() async {
     var user = _firebaseAuth.currentUser;
-   /// ignore: unnecessary_statements
-   user !=null ?  await _populateCurrentUser(user) :{};
+
+    /// ignore: unnecessary_statements
+    user != null ? await _populateCurrentUser(user) : {};
     return user != null;
   }
 
