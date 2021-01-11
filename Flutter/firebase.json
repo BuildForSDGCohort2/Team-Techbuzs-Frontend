@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "appAssociation": "AUTO",
     "public": "build/web",
     "ignore": [
       "firebase.json",
@@ -7,6 +8,7 @@
       "**/node_modules/**"
     ],
     "rewrites": [
+    { "source": "/app/link/**", "dynamicLinks": true } 
       {
         "source": "**",
         "destination": "/index.html"
