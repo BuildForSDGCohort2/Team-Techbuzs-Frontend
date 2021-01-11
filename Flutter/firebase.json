@@ -8,10 +8,11 @@
       "**/node_modules/**"
     ],
     "rewrites": [
-    { "source": "/app/link/**", "dynamicLinks": true } 
+     
       {
         "source": "**",
-        "destination": "/index.html"
+        "destination": "/index.html",
+      "dynamicLinks": true 
       }
     ]
   }
