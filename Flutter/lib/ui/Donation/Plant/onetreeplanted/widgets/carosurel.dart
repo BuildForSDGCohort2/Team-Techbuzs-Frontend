@@ -159,7 +159,7 @@ class _CarouselState extends State<Carousel> {
             selectedCategorie == "OneTreePlanted"
                 ? Carousel1(tree: widget.tree)
                 : selectedCategorie == "T.R.E.E Initiative"
-                    ? Container()
+                    ? TrInit()
                     : SizedBox(
                         height: 0,
                       )
@@ -176,197 +176,204 @@ class TrInit extends StatelessWidget {
     return Container(
       child: Card(
         elevation: 2,
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => DonateT(trees: "North")));
-              },
-              child: Container(
-                margin: EdgeInsets.all(10.0),
-                width: 210.0,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Positioned(
-                      bottom: 15.0,
-                      child: Container(
-                        height: 120.0,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "",
-                                // '${destination.city}',
-                                style: TextStyle(
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.2,
-                                ),
-                              ),
-                            ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => DonateT(trees: "North")));
+                },
+                child: Container(
+                  margin: EdgeInsets.all(10.0),
+                  width: 210.0,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: <Widget>[
+                      Positioned(
+                        bottom: 15.0,
+                        child: Container(
+                          height: 120.0,
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0.0, 2.0),
-                            blurRadius: 6.0,
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: <Widget>[
-                          Hero(
-                            tag:
-                                "https://cdn.britannica.com/33/146033-050-1F84E56E/Sahel-rain-season-Bamako-Mali-Kayes.jpg",
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Image(
-                                height: 180.0,
-                                width: 180.0,
-                                image: NetworkImage(
-                                    "https://cdn.britannica.com/33/146033-050-1F84E56E/Sahel-rain-season-Bamako-Mali-Kayes.jpg"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            left: 10.0,
-                            bottom: 10.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.add,
-                                      size: 10.0,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 5.0),
-                                  ],
+                                Text(
+                                  "Northern Nigeria",
+                                  // '${destination.city}',
+                                  style: TextStyle(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 1.2,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => DonateT(trees: "North")));
-              },
-              child: Container(
-                margin: EdgeInsets.all(10.0),
-                width: 210.0,
-                child: Stack(
-                  alignment: Alignment.topCenter,
-                  children: <Widget>[
-                    Positioned(
-                      bottom: 15.0,
-                      child: Container(
-                        height: 120.0,
-                        width: 200.0,
+                      Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0.0, 2.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "",
-                                // '${destination.city}',
-                                style: TextStyle(
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.2,
+                        child: Stack(
+                          children: <Widget>[
+                            Hero(
+                              tag:
+                                  "https://cdn.britannica.com/33/146033-050-1F84E56E/Sahel-rain-season-Bamako-Mali-Kayes.jpg",
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: Image(
+                                  height: 180.0,
+                                  width: 180.0,
+                                  image: NetworkImage(
+                                      "https://cdn.britannica.com/33/146033-050-1F84E56E/Sahel-rain-season-Bamako-Mali-Kayes.jpg"),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0.0, 2.0),
-                            blurRadius: 6.0,
-                          ),
-                        ],
-                      ),
-                      child: Stack(
-                        children: <Widget>[
-                          Hero(
-                            tag:
-                                "https://4.bp.blogspot.com/-J9q05CGWSCE/VQtB3KTPHpI/AAAAAAAAHgQ/jmJrTuRB3vc/s1600/Roumsiki%2B(1).jpg",
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20.0),
-                              child: Image(
-                                height: 180.0,
-                                width: 180.0,
-                                image: NetworkImage(
-                                    "https://4.bp.blogspot.com/-J9q05CGWSCE/VQtB3KTPHpI/AAAAAAAAHgQ/jmJrTuRB3vc/s1600/Roumsiki%2B(1).jpg"),
-                                fit: BoxFit.cover,
+                            ),
+                            Positioned(
+                              left: 10.0,
+                              bottom: 10.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.add,
+                                        size: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(width: 5.0),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => DonateT(trees: "South")));
+                },
+                child: Container(
+                  margin: EdgeInsets.all(10.0),
+                  width: 210.0,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: <Widget>[
+                      Positioned(
+                        bottom: 15.0,
+                        child: Container(
+                          height: 120.0,
+                          width: 200.0,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10.0),
                           ),
-                          Positioned(
-                            left: 10.0,
-                            bottom: 10.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.0),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.add,
-                                      size: 10.0,
-                                      color: Colors.white,
-                                    ),
-                                    SizedBox(width: 5.0),
-                                  ],
+                                Text(
+                                  "Southern Nigeria",
+                                  // '${destination.city}',
+                                  style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2,
+                                      color: Colors.white),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    )
-                  ],
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0.0, 2.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        child: Stack(
+                          children: <Widget>[
+                            Hero(
+                              tag:
+                                  "https://4.bp.blogspot.com/-J9q05CGWSCE/VQtB3KTPHpI/AAAAAAAAHgQ/jmJrTuRB3vc/s1600/Roumsiki%2B(1).jpg",
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20.0),
+                                child: Image(
+                                  height: 180.0,
+                                  width: 180.0,
+                                  image: NetworkImage(
+                                      "https://4.bp.blogspot.com/-J9q05CGWSCE/VQtB3KTPHpI/AAAAAAAAHgQ/jmJrTuRB3vc/s1600/Roumsiki%2B(1).jpg"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 10.0,
+                              bottom: 10.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.add,
+                                        size: 10.0,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(width: 5.0),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -438,7 +445,7 @@ class Carousel1 extends StatelessWidget {
                                   height: 120.0,
                                   width: 200.0,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: Colors.transparent,
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                   child: Padding(

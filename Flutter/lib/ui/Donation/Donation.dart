@@ -45,7 +45,7 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
               decoration: BoxDecoration(
                 color: themeProvider.isLightTheme
                     ? Colors.white
-                    : Color(0x66000000),
+                    : Color(0xFF26242e),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -140,9 +140,10 @@ class _DonationState extends State<Donation> {
                 Text(
                   'Organizations',
                   style: GoogleFonts.inter(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: kBlackColor),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    // color: themeProvider.isLightTheme ),
+                  ),
                 ),
                 SizedBox(
                   height: 30,
@@ -257,8 +258,9 @@ class _OperationCardState extends State<OperationCard> {
               style: GoogleFonts.inter(
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
-                  color:
-                      themeProvider.isLightTheme ? Colors.black : Colors.white),
+                  color: !(themeProvider.isLightTheme)
+                      ? Colors.black
+                      : Colors.white),
             )
           ],
         ),

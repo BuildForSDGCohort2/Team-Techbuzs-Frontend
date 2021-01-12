@@ -4,6 +4,7 @@ import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/more.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,57 +90,62 @@ class _DonateTState extends State<DonateT> {
     return "Success";
   }
 
+  var spinkit = SpinKitChasingDots(
+    color: Colors.teal,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          CustomScrollView(
-            slivers: <Widget>[
-              _buildSliverHead(),
-              SliverToBoxAdapter(
-                child: _buildDetail(),
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top,
-            ),
-            child: SizedBox(
-              height: kToolbarHeight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
+      body: country == ""
+          ? spinkit
+          : Stack(
+              children: <Widget>[
+                CustomScrollView(
+                  slivers: <Widget>[
+                    _buildSliverHead(),
+                    SliverToBoxAdapter(
+                      child: _buildDetail(),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top,
+                  ),
+                  child: SizedBox(
+                    height: kToolbarHeight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    child: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
     );
   }
 
@@ -167,7 +173,7 @@ class _DonateTState extends State<DonateT> {
         ),
         Text(
           '$numberOfItems',
-          style: TextStyle(fontSize: 18.0),
+          style: TextStyle(fontSize: 18.0, color: Colors.black),
         ),
         SizedBox(
           width: 15,
@@ -214,7 +220,7 @@ class _DonateTState extends State<DonateT> {
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
                   "TREES PLANTED",
-                  style: GoogleFonts.inter(fontSize: 21),
+                  style: GoogleFonts.inter(fontSize: 21, color: Colors.black),
                 ),
               ),
               TPlanted(
@@ -232,7 +238,7 @@ class _DonateTState extends State<DonateT> {
                 padding: const EdgeInsets.only(left: 10.0),
                 child: Text(
                   "QTY",
-                  style: GoogleFonts.inter(fontSize: 21),
+                  style: GoogleFonts.inter(fontSize: 21, color: Colors.black),
                 ),
               ),
               _item(),
@@ -251,15 +257,21 @@ class _DonateTState extends State<DonateT> {
                                           (car *
                                               (numberOfItems *
                                                   int.parse(treeplanted)))))
-                                  .toString()),
+                                  .toString()
+                                  .replaceAllMapped(
+                                      new RegExp(
+                                          r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                      (Match m) => '${m[1]},')),
                         )
-                      : Text("\$" +
-                          ((numberOfItems * int.parse(treeplanted) * 10) +
-                                  (.10 *
-                                      (car *
-                                          (numberOfItems *
-                                              int.parse(treeplanted)))))
-                              .toString()),
+                      : Text(
+                          "\$" +
+                              ((numberOfItems * int.parse(treeplanted) * 10) +
+                                      (.10 *
+                                          (car *
+                                              (numberOfItems *
+                                                  int.parse(treeplanted)))))
+                                  .toString(),
+                          style: TextStyle(color: Colors.black)),
                   SizedBox(
                     width: 30,
                   ),
@@ -273,7 +285,8 @@ class _DonateTState extends State<DonateT> {
                               builder: (_) => LocalPayment(
                                     amount: (car *
                                             (numberOfItems *
-                                                int.parse(treeplanted)) +
+                                                int.parse(treeplanted) *
+                                                10) +
                                         (.10 *
                                             (car *
                                                 (numberOfItems *

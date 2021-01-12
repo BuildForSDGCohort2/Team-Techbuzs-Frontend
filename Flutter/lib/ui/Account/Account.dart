@@ -1,15 +1,20 @@
+import 'package:Greeneva/Services/dynamic_link.dart';
 import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/ui/Account/Purchase.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/widgets/Profile.dart';
 import 'package:animations/animations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
+import '../../locator.dart';
 import 'Privacy.dart';
 
 // import '../../main.dart';
@@ -69,6 +74,7 @@ class ProfileScreen extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
+    DynamicLinkService _dynamiclink = locator<DynamicLinkService>();
 
     var profileInfo = Expanded(
       child: Column(
@@ -199,11 +205,18 @@ class ProfileScreen extends StatelessWidget {
                 ProfileListItem(
                   icon: LineAwesomeIcons.cog,
                   text: 'Settings',
+                  onP: () => Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Setting())),
                 ),
                 ProfileListItem(
-                  icon: LineAwesomeIcons.user_plus,
-                  text: 'Invite a Friend',
-                ),
+                    icon: LineAwesomeIcons.user_plus,
+                    text: 'Invite a Friend',
+                    onP: () async {
+                      var x = await _dynamiclink
+                          .createFirstPostLink(user.displayName)
+                          .whenComplete(() => {print("Done")});
+                      Share.share("Check Out $x");
+                    }),
                 ProfileListItem(
                     icon: LineAwesomeIcons.user_shield,
                     text: 'Terms & Conditions',
@@ -220,6 +233,7 @@ class ProfileScreen extends StatelessWidget {
                 ProfileListItem(
                   onP: () {
                     firebase.signOut();
+                    Phoenix.rebirth(context);
                     // RestartWidget.restartApp(context);
                   },
                   icon: LineAwesomeIcons.alternate_sign_out,
@@ -232,5 +246,30 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class Setting extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Container(
+      child: Column(children: [
+        SizedBox(height: 30),
+        ListTile(
+          title: Text("User Name" + user.displayName),
+          subtitle: Column(children: [
+            Text(user.uid),
+            Text(user.email),
+            Text(user.providerData.toString()),
+            CupertinoButton(
+              onPressed: () => user.delete(),
+              child: Text("Delete Account"),
+              color: Colors.red,
+            )
+          ]),
+        )
+      ]),
+    ));
   }
 }

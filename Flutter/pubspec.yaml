@@ -82,6 +82,7 @@ dependencies:
   path_provider:
   hive:
   share: ^0.6.5+4
+  url_launcher:
 
   # Payment
   flutter_paystack: 
