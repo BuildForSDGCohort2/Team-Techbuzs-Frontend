@@ -4,12 +4,20 @@ import 'package:http/http.dart' as http;
 // import 'package:dart_ipify/dart_ipify.dart'; // Later
 
 class EmailService {
-  Future<http.Response> sendtrans(String message, String email, String name) {
-    return http.post(
-      'https://sdgfortb.herokuapp.com/emailtrans',
-      body: jsonEncode(
-          <String, dynamic>{"email": email, "name": name, "message": message}),
-    );
+  Future<http.Response> sendtrans(String metadata, String email, String name,
+      String treeamount, String treepacks, String amount, String type) {
+    Map map = {
+      "type": type,
+      "tree_amount": treeamount,
+      "tree_packs": treepacks,
+      "amount": amount,
+      "email": email,
+      "name": name,
+      "message": metadata
+    };
+    var body = json.encode(map);
+
+    return http.post('https://sdgfortb.herokuapp.com/emailtrans', body: body);
   }
 }
 

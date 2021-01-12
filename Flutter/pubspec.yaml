@@ -37,7 +37,8 @@ dependencies:
   firebase_remote_config:
   firebase_messaging:
   firebase_dynamic_links:
-
+  firebase_crashlytics:
+  
   # Social Authenication
   google_sign_in:
   flutter_facebook_auth: ^0.2.3

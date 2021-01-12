@@ -108,6 +108,7 @@ class AuthenticationService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+
       final User user = _firebaseAuth.currentUser;
       _currentUser = UserModel(
         id: user.uid,
@@ -117,15 +118,15 @@ class AuthenticationService {
         /// For Now We don't really need to Commit This to Firestore
         // location: "locality",
       );
-      var d = await FirebaseAuth.instance.signInWithCredential(credential);
-      if (user != null) {
-        await _firestoreService.createUser(_currentUser);
-        await _analyticsService.setUserProperties(
-          userId: user.uid,
-          name: _currentUser.location,
-        );
-      }
-      return d;
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      // if (user != null) {
+      //   await _firestoreService.createUser(_currentUser);
+      //   await _analyticsService.setUserProperties(
+      //     userId: user.uid,
+      //     name: _currentUser.location,
+      //   );
+      // }
+      return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       return e.message;
     }
@@ -163,11 +164,15 @@ class AuthenticationService {
           // ignore: unnecessary_statements
           : {};
       EmailService().sendtrans(
-          'Thank You for Creating an Account ',
+          "",
           email != null
               ? email ?? "techbuzsgroup@gmail.com"
               : authResult.user.email ?? "techbuzsgroup@gmail.com",
-          name ?? "No Name");
+          name ?? "No Name",
+          "",
+          "",
+          "",
+          "Welcome");
       await _analyticsService.setUserProperties(
         userId: authResult.user.uid,
         name: _currentUser.location ?? "Nigeria ))",

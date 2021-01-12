@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'dart:io';
+import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +14,6 @@ import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
-String backendUrl = 'http://192.168.1.117:8080/paystack';
 final user = FirebaseAuth.instance.currentUser;
 // Set this to a public key that matches the secret key you supplied while creating the heroku instance
 String paystackPublicKey = 'pk_live_b45cc4b29a81090d3ecb50b74cc4797d3893e840';
@@ -45,7 +45,7 @@ class _LocalPaymentState extends State<LocalPayment> {
   Map<String, dynamic> _deviceData = <String, dynamic>{};
   @override
   void initState() {
-    PaystackPlugin.initialize(publicKey: kTpaystackPublicKey);
+    PaystackPlugin.initialize(publicKey: paystackPublicKey);
     super.initState();
     initPlatformState();
   }
@@ -124,6 +124,7 @@ class _LocalPaymentState extends State<LocalPayment> {
 
   static const _method = ["Card", "Bank"];
   // ignore: unused_field
+  TextEditingController _email = TextEditingController();
   bool _inProgress = false;
   String _selected = "Card";
   void _showViewMain() {
@@ -174,7 +175,21 @@ class _LocalPaymentState extends State<LocalPayment> {
 
                                 Navigator.pop(context);
                               }),
-                        ))
+                        )),
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _email,
+                      decoration: new InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.only(
+                              left: 15, bottom: 11, top: 11, right: 15),
+                          hintText: "Email"),
+                    )
                   ],
                 ))),
           );
@@ -216,12 +231,12 @@ class _LocalPaymentState extends State<LocalPayment> {
     var user = a.email;
     var name = a.displayName;
     Map map = {
-      "email": "oreofesolarin@gmail.com",
+      "email": user,
       "name": name,
       "reference": reference,
       "amount": widget.amount
     };
-    String url = 'http://192.168.1.117:8080/paystack/new-access-code';
+    String url = 'https://sdgfortb.herokuapp.com/paystack/new-access-code';
     String accessCode;
     try {
       print("Access code url = $url");
@@ -292,7 +307,7 @@ class _LocalPaymentState extends State<LocalPayment> {
 
   void _verifyOnServer(String reference) async {
     _updateStatus(reference, 'Verifying...');
-    String url = 'http://192.168.1.117:8080/paystack/verify/$reference';
+    String url = 'https://sdgfortb.herokuapp.com/paystack/verify/$reference';
     try {
       http.Response response = await http.get(url);
       var body = response.body;
@@ -325,7 +340,7 @@ class _LocalPaymentState extends State<LocalPayment> {
           Image.asset("assets/plant.gif"),
           Container(
             child: Text(
-              "You want to plant ${widget.quantity} of ${widget.treeplanted} plants, this would cost ${widget.amount}. And this ${isR()} ",
+              "You want to plant ${widget.quantity} packs of ${widget.treeplanted} Trees, this would cost ₦ ${widget.amount}. And this ${isR()} ",
               style: GoogleFonts.inter(
                 fontSize: 28,
               ),
@@ -350,20 +365,22 @@ class _LocalPaymentState extends State<LocalPayment> {
                     } else {
                       method = CheckoutMethod.card;
                     }
+                    var ref = _getReference();
 
-                    var kaccessCode =
-                        await _fetchAccessCodeFrmServer(_getReference());
+                    var kaccessCode = await _fetchAccessCodeFrmServer(ref);
 
                     Charge charge = Charge()
                       ..amount = widget.amount.toInt()
                       ..accessCode = kaccessCode
-                      ..email = "oreofesolarin@gmail.com";
+                      ..email = user.email == null ? _email.text : user.email;
                     CheckoutResponse response = await PaystackPlugin.checkout(
                       context,
                       method: method, // Defaults to CheckoutMethod.selectable
                       charge: charge,
                     );
                     if (response.status == true) {
+                      _verifyOnServer(ref);
+
                       print("_showDialog();");
                       await FirestoreService().addPayment(
                           user.uid,
@@ -373,6 +390,17 @@ class _LocalPaymentState extends State<LocalPayment> {
                           widget.amount,
                           donat(),
                           "");
+                      await EmailService().sendtrans(
+                          donat(),
+                          user.email == null ? _email.text : user.email,
+                          user.displayName,
+                          widget.treeplanted.toString(),
+                          widget.quantity,
+                          widget.amount.toString(),
+                          widget.donation == "" ? "Tree" : "Donation");
+
+                      /// SO A HAppy Dialog  TODO
+                      ///
                     } else {
                       print(" _showErrorDialog(");
                     }
