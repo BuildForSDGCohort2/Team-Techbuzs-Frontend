@@ -20,7 +20,7 @@ class LoginViewModel extends BaseModel {
       setBusy(true);
       await _authenticationService.signInWithGoogle();
       setBusy(false);
-      await _analyticsService.logLogingoogle();
+      // await _analyticsService.logLogingoogle();
       _navigationService.navigateTo(NavBarView);
     } catch (e) {
       print(e.message);

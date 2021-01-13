@@ -34,10 +34,8 @@ class _PurchasesState extends State<Purchases> {
                 child: model.payment != null
                     ? ListView.builder(
                         itemCount: model.payment.length,
-                        itemBuilder: (context, index) => PostItem(
-                          pay: model
-                              .payment["payment_${index.toString() ?? "0"}"],
-                        ),
+                        itemBuilder: (context, index) =>
+                            PostItem(pay: model.payment["payment_$index"]),
                       )
                     : Center(child: spinkit))
           ],

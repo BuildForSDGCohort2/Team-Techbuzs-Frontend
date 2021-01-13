@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'dart:io';
+import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +14,6 @@ import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
-String backendUrl = 'https://sdgfortb.herokuapp.com/paystack';
 final user = FirebaseAuth.instance.currentUser;
 // Set this to a public key that matches the secret key you supplied while creating the heroku instance
 String paystackPublicKey = 'pk_live_b45cc4b29a81090d3ecb50b74cc4797d3893e840';
@@ -123,6 +124,7 @@ class _LocalPaymentState extends State<LocalPayment> {
 
   static const _method = ["Card", "Bank"];
   // ignore: unused_field
+  TextEditingController _email = TextEditingController();
   bool _inProgress = false;
   String _selected = "Card";
   void _showViewMain() {
@@ -135,7 +137,7 @@ class _LocalPaymentState extends State<LocalPayment> {
             //so you don't have to change MaterialApp canvasColor
             child: new Container(
                 decoration: new BoxDecoration(
-                    color: Colors.white,
+                    // color: Colors.white,
                     borderRadius: new BorderRadius.only(
                         topLeft: const Radius.circular(10.0),
                         topRight: const Radius.circular(10.0))),
@@ -153,6 +155,7 @@ class _LocalPaymentState extends State<LocalPayment> {
                         ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
+                              dropdownColor: Colors.teal,
                               isExpanded: true,
                               isDense:
                                   true, // Reduces the dropdowns height by +/- 50%
@@ -172,7 +175,21 @@ class _LocalPaymentState extends State<LocalPayment> {
 
                                 Navigator.pop(context);
                               }),
-                        ))
+                        )),
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _email,
+                      decoration: new InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          contentPadding: EdgeInsets.only(
+                              left: 15, bottom: 11, top: 11, right: 15),
+                          hintText: "Email"),
+                    )
                   ],
                 ))),
           );
@@ -213,21 +230,23 @@ class _LocalPaymentState extends State<LocalPayment> {
     var a = FirebaseAuth.instance.currentUser;
     var user = a.email;
     var name = a.displayName;
-
-    String url = '$backendUrl/new-access-code';
+    Map map = {
+      "email": user,
+      "name": name,
+      "reference": reference,
+      "amount": widget.amount
+    };
+    String url = 'https://sdgfortb.herokuapp.com/paystack/new-access-code';
     String accessCode;
     try {
       print("Access code url = $url");
-      http.Response response = await http.post(
-        url,
-        body: jsonEncode(<String, dynamic>{
-          "email": user ?? "oreofesolarin@gmail.com",
-          "name": name,
-          "reference": reference,
-          "amount": widget.amount
-        }),
-      );
-      accessCode = response.body;
+      var body = json.encode(map);
+
+      http.Response response = await http.post(url,
+          headers: {"Content-Type": "application/json"}, body: body);
+      setState(() {
+        accessCode = response.body;
+      });
       print('Response for access code = $accessCode');
     } catch (e) {
       setState(() => _inProgress = false);
@@ -288,7 +307,7 @@ class _LocalPaymentState extends State<LocalPayment> {
 
   void _verifyOnServer(String reference) async {
     _updateStatus(reference, 'Verifying...');
-    String url = '$backendUrl/verify/$reference';
+    String url = 'https://sdgfortb.herokuapp.com/paystack/verify/$reference';
     try {
       http.Response response = await http.get(url);
       var body = response.body;
@@ -321,7 +340,7 @@ class _LocalPaymentState extends State<LocalPayment> {
           Image.asset("assets/plant.gif"),
           Container(
             child: Text(
-              "You want to plant ${widget.quantity} of ${widget.treeplanted} plants, this would cost ${widget.amount}. And this ${isR()} ",
+              "You want to plant ${widget.quantity} packs of ${widget.treeplanted} Trees, this would cost ₦ ${widget.amount}. And this ${isR()} ",
               style: GoogleFonts.inter(
                 fontSize: 28,
               ),
@@ -336,9 +355,9 @@ class _LocalPaymentState extends State<LocalPayment> {
               ? SizedBox(
                   height: 0,
                 )
-              : MaterialButton(
+              : CupertinoButton(
                   onPressed: () async {
-                    Charge charge = Charge();
+                    // ...email =
                     CheckoutMethod method = CheckoutMethod.selectable;
 
                     if (_selected == "Bank") {
@@ -346,9 +365,45 @@ class _LocalPaymentState extends State<LocalPayment> {
                     } else {
                       method = CheckoutMethod.card;
                     }
-                    charge.accessCode =
-                        await _fetchAccessCodeFrmServer(_getReference());
-                    _chargeCard(charge);
+                    var ref = _getReference();
+
+                    var kaccessCode = await _fetchAccessCodeFrmServer(ref);
+
+                    Charge charge = Charge()
+                      ..amount = widget.amount.toInt()
+                      ..accessCode = kaccessCode
+                      ..email = user.email == null ? _email.text : user.email;
+                    CheckoutResponse response = await PaystackPlugin.checkout(
+                      context,
+                      method: method, // Defaults to CheckoutMethod.selectable
+                      charge: charge,
+                    );
+                    if (response.status == true) {
+                      _verifyOnServer(ref);
+
+                      print("_showDialog();");
+                      await FirestoreService().addPayment(
+                          user.uid,
+                          "Local Payment Made by Paystack to ${whatD()}",
+                          widget.donation,
+                          widget.isrecurring,
+                          widget.amount,
+                          donat(),
+                          "");
+                      await EmailService().sendtrans(
+                          donat(),
+                          user.email == null ? _email.text : user.email,
+                          user.displayName,
+                          widget.treeplanted.toString(),
+                          widget.quantity,
+                          widget.amount.toString(),
+                          widget.donation == "" ? "Tree" : "Donation");
+
+                      /// SO A HAppy Dialog  TODO
+                      ///
+                    } else {
+                      print(" _showErrorDialog(");
+                    }
                   },
                   child: Text("Checkout"),
                   color: Colors.red,
@@ -364,8 +419,30 @@ class _LocalPaymentState extends State<LocalPayment> {
       platform = 'iOS';
     } else {
       platform = 'Android';
-    }
 
-    return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch}onTheGreenevaAppand${isR().trim()}';
+      return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch}onTheGreenevaApp';
+    }
+  }
+}
+
+class MyLogo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.black,
+      ),
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(10),
+      child: Text(
+        "CO",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }

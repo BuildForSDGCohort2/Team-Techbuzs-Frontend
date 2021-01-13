@@ -3,11 +3,13 @@ import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/more.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share/share.dart';
 
 int _itemCount = 1;
 var treeplanted = "1";
@@ -51,8 +53,10 @@ class _NextPState extends State<NextP> {
 
     if (response.statusCode == 200) {
       print(json.decode(response.body)['location']['country']['name']);
-      return country =
-          json.decode(response.body)['location']['country']['name'];
+      setState(() {
+        country = json.decode(response.body)['location']['country']['name'];
+      });
+      return country;
     } else {
       throw Exception('Failed to get user country from IP address');
     }
@@ -73,15 +77,18 @@ class _NextPState extends State<NextP> {
         .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
     var responseBody = json.decode(response.body);
     print(responseBody);
+    setState(() {
+      vrate = responseBody["rates"]["NGN"].toString();
 
-    vrate = responseBody["rates"]["NGN"].toString();
+      print("$vrate is it");
+      vrate = vrate.substring(0, 3);
+      car = double.parse(vrate);
+      print("$vrate is it");
 
-    print("$vrate is it");
-    vrate = vrate.replaceRange(6, vrate.length, "");
-    car = double.parse(vrate);
-    assert(car is double);
+      assert(car is double);
 
-    return "Success";
+      return "Success";
+    });
   }
 
   _onFromChanged(String value) {
@@ -96,57 +103,63 @@ class _NextPState extends State<NextP> {
     });
   }
 
+  RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+  Function mathFunc = (Match match) => '${match[1]},';
+
+  var spinkit = SpinKitDualRing(color: Colors.red);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          CustomScrollView(
-            slivers: <Widget>[
-              _buildSliverHead(),
-              SliverToBoxAdapter(
-                child: _buildDetail(),
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top,
-            ),
-            child: SizedBox(
-              height: kToolbarHeight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15,
-                      ),
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
+      body: country == ""
+          ? spinkit
+          : Stack(
+              children: <Widget>[
+                CustomScrollView(
+                  slivers: <Widget>[
+                    _buildSliverHead(),
+                    SliverToBoxAdapter(
+                      child: _buildDetail(),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top,
+                  ),
+                  child: SizedBox(
+                    height: kToolbarHeight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    child: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
     );
   }
 
@@ -174,7 +187,7 @@ class _NextPState extends State<NextP> {
         ),
         Text(
           '$numberOfItems',
-          style: TextStyle(fontSize: 18.0),
+          style: TextStyle(fontSize: 18.0, color: Colors.black),
         ),
         SizedBox(
           width: 15,
@@ -221,7 +234,7 @@ class _NextPState extends State<NextP> {
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
                   "TREES PLANTED",
-                  style: GoogleFonts.inter(fontSize: 21),
+                  style: GoogleFonts.inter(fontSize: 21, color: Colors.black),
                 ),
               ),
               TPlanted(
@@ -239,7 +252,7 @@ class _NextPState extends State<NextP> {
                 padding: const EdgeInsets.only(left: 10.0),
                 child: Text(
                   "QTY",
-                  style: GoogleFonts.inter(fontSize: 21),
+                  style: GoogleFonts.inter(fontSize: 21, color: Colors.black),
                 ),
               ),
               _item(),
@@ -248,14 +261,20 @@ class _NextPState extends State<NextP> {
                   (country) == "Nigeria"
                       ? Padding(
                           padding: const EdgeInsets.only(left: 10.0),
-                          child: Text("Price:   " +
-                              "₦" +
-                              (car * (numberOfItems * int.parse(treeplanted)) +
-                                      (.10 *
-                                          (car *
+                          child: Text(
+                              "Price:   " +
+                                  "₦" +
+                                  (car *
                                               (numberOfItems *
-                                                  int.parse(treeplanted)))))
-                                  .toString()),
+                                                  int.parse(treeplanted)) +
+                                          (.10 *
+                                              (car *
+                                                  (numberOfItems *
+                                                      int.parse(treeplanted)))))
+                                      .toString()
+                                      .replaceAllMapped(
+                                          reg, (Match match) => '${match[1]},'),
+                              style: TextStyle(color: Colors.black)),
                         )
                       : Text("\$ " +
                           ((numberOfItems * int.parse(treeplanted)) +
@@ -289,6 +308,15 @@ class _NextPState extends State<NextP> {
                                     isrecurring: isrecurring,
                                   )));
                     },
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    color: Colors.teal,
+                    onPressed: () => Share.share(
+                        "Plant A Tree in ${widget.trees.name}, ${widget.trees.country} https://greeneva.page.link/plant?plant=${widget.trees.name}"),
                   )
                 ],
               ),

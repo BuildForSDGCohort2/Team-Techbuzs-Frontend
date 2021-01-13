@@ -1,6 +1,7 @@
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/pop.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 // import 'package:greenhorizon/Plant/onetreeplanted/screen1.dart';
@@ -31,6 +32,9 @@ class LoadingOP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // bool country;
+    var spinkit = SpinKitChasingDots(
+      color: Colors.teal,
+    );
 
     return FutureBuilder<List<TreeInfo>>(
       future: fetchGoals(http.Client()),
@@ -51,12 +55,7 @@ class LoadingOP extends StatelessWidget {
                     : snapshot.data,
                 destination: destination,
               )
-            : Scaffold(
-                body: Container(
-                    child: Center(
-                        child: CircularProgressIndicator(
-                backgroundColor: Colors.greenAccent,
-              ))));
+            : Scaffold(body: Container(child: Center(child: spinkit)));
       },
     );
   }
@@ -287,7 +286,7 @@ class _DetailPState extends State<DetailP> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(100.0, 20.0, 20.0, 20.0),
+                          padding: EdgeInsets.fromLTRB(140.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,6 +301,7 @@ class _DetailPState extends State<DetailP> {
                                     child: Text(
                                       widget.info[index].name,
                                       style: TextStyle(
+                                        color: Colors.black,
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -309,68 +309,22 @@ class _DetailPState extends State<DetailP> {
                                       maxLines: 2,
                                     ),
                                   ),
-                                  Column(
-                                    children: <Widget>[
-                                      Text(
-                                        '',
-                                        style: TextStyle(
-                                          fontSize: 22.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      Text(
-                                        '',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                               Text(
                                 widget.info[index].country,
                                 style: TextStyle(
-                                  color: Colors.grey,
+                                  color: Colors.black,
                                 ),
                               ),
                               SizedBox(height: 10.0),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    padding: EdgeInsets.all(5.0),
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).accentColor,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(''
-                                        // activity.startTimes[0],
-                                        ),
-                                  ),
-                                  SizedBox(width: 10.0),
-                                  Container(
-                                    padding: EdgeInsets.all(5.0),
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).accentColor,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(''
-                                        // activity.startTimes[1],
-                                        ),
-                                  ),
-                                ],
-                              )
                             ],
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      left: 20.0,
+                      left: 50.0,
                       top: 15.0,
                       bottom: 15.0,
                       child: Container(

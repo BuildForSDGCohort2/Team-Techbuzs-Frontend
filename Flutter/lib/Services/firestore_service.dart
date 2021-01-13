@@ -34,7 +34,9 @@ class FirestoreService {
       String description,
       String deviceInfo) async {
     try {
-      var qs = await _paymentCollectionReference.doc(uid).get();
+      var qs = await _paymentCollectionReference
+          .doc("Tj5K5VWuyvhjwKO5GmJQGyUCr3i2")
+          .get();
 // final  snaps = _paymentCollectionReference.doc(uid).get();
 
       if (qs == null || !qs.exists) {
@@ -53,7 +55,7 @@ class FirestoreService {
       } else {
         if (qs.data().length > 0) {
           await _paymentCollectionReference.doc(uid).update({
-            "payment_${((qs.data().length) + 1).toString()}": {
+            "payment_${((qs.data().length)).toString()}": {
               "uid": uid,
               "paymentType": paymentType,
               "donation": donation,

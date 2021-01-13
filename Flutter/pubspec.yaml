@@ -37,7 +37,8 @@ dependencies:
   firebase_remote_config:
   firebase_messaging:
   firebase_dynamic_links:
-
+  firebase_crashlytics:
+  
   # Social Authenication
   google_sign_in:
   flutter_facebook_auth: ^0.2.3
@@ -81,6 +82,8 @@ dependencies:
   font_awesome_flutter:
   path_provider:
   hive:
+  share: ^0.6.5+4
+  url_launcher:
 
   # Payment
   flutter_paystack: 

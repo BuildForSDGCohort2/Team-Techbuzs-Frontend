@@ -44,7 +44,7 @@ class DynamicLinkService {
 
   Future<String> createFirstPostLink(String title) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: 'https://filledstacks.page.link',
+      uriPrefix: 'https://greeneva.page.link',
       link: Uri.parse('https://techbuzs.ml/greeneva?info=$title'),
       androidParameters: AndroidParameters(
         packageName: 'com.techbuzs.greeneva',
