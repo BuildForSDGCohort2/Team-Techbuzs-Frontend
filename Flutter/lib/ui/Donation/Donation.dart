@@ -1,6 +1,7 @@
 import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/models/org.dart';
 import 'package:Greeneva/ui/Community/constants/colors.dart';
+import 'package:Greeneva/ui/Donation/Normal/normal_donate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
+  // ignore: non_constant_identifier_names
   final double rounded_container_height;
 
   DetailSliverDelegate(this.expandedHeight, this.rounded_container_height);
@@ -96,8 +98,10 @@ class _DonationState extends State<Donation> {
     color: Colors.white,
     size: 50.0,
   );
+  // ignore: non_constant_identifier_names
   final double expanded_height = 200;
 
+  // ignore: non_constant_identifier_names
   final double rounded_container_height = 50;
   int current = 0;
   List<T> map<T>(List list, Function handler) {
@@ -118,10 +122,18 @@ class _DonationState extends State<Donation> {
   }
 
   Widget viewtoShow(int index) {
-    if (index == 0) return Loading1();
+    if (index == 0)
+      return Donate(
+          org: "TechBuzs NGO",
+          meta:
+              "This Donation will be used to Help The SDG #3 : Good Health and Well-being. The Donation will ensure healthy lives and promote well-being for all at all ages");
     if (index == 1) return Loading1();
     if (index == 2) return Loading1();
-    if (index == 3) return Loading1();
+    if (index == 3)
+      return Donate(
+          org: "STANDUPTOCHILDABUSE",
+          meta:
+              "The Donation will be used to Help The SDG #16:  Peace, justice and strong institutions. The Donation is will help the NGO to continue their Work! ");
     return Loading1();
   }
 

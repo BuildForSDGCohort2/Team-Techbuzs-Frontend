@@ -73,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    ScreenUtil.init(context, height: 896, width: 414, allowFontScaling: true);
+    // ScreenUtil.init();
     DynamicLinkService _dynamiclink = locator<DynamicLinkService>();
 
     var profileInfo = Expanded(
@@ -253,23 +253,82 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: Text("Setting")),
         body: Container(
-      child: Column(children: [
-        SizedBox(height: 30),
-        ListTile(
-          title: Text("User Name" + user.displayName),
-          subtitle: Column(children: [
-            Text(user.uid),
-            Text(user.email),
-            Text(user.providerData.toString()),
-            CupertinoButton(
-              onPressed: () => user.delete(),
-              child: Text("Delete Account"),
-              color: Colors.red,
+          child: Column(children: [
+            SizedBox(height: 30),
+            ListTile(
+              title: Text("User Name: " + user.displayName + "\n \n"),
+              subtitle: Column(children: [
+                Text("User UID:  " + user.uid + "\n \n"),
+                Text("User Email:  " + user.email + "\n \n"),
+                Text("Date Created: " +
+                    user.metadata.creationTime.toIso8601String() +
+                    " \n \n"),
+                CupertinoButton(
+                  onPressed: () => user.delete(),
+                  child: Text("Delete Account"),
+                  color: Colors.red,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CupertinoButton(
+                  onPressed: () {
+                    TextEditingController _email = TextEditingController();
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            actions: [
+                              FlatButton(
+                                  onPressed: () {
+                                    try {
+                                      user.updateEmail(_email.text);
+                                    } catch (e) {
+                                      Navigator.pop(context);
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: new Text("Error"),
+                                            content: new Text("$e"),
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: Text("Finish"))
+                            ],
+                            title: new Text("Change Email"),
+                            content: new TextFormField(
+                              controller: _email,
+                              //  user.email,
+                              onChanged: (value) {
+                                try {
+                                  user.updateEmail(value);
+                                } catch (e) {
+                                  // Navigator.pop(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: new Text("Error"),
+                                          content: new Text("$e"),
+                                        );
+                                      });
+                                }
+                              },
+                            ),
+                          );
+                        });
+                  },
+                  child: Text("Change Email Account"),
+                  color: Colors.red,
+                )
+              ]),
             )
           ]),
-        )
-      ]),
-    ));
+        ));
   }
 }

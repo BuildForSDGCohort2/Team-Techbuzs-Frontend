@@ -1,6 +1,8 @@
+import 'package:Greeneva/ui/Account/Privacy.dart';
 import 'package:Greeneva/ui/Auth/login_view.dart';
 import 'package:Greeneva/viewmodels/login_view_model.dart';
 import 'package:Greeneva/viewmodels/signup_view_model.dart';
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
@@ -89,27 +91,26 @@ class SignUpPage extends StatelessWidget {
                             margin: EdgeInsets.only(left: 38),
                             child: Row(
                               children: [
-                                 Newbutton(
-                          onP: () => LoginViewModel().googlelogin(),
-                          char:
-                              'https://techbuzs.github.io/I/Google.png',
-                        ),
-                        SizedBox(
-                          width: 25,
-                        ),
-                        Newbutton(
-                          onP: () => LoginViewModel().facebooklogin(),
-                          char:
-                              'https://techbuzs.github.io/I/FB.png',
-                        ),
-                        SizedBox(
-                          width: 25,
-                        ),
-                        Newbutton(
-                          onP: () => LoginViewModel().twitterlogin(),
-                          char:
-                              'https://techbuzs.github.io/I/Twitter-Logo.png',
-                        )
+                                Newbutton(
+                                  onP: () => LoginViewModel().googlelogin(),
+                                  char:
+                                      'https://techbuzs.github.io/I/Google.png',
+                                ),
+                                SizedBox(
+                                  width: 25,
+                                ),
+                                Newbutton(
+                                  onP: () => LoginViewModel().facebooklogin(),
+                                  char: 'https://techbuzs.github.io/I/FB.png',
+                                ),
+                                SizedBox(
+                                  width: 25,
+                                ),
+                                Newbutton(
+                                  onP: () => LoginViewModel().twitterlogin(),
+                                  char:
+                                      'https://techbuzs.github.io/I/Twitter-Logo.png',
+                                )
                               ],
                             ),
                           ),
@@ -149,15 +150,28 @@ class SignUpPage extends StatelessWidget {
                             height: 30,
                           ),
                           //
-                          Text(
-                            "Creating an account means you're okay with\nour Terms of Service and Privacy Policy",
-                            style: TextStyle(
-                              fontFamily: 'Product Sans',
-                              fontSize: 15.5,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff8f9db5).withOpacity(0.45),
+                          GestureDetector(
+                            onTap: () {
+                              showModal(
+                                  context: context,
+                                  configuration:
+                                      FadeScaleTransitionConfiguration(),
+                                  builder: (context) {
+                                    return PolicyDialog(
+                                      mdFileName: 'tandc.md',
+                                    );
+                                  });
+                            },
+                            child: Text(
+                              "Creating an account means you're okay with\nour Terms of Service and Privacy Policy",
+                              style: TextStyle(
+                                fontFamily: 'Product Sans',
+                                fontSize: 15.5,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff8f9db5).withOpacity(0.45),
+                              ),
+                              //
                             ),
-                            //
                           ),
                           model.busy == true
                               ? Container(
@@ -173,7 +187,7 @@ class SignUpPage extends StatelessWidget {
                                     child: CircularProgressIndicator(),
                                   ))
                               : CupertinoButton(
-                                 onPressed: () async {
+                                  onPressed: () async {
                                     busy = true;
                                     _determinePosition();
                                     var permission =
@@ -204,21 +218,21 @@ class SignUpPage extends StatelessWidget {
                                         location: location);
                                     busy = false;
                                   },
-                                child: Center(
-                                  child: Text(
-                                    'Create an Account',
-                                    style: TextStyle(
-                                     
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white70,
+                                  child: Center(
+                                    child: Text(
+                                      'Create an Account',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white70,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
                           GestureDetector(
-                            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LoginView())),
-                                                      child: RichText(
+                            onTap: () => Navigator.push(context,
+                                MaterialPageRoute(builder: (_) => LoginView())),
+                            child: RichText(
                               text: TextSpan(
                                 children: [
                                   TextSpan(
@@ -227,7 +241,8 @@ class SignUpPage extends StatelessWidget {
                                       fontFamily: 'Product Sans',
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff8f9db5).withOpacity(0.45),
+                                      color:
+                                          Color(0xff8f9db5).withOpacity(0.45),
                                     ),
                                   ),
                                   TextSpan(

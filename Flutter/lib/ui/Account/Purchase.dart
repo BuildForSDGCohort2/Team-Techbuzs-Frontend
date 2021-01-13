@@ -1,9 +1,9 @@
-import 'package:Greeneva/locator.dart';
-import 'package:Greeneva/models/payment_model.dart';
+// import 'package:Greeneva/locator.dart';
+// import 'package:Greeneva/models/payment_model.dart';
 import 'package:Greeneva/ui/Account/purchase_model.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:Greeneva/Services/firestore_service.dart';
+// import 'package:Greeneva/Services/firestore_service.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:stacked/stacked.dart';
 
@@ -15,7 +15,7 @@ class Purchases extends StatefulWidget {
 }
 
 class _PurchasesState extends State<Purchases> {
-  final FirestoreService _firestoreService = locator<FirestoreService>();
+  // final FirestoreService _firestoreService = locator<FirestoreService>();
 
   // var result = await _firestoreService.getPayments(user.uid);
   var spinkit = SpinKitChasingDots(
@@ -37,7 +37,13 @@ class _PurchasesState extends State<Purchases> {
                         itemBuilder: (context, index) =>
                             PostItem(pay: model.payment["payment_$index"]),
                       )
-                    : Center(child: spinkit))
+                    : Center(
+                        child: Column(
+                        children: [
+                          Center(child: spinkit),
+                          Text("No Payment Has been made")
+                        ],
+                      )))
           ],
         ),
       ),

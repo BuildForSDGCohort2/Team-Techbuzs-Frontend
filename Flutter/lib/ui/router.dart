@@ -6,7 +6,6 @@ import 'package:Greeneva/ui/Community/Community.dart';
 import 'package:Greeneva/ui/Discover/discover.dart';
 import 'package:Greeneva/ui/Donation/Donation.dart';
 import 'package:Greeneva/ui/NavBar/navigation_bar.dart';
-import 'package:Greeneva/ui/Home/home_screen.dart';
 import 'package:Greeneva/ui/Home/item_view.dart';
 import 'package:Greeneva/ui/intro_screen.dart';
 import 'package:Greeneva/ui/theme.dart';
@@ -14,7 +13,6 @@ import 'package:Greeneva/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'Auth/auth_screen.dart';
 // import 'Sign_Up/sign_up_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {

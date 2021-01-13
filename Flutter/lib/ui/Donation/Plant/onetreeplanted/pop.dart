@@ -1,7 +1,5 @@
 import 'package:Greeneva/Services/paystacl.dart';
-import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
-import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/more.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
@@ -30,23 +28,14 @@ class NextP extends StatefulWidget {
 }
 
 class _NextPState extends State<NextP> {
+  // ignore: non_constant_identifier_names
   final double expanded_height = 400;
   List<String> currencies;
   String fromCurrency = "USD";
   String toCurrency = "NGN";
   String result;
+  // ignore: non_constant_identifier_names
   final double rounded_container_height = 50;
-  Future<String> _loadCurrencies() async {
-    String uri = "https://api.exchangeratesapi.io/latest";
-    var response = await http
-        .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
-    var responseBody = json.decode(response.body);
-    Map curMap = responseBody['rates'];
-    currencies = curMap.keys.toList();
-    setState(() {});
-    print(currencies);
-    return "Success";
-  }
 
   Future<String> lookupUserCountry() async {
     final response = await http.get('https://api.ipregistry.co?key=tryout');
@@ -86,21 +75,8 @@ class _NextPState extends State<NextP> {
       print("$vrate is it");
 
       assert(car is double);
-
-      return "Success";
     });
-  }
-
-  _onFromChanged(String value) {
-    setState(() {
-      fromCurrency = value;
-    });
-  }
-
-  _onToChanged(String value) {
-    setState(() {
-      toCurrency = value;
-    });
+    return "Success";
   }
 
   RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
@@ -304,7 +280,7 @@ class _NextPState extends State<NextP> {
                                     treeplanted: int.parse(treeplanted),
                                     quantity: numberOfItems.toString(),
                                     donation:
-                                        "One Tree Planted To Plant A Tree",
+                                        "One Tree Planted To Plant A Tree ${widget.trees.name}",
                                     isrecurring: isrecurring,
                                   )));
                     },
@@ -321,6 +297,21 @@ class _NextPState extends State<NextP> {
                 ],
               ),
             ],
+          ),
+          _buildUserInfo("What Do you Get!!"),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 15,
+            ),
+            child: Text(
+              "A personalized tree certificate to say thanks for your donation. We’ll also send you updates on our ${widget.trees.name} project, so you can track the impact your trees are having on the community and environment.",
+              style: TextStyle(
+                color: Colors.black38,
+                height: 1.4,
+                fontSize: 14,
+              ),
+            ),
           ),
           _buildUserInfo("Overview"),
           Padding(
@@ -459,6 +450,7 @@ class FeaturedWidget extends StatelessWidget {
 class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final TreeInfo tree;
+  // ignore: non_constant_identifier_names
   final double rounded_container_height;
 
   DetailSliverDelegate(

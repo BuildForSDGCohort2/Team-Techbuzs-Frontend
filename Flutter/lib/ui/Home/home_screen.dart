@@ -1,4 +1,3 @@
-import 'package:Greeneva/Services/authenication_service.dart';
 import 'package:Greeneva/Services/theme_provider.dart';
 import 'package:Greeneva/models/explore_model.dart';
 import 'package:Greeneva/models/org.dart';

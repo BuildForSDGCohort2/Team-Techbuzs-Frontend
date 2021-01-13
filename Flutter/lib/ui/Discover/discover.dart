@@ -24,7 +24,7 @@ List<Goals> parseGoalss(String responseBody) {
   return parsed.map<Goals>((json) => Goals.fromJson(json)).toList();
 }
 
-var spinkit = SpinKitRotatingCircle(
+var spinkit = SpinKitDoubleBounce(
   color: Colors.red,
   size: 50.0,
 );
@@ -55,7 +55,7 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends State<Discover>
     with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  // TabController _tabController;
   PageController _pageController;
   int _selectedPage = 0;
   @override

@@ -52,7 +52,9 @@ class LoadingOP extends StatelessWidget {
                         return noteTitle.contains(
                             goals.region == 'Africa' ? 'Africa' : destination);
                       }).toList()
-                    : snapshot.data,
+                    : snapshot.data.where((element) {
+                        return element.region.contains(destination);
+                      }).toList(),
                 destination: destination,
               )
             : Scaffold(body: Container(child: Center(child: spinkit)));
@@ -74,35 +76,6 @@ class DetailP extends StatefulWidget {
 }
 
 class _DetailPState extends State<DetailP> {
-  // ignore: unused_field
-  // ignore: deprecated_member_use
-  // ignore: unused_field
-  // ignore: deprecated_member_use
-  // ignore: unused_field
-  // ignore: deprecated_member_use
-  List<TreeInfo> _notesForDisplay = List<TreeInfo>();
-  // ignore: deprecated_member_use
-  List<TreeInfo> _notes = List<TreeInfo>();
-
-  // ignore: unused_element
-  _searchBar() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        decoration: InputDecoration(hintText: 'Search...'),
-        onChanged: (text) {
-          text = text.toLowerCase();
-          setState(() {
-            _notesForDisplay = _notes.where((note) {
-              var noteTitle = note.region.toLowerCase();
-              return noteTitle.contains('North America');
-            }).toList();
-          });
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +107,7 @@ class _DetailPState extends State<DetailP> {
                               : widget.destination == 'Asia'
                                   ? 'https://techbuzs.github.io/OTP/Asia.jpg'
                                   : widget.destination == 'Europe'
-                                      ? "https://techbuzs.github.io/OTP/Europe.jpg"
+                                      ? "https://techbuzs.github.io/OTP/Europe.png"
                                       : widget.destination == "The Pacific"
                                           ? "https://techbuzs.github.io/OTP/pacific.png"
                                           : "https://techbuzs.github.io/OTP/USDA.jpg",
@@ -168,12 +141,12 @@ class _DetailPState extends State<DetailP> {
                               ? 'https://techbuzs.github.io/OTP/North.jpg'
                               : widget.destination == "Latin America"
                                   ? 'https://techbuzs.github.io/OTP/Latin.jpg'
-                                  : widget.destination == 'Africa'
+                                  : widget.destination.contains("Africa")
                                       ? 'https://techbuzs.github.io/OTP/Africa.jpg'
                                       : widget.destination == 'Asia'
                                           ? 'https://techbuzs.github.io/OTP/Asia.jpg'
                                           : widget.destination == 'Europe'
-                                              ? "https://techbuzs.github.io/OTP/Europe.jpg"
+                                              ? "https://techbuzs.github.io/OTP/Europe.png"
                                               : widget.destination ==
                                                       "The Pacific"
                                                   ? "https://techbuzs.github.io/OTP/pacific.png"

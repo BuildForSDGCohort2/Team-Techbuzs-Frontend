@@ -58,7 +58,7 @@ List<Destination> destinations = [
   ),
   Destination(
     imageUrl: 'https://techbuzs.github.io/OTP/Africa.jpg',
-    city: 'Africa ',
+    city: 'Africa',
     country: 'Africa',
   ),
   Destination(

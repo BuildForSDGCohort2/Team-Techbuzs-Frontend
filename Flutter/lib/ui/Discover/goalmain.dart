@@ -1,7 +1,7 @@
 import 'package:Greeneva/models/goal_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 class GoalMain extends StatefulWidget {
   final Goals goal;

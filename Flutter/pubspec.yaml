@@ -30,8 +30,8 @@ dependencies:
   introduction_screen: ^1.0.9
 
   # Firebase Dependencies
-  firebase_core:
-  firebase_auth:
+  firebase_core: 
+  firebase_auth: 0.18.4+1
   firebase_analytics:
   cloud_firestore:
   firebase_remote_config:
@@ -84,6 +84,7 @@ dependencies:
   hive:
   share: ^0.6.5+4
   url_launcher:
+  confetti:
 
   # Payment
   flutter_paystack: 

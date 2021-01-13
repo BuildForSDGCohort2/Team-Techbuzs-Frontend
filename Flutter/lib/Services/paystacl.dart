@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:async';
 
 import 'dart:io';
+import 'dart:math';
 import 'package:Greeneva/Services/email_service.dart';
 import 'package:Greeneva/Services/firestore_service.dart';
+import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,90 +43,62 @@ class LocalPayment extends StatefulWidget {
 }
 
 class _LocalPaymentState extends State<LocalPayment> {
-  static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
+  ConfettiController _controllerBottomCenter;
+
   @override
   void initState() {
     PaystackPlugin.initialize(publicKey: paystackPublicKey);
     super.initState();
-    initPlatformState();
+    getDeviceinfo();
+    _controllerBottomCenter =
+        ConfettiController(duration: const Duration(seconds: 10));
   }
 
-  Future<void> initPlatformState() async {
-    Map<String, dynamic> deviceData = <String, dynamic>{};
+  @override
+  void dispose() {
+    _controllerBottomCenter.dispose();
+    super.dispose();
+  }
 
-    try {
-      if (Platform.isAndroid) {
-        deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
-      } else if (Platform.isIOS) {
-        deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
-      }
-    } on PlatformException {
-      deviceData = <String, dynamic>{
-        'Error:': 'Failed to get platform version.'
-      };
-    }
-
-    if (!mounted) return;
-
+  DeviceInfoPlugin deviceInfo =
+      DeviceInfoPlugin(); // instantiate device info plugin
+  AndroidDeviceInfo androidDeviceInfo;
+  String board,
+      brand,
+      device,
+      hardware,
+      host,
+      id,
+      manufacture,
+      model,
+      product,
+      type,
+      androidid;
+  bool isphysicaldevice;
+  // final _scaffoldKey = new GlobalKey<ScaffoldState>();
+  void getDeviceinfo() async {
+    androidDeviceInfo = await deviceInfo
+        .androidInfo; // instantiate Android Device Infoformation
     setState(() {
-      _deviceData = deviceData;
+      board = androidDeviceInfo.board;
+      brand = androidDeviceInfo.brand;
+      device = androidDeviceInfo.device;
+      hardware = androidDeviceInfo.hardware;
+      host = androidDeviceInfo.host;
+      id = androidDeviceInfo.id;
+      manufacture = androidDeviceInfo.manufacturer;
+      model = androidDeviceInfo.model;
+      product = androidDeviceInfo.product;
+      type = androidDeviceInfo.type;
+      isphysicaldevice = androidDeviceInfo.isPhysicalDevice;
+      androidid = androidDeviceInfo.androidId;
     });
   }
-
-  Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
-    return <String, dynamic>{
-      'version.securityPatch': build.version.securityPatch,
-      'version.sdkInt': build.version.sdkInt,
-      'version.release': build.version.release,
-      'version.previewSdkInt': build.version.previewSdkInt,
-      'version.incremental': build.version.incremental,
-      'version.codename': build.version.codename,
-      'version.baseOS': build.version.baseOS,
-      'board': build.board,
-      'bootloader': build.bootloader,
-      'brand': build.brand,
-      'device': build.device,
-      'display': build.display,
-      'fingerprint': build.fingerprint,
-      'hardware': build.hardware,
-      'host': build.host,
-      'id': build.id,
-      'manufacturer': build.manufacturer,
-      'model': build.model,
-      'product': build.product,
-      'supported32BitAbis': build.supported32BitAbis,
-      'supported64BitAbis': build.supported64BitAbis,
-      'supportedAbis': build.supportedAbis,
-      'tags': build.tags,
-      'type': build.type,
-      'isPhysicalDevice': build.isPhysicalDevice,
-      'androidId': build.androidId,
-      'systemFeatures': build.systemFeatures,
-    };
-  }
-
-  Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
-    return <String, dynamic>{
-      'name': data.name,
-      'systemName': data.systemName,
-      'systemVersion': data.systemVersion,
-      'model': data.model,
-      'localizedModel': data.localizedModel,
-      'identifierForVendor': data.identifierForVendor,
-      'isPhysicalDevice': data.isPhysicalDevice,
-      'utsname.sysname:': data.utsname.sysname,
-      'utsname.nodename:': data.utsname.nodename,
-      'utsname.release:': data.utsname.release,
-      'utsname.version:': data.utsname.version,
-      'utsname.machine:': data.utsname.machine,
-    };
-  }
-  // final _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   static const _method = ["Card", "Bank"];
   // ignore: unused_field
   TextEditingController _email = TextEditingController();
+  // ignore: unused_field
   bool _inProgress = false;
   String _selected = "Card";
   void _showViewMain() {
@@ -277,34 +251,6 @@ class _LocalPaymentState extends State<LocalPayment> {
     return "Donation";
   }
 
-  _chargeCard(Charge charge) async {
-    final response = await PaystackPlugin.chargeCard(context, charge: charge);
-
-    final reference = response.reference;
-
-    // Checking if the transaction is successful
-    if (response.status) {
-      _verifyOnServer(reference);
-      FirestoreService().addPayment(
-          user.uid,
-          "Local Payment Made by Paystack to ${whatD()}",
-          widget.donation,
-          widget.isrecurring,
-          widget.amount,
-          donat(),
-          "");
-      return;
-    }
-
-    // The transaction failed. Checking if we should verify the transaction
-    if (response.verify) {
-      _verifyOnServer(reference);
-    } else {
-      setState(() => _inProgress = false);
-      _updateStatus(reference, response.message);
-    }
-  }
-
   void _verifyOnServer(String reference) async {
     _updateStatus(reference, 'Verifying...');
     String url = 'https://sdgfortb.herokuapp.com/paystack/verify/$reference';
@@ -389,7 +335,7 @@ class _LocalPaymentState extends State<LocalPayment> {
                           widget.isrecurring,
                           widget.amount,
                           donat(),
-                          "");
+                          "Brand: $brand , Device:  $device, Hardware: $hardware, Host: $host, Manufacture: $manufacture, Model: $model,  Is Physical Device: $isphysicaldevice");
                       await EmailService().sendtrans(
                           donat(),
                           user.email == null ? _email.text : user.email,
@@ -398,16 +344,84 @@ class _LocalPaymentState extends State<LocalPayment> {
                           widget.quantity,
                           widget.amount.toString(),
                           widget.donation == "" ? "Tree" : "Donation");
+                      await EmailService().send(donat() + user.email == null
+                          ? _email.text
+                          : user.email +
+                                      widget.treeplanted.toString() +
+                                      widget.quantity +
+                                      widget.amount.toString() +
+                                      widget.donation ==
+                                  ""
+                              ? "Tree"
+                              : "Donation");
+                      _controllerBottomCenter.play();
 
                       /// SO A HAppy Dialog  TODO
                       ///
                     } else {
+                      showGeneralDialog(
+                        barrierLabel: "Label",
+                        barrierDismissible: true,
+                        barrierColor: Colors.black.withOpacity(0.5),
+                        transitionDuration: Duration(milliseconds: 700),
+                        context: context,
+                        pageBuilder: (context, anim1, anim2) {
+                          return Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 300,
+                              child: SizedBox.expand(
+                                  child: Column(
+                                children: [
+                                  Text("An Error Occured"),
+                                  CupertinoButton(
+                                    child: Text("Try Again"),
+                                    onPressed: () => Navigator.pop(context),
+                                  )
+                                ],
+                              )),
+                              margin: EdgeInsets.only(
+                                  bottom: 50, left: 12, right: 12),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                            ),
+                          );
+                        },
+                        transitionBuilder: (context, anim1, anim2, child) {
+                          return SlideTransition(
+                            position:
+                                Tween(begin: Offset(0, 1), end: Offset(0, 0))
+                                    .animate(anim1),
+                            child: child,
+                          );
+                        },
+                      );
                       print(" _showErrorDialog(");
                     }
                   },
                   child: Text("Checkout"),
                   color: Colors.red,
-                )
+                ),
+          Column(
+            children: [
+              Text("Thank You For The Donation ",
+                  style: GoogleFonts.inter(fontSize: 34, color: Colors.black)),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ConfettiWidget(
+                  confettiController: _controllerBottomCenter,
+                  blastDirection: -pi / 2,
+                  emissionFrequency: 0.01,
+                  numberOfParticles: 20,
+                  maxBlastForce: 100,
+                  minBlastForce: 80,
+                  gravity: 0.3,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -422,6 +436,7 @@ class _LocalPaymentState extends State<LocalPayment> {
 
       return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch}onTheGreenevaApp';
     }
+    return 'ChargedFrom${platform}_${DateTime.now().millisecondsSinceEpoch}onTheGreenevaApp';
   }
 }
 

@@ -1,8 +1,6 @@
 import 'package:Greeneva/Services/paystacl.dart';
 import 'package:Greeneva/models/org.dart';
-import 'package:Greeneva/ui/Community/constants/colors.dart';
 import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/data.dart';
-import 'package:Greeneva/ui/Donation/Plant/onetreeplanted/more.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
@@ -35,17 +33,6 @@ class _DonateTState extends State<DonateT> {
   String toCurrency = "NGN";
   String result;
   final double rounded_container_height = 50;
-  Future<String> _loadCurrencies() async {
-    String uri = "https://api.exchangeratesapi.io/latest";
-    var response = await http
-        .get(Uri.encodeFull(uri), headers: {"Accept": "application/json"});
-    var responseBody = json.decode(response.body);
-    Map curMap = responseBody['rates'];
-    currencies = curMap.keys.toList();
-    setState(() {});
-    print(currencies);
-    return "Success";
-  }
 
   Future<String> lookupUserCountry() async {
     final response = await http.get('https://api.ipregistry.co?key=tryout');

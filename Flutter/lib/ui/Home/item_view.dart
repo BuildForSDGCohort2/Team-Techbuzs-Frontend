@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-final double expanded_height = 150;
+final double expanded_height = 250;
 
 final double rounded_container_height = 50;
 

@@ -122,7 +122,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               }),
           // body:
           //     "Accept Location Permission to have a better experience with the app ",
-          image: _buildImageSvg('Onboarding_3'),
+          image: _buildImageSvg('onb'),
           decoration: pageDecoration,
         ),
       ],

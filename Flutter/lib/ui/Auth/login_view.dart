@@ -68,24 +68,21 @@ class LoginView extends StatelessWidget {
                       children: [
                         Newbutton(
                           onP: () => LoginViewModel().googlelogin(),
-                          char:
-                              'https://techbuzs.github.io/I/Google.png',
+                          char: 'https://techbuzs.github.io/I/Google.png',
                         ),
                         SizedBox(
                           width: 25,
                         ),
                         Newbutton(
                           onP: () => LoginViewModel().facebooklogin(),
-                          char:
-                              'https://techbuzs.github.io/I/FB.png',
+                          char: 'https://techbuzs.github.io/I/FB.png',
                         ),
                         SizedBox(
                           width: 25,
                         ),
                         Newbutton(
                           onP: () => model.twitterlogin(),
-                          char:
-                              'https://techbuzs.github.io/I/Twitter-Logo.png',
+                          char: 'https://techbuzs.github.io/I/Twitter-Logo.png',
                         )
                       ],
                     ),
