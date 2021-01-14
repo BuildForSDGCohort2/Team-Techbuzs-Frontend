@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true"
         android:name="io.flutter.app.FlutterApplication"
         android:label="Greeneva"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

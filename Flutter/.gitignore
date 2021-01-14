@@ -28,6 +28,8 @@ web/icons/ElevatorTutorial.rbxl.lock
 .flutter-plugins-dependencies
 .packages
 .pub-cache/
+/android/app/key.jks
+/android/key.properties
 .pub/
 /build/
 

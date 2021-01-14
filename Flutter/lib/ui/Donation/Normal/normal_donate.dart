@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 String vrate;
-double car;
+int car;
 String country;
-double me;
+int me = 1;
 
 class Donate extends StatefulWidget {
   final String org;
@@ -56,10 +56,10 @@ class _DonateState extends State<Donate> {
 
       print("$vrate is it");
       vrate = vrate.substring(0, 3);
-      car = double.parse(vrate);
+      car = int.parse(vrate);
       print("$vrate is it");
 
-      assert(car is double);
+      // assert(car is double);
     });
     return "Success";
   }
@@ -104,9 +104,11 @@ class _DonateState extends State<Donate> {
                         decimal: true, signed: true),
                     controller: _price,
                     onChanged: (text) {
-                      _price.text = moneyFormat(_price.text);
+                      setState(() {
+                        _price.text = moneyFormat(_price.text);
 
-                      // me = double.parse("400.00");
+                        me = int.parse(_price.text);
+                      });
                     },
                   ),
                 ),
@@ -135,6 +137,7 @@ class _DonateState extends State<Donate> {
                           context,
                           MaterialPageRoute(
                               builder: (_) => LocalPayment(
+                                  // location: ,
                                   amount: (car * me + (.10 * (car * me))),
                                   donation: "This is a Donation of  ₦" +
                                       (car * me + (.10 * (car * me)))

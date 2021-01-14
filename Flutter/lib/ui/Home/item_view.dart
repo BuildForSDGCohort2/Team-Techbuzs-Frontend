@@ -42,7 +42,7 @@ class _ItemViewState extends State<ItemView> {
   Widget _buildSliverHead() {
     return SliverPersistentHeader(
       delegate: DetailSliverDelegate(
-          expanded_height, rounded_container_height, _controller),
+          expanded_height, rounded_container_height, widget.model.y1),
     );
   }
 
@@ -67,7 +67,17 @@ class _ItemViewState extends State<ItemView> {
           ),
           SizedBox(
             height: 30,
-          )
+          ),
+          Card(
+            elevation: 2,
+            child: YoutubePlayer(
+              controller: _controller,
+              showVideoProgressIndicator: true,
+              onReady: () {
+                print('Player is ready.');
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -98,9 +108,10 @@ class _ItemViewState extends State<ItemView> {
 class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
   final double rounded_container_height;
-  final YoutubePlayerController _controller;
+  // final YoutubePlayerController _controller;
+  final String id;
   DetailSliverDelegate(
-      this.expandedHeight, this.rounded_container_height, this._controller);
+      this.expandedHeight, this.rounded_container_height, this.id);
 
   @override
   Widget build(
@@ -114,15 +125,9 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
       child: Stack(
         children: <Widget>[
           Hero(
-            tag: "https://techbuzs.github.io/I/A.png",
-            child: YoutubePlayer(
-              controller: _controller,
-              showVideoProgressIndicator: true,
-              onReady: () {
-                print('Player is ready.');
-              },
-            ),
-          ),
+              tag: "https://techbuzs.github.io/I/A.png",
+              child: Image.network(
+                  "https://img.youtube.com/vi/${id}/hqdefault.jpg")),
           Positioned(
             top: expandedHeight - rounded_container_height - shrinkOffset,
             left: 0,

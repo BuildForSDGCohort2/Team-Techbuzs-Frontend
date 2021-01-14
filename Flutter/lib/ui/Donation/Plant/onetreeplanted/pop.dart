@@ -270,6 +270,7 @@ class _NextPState extends State<NextP> {
                           context,
                           MaterialPageRoute(
                               builder: (_) => LocalPayment(
+                                    location: widget.trees.name,
                                     amount: (car *
                                             (numberOfItems *
                                                 int.parse(treeplanted)) +

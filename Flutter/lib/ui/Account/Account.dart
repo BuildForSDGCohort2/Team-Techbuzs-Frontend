@@ -13,6 +13,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../locator.dart';
 import 'Privacy.dart';
@@ -74,7 +75,23 @@ class ProfileScreen extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     // ScreenUtil.init();
+    ScreenUtil.init(
+        BoxConstraints.tightFor(
+          height: 400,
+          width: 400,
+        ),
+        allowFontScaling: true);
+    // ScreenUtil.init(box);
+
     DynamicLinkService _dynamiclink = locator<DynamicLinkService>();
+    _launchURL() async {
+      const url = 'mailto:techbuzsgroup@gmail.com?subject=Help+and+Support';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
 
     var profileInfo = Expanded(
       child: Column(
@@ -201,6 +218,7 @@ class ProfileScreen extends StatelessWidget {
                 ProfileListItem(
                   icon: LineAwesomeIcons.question_circle,
                   text: 'Help & Support',
+                  onP: () => _launchURL(),
                 ),
                 ProfileListItem(
                   icon: LineAwesomeIcons.cog,

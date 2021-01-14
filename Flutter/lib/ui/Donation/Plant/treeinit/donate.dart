@@ -35,7 +35,8 @@ class _DonateTState extends State<DonateT> {
   final double rounded_container_height = 50;
 
   Future<String> lookupUserCountry() async {
-    final response = await http.get('https://api.ipregistry.co?key=tryout');
+    final response =
+        await http.get('https://api.ipregistry.co?key=mb0h5830b89qdz');
 
     if (response.statusCode == 200) {
       print(json.decode(response.body)['location']['country']['name']);
@@ -45,6 +46,9 @@ class _DonateTState extends State<DonateT> {
       return country =
           json.decode(response.body)['location']['country']['name'];
     } else {
+      // setState(() {
+      //   country = "Nigeria";
+      // });
       throw Exception('Failed to get user country from IP address');
     }
   }
@@ -234,21 +238,24 @@ class _DonateTState extends State<DonateT> {
                   (country) == "Nigeria"
                       ? Padding(
                           padding: const EdgeInsets.only(left: 10.0),
-                          child: Text("Price:   " +
-                              "₦" +
-                              (car *
-                                          (numberOfItems *
-                                              int.parse(treeplanted) *
-                                              10) +
-                                      (.10 *
-                                          (car *
-                                              (numberOfItems *
-                                                  int.parse(treeplanted)))))
-                                  .toString()
-                                  .replaceAllMapped(
-                                      new RegExp(
-                                          r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                      (Match m) => '${m[1]},')),
+                          child: Text(
+                            "Price:   " +
+                                "₦" +
+                                (car *
+                                            (numberOfItems *
+                                                int.parse(treeplanted) *
+                                                10) +
+                                        (.10 *
+                                            (car *
+                                                (numberOfItems *
+                                                    int.parse(treeplanted)))))
+                                    .toString()
+                                    .replaceAllMapped(
+                                        new RegExp(
+                                            r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => '${m[1]},'),
+                            style: TextStyle(color: Colors.black),
+                          ),
                         )
                       : Text(
                           "\$" +
@@ -270,6 +277,7 @@ class _DonateTState extends State<DonateT> {
                           context,
                           MaterialPageRoute(
                               builder: (_) => LocalPayment(
+                                    location: widget.trees,
                                     amount: (car *
                                             (numberOfItems *
                                                 int.parse(treeplanted) *
@@ -281,7 +289,7 @@ class _DonateTState extends State<DonateT> {
                                     treeplanted: int.parse(treeplanted),
                                     quantity: numberOfItems.toString(),
                                     donation:
-                                        "One Tree Planted To Plant A Tree",
+                                        "TREE INITIATIVE ${widget.trees} To Plant A Tree",
                                     isrecurring: isrecurring,
                                   )));
                     },
@@ -297,7 +305,7 @@ class _DonateTState extends State<DonateT> {
               horizontal: 15,
             ),
             child: Text(
-              widget.trees == "North" ? datas[0].info : datas[1].info,
+              widget.trees == "North" ? datas[2].info : datas[2].info,
               style: TextStyle(
                 color: Colors.black38,
                 height: 1.4,
@@ -345,36 +353,6 @@ class _DonateTState extends State<DonateT> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class FeaturedWidget extends StatelessWidget {
-  // List<TreeInfo> _list = ();
-  final TreeInfo trees;
-  FeaturedWidget({this.trees});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: 15,
-      ),
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return Container(
-          height: 150,
-          width: 150,
-          margin: EdgeInsets.only(
-            right: 15,
-          ),
-          child: Image.network(
-            trees.images[index],
-            fit: BoxFit.cover,
-          ),
-        );
-      },
-      itemCount: trees.images.length,
     );
   }
 }

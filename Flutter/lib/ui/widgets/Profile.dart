@@ -58,6 +58,7 @@ class ProfileListItem extends StatelessWidget {
             Text(
               this.text,
               style: kTitleTextStyle.copyWith(
+                fontSize: 19,
                 fontWeight: FontWeight.w500,
                 color: (themeProvider.isLightTheme)
                     ? Colors.white

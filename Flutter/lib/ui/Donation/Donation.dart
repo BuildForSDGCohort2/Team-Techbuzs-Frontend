@@ -272,7 +272,7 @@ class _OperationCardState extends State<OperationCard> {
                   fontWeight: FontWeight.w700,
                   color: !(themeProvider.isLightTheme)
                       ? Colors.black
-                      : Colors.white),
+                      : Colors.black),
             )
           ],
         ),

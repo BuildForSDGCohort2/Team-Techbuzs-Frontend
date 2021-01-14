@@ -15,6 +15,7 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:flutter_svg/flutter_svg.dart';
 
 final user = FirebaseAuth.instance.currentUser;
 // Set this to a public key that matches the secret key you supplied while creating the heroku instance
@@ -25,6 +26,7 @@ const String appName = 'Paystack Example';
 
 class LocalPayment extends StatefulWidget {
   final double amount;
+  final String location;
   final String quantity;
   final String donation;
   final bool isrecurring;
@@ -37,6 +39,7 @@ class LocalPayment extends StatefulWidget {
     this.donation,
     this.isrecurring,
     this.treeplanted,
+    this.location,
   }) : super(key: key);
   @override
   _LocalPaymentState createState() => _LocalPaymentState();
@@ -278,151 +281,161 @@ class _LocalPaymentState extends State<LocalPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            height: 40,
-          ),
-          Image.asset("assets/plant.gif"),
-          Container(
-            child: Text(
-              "You want to plant ${widget.quantity} packs of ${widget.treeplanted} Trees, this would cost ₦ ${widget.amount}. And this ${isR()} ",
-              style: GoogleFonts.inter(
-                fontSize: 28,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            widget.donation.contains("Donation")
+                ? SvgPicture.asset("assets/svgs/donate.svg")
+                : SvgPicture.asset("assets/svgs/donate.svg"),
+            // : Image.asset("assets/plant.gif"),
+            Container(
+              child: Text(
+                widget.donation.contains("Donation")
+                    ? widget.donation
+                    : "You want to plant ${widget.quantity} packs of ${widget.treeplanted} Trees in ${widget.location}, this would cost ₦ ${widget.amount}. And this ${isR()} ",
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
-          MaterialButton(
-            onPressed: () => _showViewMain(),
-            color: Colors.green,
-            child: Text("Continue Now"),
-          ),
-          _selected == ""
-              ? SizedBox(
-                  height: 0,
-                )
-              : CupertinoButton(
-                  onPressed: () async {
-                    // ...email =
-                    CheckoutMethod method = CheckoutMethod.selectable;
+            MaterialButton(
+              onPressed: () => _showViewMain(),
+              color: Colors.green,
+              child: Text("Continue Now"),
+            ),
+            _selected == ""
+                ? SizedBox(
+                    height: 0,
+                  )
+                : CupertinoButton(
+                    onPressed: () async {
+                      // ...email =
+                      CheckoutMethod method = CheckoutMethod.selectable;
 
-                    if (_selected == "Bank") {
-                      method = CheckoutMethod.bank;
-                    } else {
-                      method = CheckoutMethod.card;
-                    }
-                    var ref = _getReference();
+                      if (_selected == "Bank") {
+                        method = CheckoutMethod.bank;
+                      } else {
+                        method = CheckoutMethod.card;
+                      }
+                      var ref = _getReference();
 
-                    var kaccessCode = await _fetchAccessCodeFrmServer(ref);
+                      var kaccessCode = await _fetchAccessCodeFrmServer(ref);
 
-                    Charge charge = Charge()
-                      ..amount = widget.amount.toInt()
-                      ..accessCode = kaccessCode
-                      ..email = user.email == null ? _email.text : user.email;
-                    CheckoutResponse response = await PaystackPlugin.checkout(
-                      context,
-                      method: method, // Defaults to CheckoutMethod.selectable
-                      charge: charge,
-                    );
-                    if (response.status == true) {
-                      _verifyOnServer(ref);
-
-                      print("_showDialog();");
-                      await FirestoreService().addPayment(
-                          user.uid,
-                          "Local Payment Made by Paystack to ${whatD()}",
-                          widget.donation,
-                          widget.isrecurring,
-                          widget.amount,
-                          donat(),
-                          "Brand: $brand , Device:  $device, Hardware: $hardware, Host: $host, Manufacture: $manufacture, Model: $model,  Is Physical Device: $isphysicaldevice");
-                      await EmailService().sendtrans(
-                          donat(),
-                          user.email == null ? _email.text : user.email,
-                          user.displayName,
-                          widget.treeplanted.toString(),
-                          widget.quantity,
-                          widget.amount.toString(),
-                          widget.donation == "" ? "Tree" : "Donation");
-                      await EmailService().send(donat() + user.email == null
-                          ? _email.text
-                          : user.email +
-                                      widget.treeplanted.toString() +
-                                      widget.quantity +
-                                      widget.amount.toString() +
-                                      widget.donation ==
-                                  ""
-                              ? "Tree"
-                              : "Donation");
-                      _controllerBottomCenter.play();
-
-                      /// SO A HAppy Dialog  TODO
-                      ///
-                    } else {
-                      showGeneralDialog(
-                        barrierLabel: "Label",
-                        barrierDismissible: true,
-                        barrierColor: Colors.black.withOpacity(0.5),
-                        transitionDuration: Duration(milliseconds: 700),
-                        context: context,
-                        pageBuilder: (context, anim1, anim2) {
-                          return Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              height: 300,
-                              child: SizedBox.expand(
-                                  child: Column(
-                                children: [
-                                  Text("An Error Occured"),
-                                  CupertinoButton(
-                                    child: Text("Try Again"),
-                                    onPressed: () => Navigator.pop(context),
-                                  )
-                                ],
-                              )),
-                              margin: EdgeInsets.only(
-                                  bottom: 50, left: 12, right: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
-                          );
-                        },
-                        transitionBuilder: (context, anim1, anim2, child) {
-                          return SlideTransition(
-                            position:
-                                Tween(begin: Offset(0, 1), end: Offset(0, 0))
-                                    .animate(anim1),
-                            child: child,
-                          );
-                        },
+                      Charge charge = Charge()
+                        ..amount = widget.amount.toInt()
+                        ..accessCode = kaccessCode
+                        ..email = user.email == null ? _email.text : user.email;
+                      CheckoutResponse response = await PaystackPlugin.checkout(
+                        context,
+                        method: method, // Defaults to CheckoutMethod.selectable
+                        charge: charge,
                       );
-                      print(" _showErrorDialog(");
-                    }
-                  },
-                  child: Text("Checkout"),
-                  color: Colors.red,
+                      if (response.status == true) {
+                        _verifyOnServer(ref);
+
+                        print("_showDialog();");
+                        await FirestoreService().addPayment(
+                            user.uid,
+                            "Local Payment Made by Paystack to ${whatD()}",
+                            widget.donation,
+                            widget.isrecurring,
+                            widget.amount,
+                            donat(),
+                            "Brand: $brand , Device:  $device, Hardware: $hardware, Host: $host, Manufacture: $manufacture, Model: $model,  Is Physical Device: $isphysicaldevice");
+                        await EmailService().sendtrans(
+                            donat(),
+                            user.email == null ? _email.text : user.email,
+                            user.displayName,
+                            widget.treeplanted.toString(),
+                            widget.quantity,
+                            widget.amount.toString(),
+                            widget.donation == "" ? "Tree" : "Donation");
+                        await EmailService().send(donat() + user.email == null
+                            ? _email.text
+                            : user.email +
+                                        widget.treeplanted.toString() +
+                                        widget.quantity +
+                                        widget.amount.toString() +
+                                        widget.donation ==
+                                    ""
+                                ? "Tree"
+                                : "Donation");
+                        _controllerBottomCenter.play();
+
+                        /// SO A HAppy Dialog  TODO
+                        ///
+                      } else {
+                        showGeneralDialog(
+                          barrierLabel: "Label",
+                          barrierDismissible: true,
+                          barrierColor: Colors.black.withOpacity(0.5),
+                          transitionDuration: Duration(milliseconds: 700),
+                          context: context,
+                          pageBuilder: (context, anim1, anim2) {
+                            return Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                height: 300,
+                                child: SizedBox.expand(
+                                    child: Column(
+                                  children: [
+                                    Text("An Error Occured"),
+                                    CupertinoButton(
+                                      child: Text("Try Again"),
+                                      onPressed: () => Navigator.pop(context),
+                                    )
+                                  ],
+                                )),
+                                margin: EdgeInsets.only(
+                                    bottom: 50, left: 12, right: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                              ),
+                            );
+                          },
+                          transitionBuilder: (context, anim1, anim2, child) {
+                            return SlideTransition(
+                              position:
+                                  Tween(begin: Offset(0, 1), end: Offset(0, 0))
+                                      .animate(anim1),
+                              child: child,
+                            );
+                          },
+                        );
+                        print(" _showErrorDialog(");
+                      }
+                    },
+                    child: Text("Checkout"),
+                    color: Colors.red,
+                  ),
+            Column(
+              children: [
+                Center(
+                  child: Text("Thank You For The Donation ",
+                      style:
+                          GoogleFonts.inter(fontSize: 34, color: Colors.black)),
                 ),
-          Column(
-            children: [
-              Text("Thank You For The Donation ",
-                  style: GoogleFonts.inter(fontSize: 34, color: Colors.black)),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ConfettiWidget(
-                  confettiController: _controllerBottomCenter,
-                  blastDirection: -pi / 2,
-                  emissionFrequency: 0.01,
-                  numberOfParticles: 20,
-                  maxBlastForce: 100,
-                  minBlastForce: 80,
-                  gravity: 0.3,
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ConfettiWidget(
+                    confettiController: _controllerBottomCenter,
+                    blastDirection: -pi / 2,
+                    emissionFrequency: 0.01,
+                    numberOfParticles: 20,
+                    maxBlastForce: 100,
+                    minBlastForce: 80,
+                    gravity: 0.3,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
