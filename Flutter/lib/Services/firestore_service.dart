@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:Greeneva/models/payment_model.dart';
+// import 'package:Greeneva/models/payment_model.dart';
 import 'package:Greeneva/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/services.dart';
@@ -34,9 +35,7 @@ class FirestoreService {
       String description,
       String deviceInfo) async {
     try {
-      var qs = await _paymentCollectionReference
-          .doc("Tj5K5VWuyvhjwKO5GmJQGyUCr3i2")
-          .get();
+      var qs = await _paymentCollectionReference.doc(uid).get();
 // final  snaps = _paymentCollectionReference.doc(uid).get();
 
       if (qs == null || !qs.exists) {
@@ -81,9 +80,8 @@ class FirestoreService {
       // var userData = await _paymentCollectionReference
       //     .doc("Tj5K5VWuyvhjwKO5GmJQGyUCr3i2")
       //     .get();
-      final DocumentReference document = FirebaseFirestore.instance
-          .collection("payments")
-          .doc('Tj5K5VWuyvhjwKO5GmJQGyUCr3i2');
+      final DocumentReference document =
+          FirebaseFirestore.instance.collection("payments").doc(uid);
       await document.get().then<dynamic>((DocumentSnapshot snapshot) async {
         //  setState(() {
         //    data =snapshot.data;
@@ -102,12 +100,20 @@ class FirestoreService {
     }
   }
 
-  Future createUser(UserModel user) async {
+  Future createUser(User user) async {
     try {
-      await _usersCollectionReference.doc(user.id).set(user.toJson());
+      var has = await _usersCollectionReference.doc(user.uid).get();
+      if (has == null)
+        await _usersCollectionReference.doc(user.uid).set({
+          "uid": user.uid,
+          "name": user.displayName,
+          "email": user.email,
+          "data": user.metadata.creationTime,
+          "provider": user.providerData.toString()
+        });
     } catch (e) {
       if (e is PlatformException) {
-        return e.message;
+        return e.toString();
       }
 
       return e.toString();

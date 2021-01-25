@@ -16,7 +16,7 @@ final kTitleTextStyle = TextStyle(
 );
 
 final kCaptionTextStyle = TextStyle(
-  fontSize: ScreenUtil().setSp(kSpacingUnit.w * 1.3),
+  fontSize: 19,
   fontWeight: FontWeight.w100,
 );
 

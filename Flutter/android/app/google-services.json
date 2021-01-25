@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "892143420968-r829bdb8kcd1t2aldlr3v1k2mmboe0b1.apps.googleusercontent.com",
+          "client_id": "892143420968-0o3045difkh1dla2s8q47n7lqbcutp2k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.techbuzs.greeneva",
-            "certificate_hash": "3c7a5807eb0dc9182619fbda9f1d30eb1d5d4e7f"
+            "certificate_hash": "7e864549108f31a18eed10f54fc31a1497b24a0a"
+          }
+        },
+        {
+          "client_id": "892143420968-om53g8809vgh83q8mqo5imofc08qr5pl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techbuzs.greeneva",
+            "certificate_hash": "09992d08e01104d8628d95408aed37c7c878941b"
           }
         },
         {

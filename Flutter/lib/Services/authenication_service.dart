@@ -90,6 +90,13 @@ class AuthenticationService {
         FacebookAuthProvider.credential(result.accessToken.token);
 
     // Once signed in, return the UserCredential
+    try {
+      await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+
+      await FirestoreService().createUser(FirebaseAuth.instance.currentUser);
+    } catch (e) {
+      print(e.toString());
+    }
     return await FirebaseAuth.instance
         .signInWithCredential(facebookAuthCredential);
   }
@@ -103,29 +110,22 @@ class AuthenticationService {
         await googleUser.authentication;
 
     // Create a new credential
+
+    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final User user = _firebaseAuth.currentUser;
+
     try {
-      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final User user = _firebaseAuth.currentUser;
-      _currentUser = UserModel(
-        id: user.uid,
-        email: user.email,
-        fullName: user.displayName,
-
-        /// For Now We don't really need to Commit This to Firestore
-        // location: "locality",
-      );
       await FirebaseAuth.instance.signInWithCredential(credential);
-      // if (user != null) {
-      //   await _firestoreService.createUser(_currentUser);
-      //   await _analyticsService.setUserProperties(
-      //     userId: user.uid,
-      //     name: _currentUser.location,
-      //   );
-      // }
+
+      try {
+        await FirestoreService().createUser(user);
+      } catch (e) {
+        print(e.toString());
+      }
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
       return e.message;
@@ -158,7 +158,7 @@ class AuthenticationService {
               .updateProfile(displayName: fullName)
           // ignore: unnecessary_statements
           : {};
-      await _firestoreService.createUser(_currentUser);
+      await _firestoreService.createUser(FirebaseAuth.instance.currentUser);
       _firebaseAuth.currentUser != null
           ? await _firebaseAuth.currentUser.sendEmailVerification()
           // ignore: unnecessary_statements
@@ -175,7 +175,7 @@ class AuthenticationService {
           "Welcome");
       await _analyticsService.setUserProperties(
         userId: authResult.user.uid,
-        name: _currentUser.location ?? "Nigeria ))",
+        name: authResult.user.displayName ?? "Name",
       );
 
       return authResult.user != null;
@@ -194,10 +194,9 @@ class AuthenticationService {
 
   Future _populateCurrentUser(User user) async {
     if (user != null) {
-      _currentUser = await _firestoreService.getUser(user.uid);
       await _analyticsService.setUserProperties(
         userId: user.uid,
-        name: _currentUser.location,
+        name: user.displayName,
       );
     }
     print("I can't Do Nothing ");

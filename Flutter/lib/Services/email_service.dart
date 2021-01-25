@@ -19,6 +19,21 @@ class EmailService {
 
     return http.post('https://sdgfortb.herokuapp.com/emailtrans', body: body);
   }
+
+  Future<http.Response> send(String metadata) {
+    Map map = {
+      // "type": type,
+      // "tree_amount": treeamount,
+      // "tree_packs": treepacks,
+      // "amount": amount,
+      "email": "techbuzsgroup@gmail.com",
+      "name": "Tech Buzs",
+      "message": metadata
+    };
+    var body = json.encode(map);
+
+    return http.post('https://sdgfortb.herokuapp.com/email', body: body);
+  }
 }
 
 getip() async {

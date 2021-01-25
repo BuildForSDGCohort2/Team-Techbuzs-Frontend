@@ -23,7 +23,7 @@ class LoginViewModel extends BaseModel {
       // await _analyticsService.logLogingoogle();
       _navigationService.navigateTo(NavBarView);
     } catch (e) {
-      print(e.message);
+      print(e.toString());
       await _dialogService.showDialog(
           title: 'Google Sign In Error', description: 'Error: ${e.toString()}');
       setBusy(false);

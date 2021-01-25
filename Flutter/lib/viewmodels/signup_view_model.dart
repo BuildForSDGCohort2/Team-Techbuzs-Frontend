@@ -16,14 +16,14 @@ class SignUpViewModel extends BaseModel {
   final NavigationServiceM _navigationService = locator<NavigationServiceM>();
   final AnalyticsService _analyticsService = locator<AnalyticsService>();
 
-  String _selectedRole = 'Select a User Role';
+  // // String _selectedRole = 'Select a User Role';
 
-  String get selectedRole => _selectedRole;
+  // String get selectedRole => _selectedRole;
 
-  void setSelectedRole(dynamic role) {
-    _selectedRole = role;
-    notifyListeners();
-  }
+  // void setSelectedRole(dynamic role) {
+  //   _selectedRole = role;
+  //   notifyListeners();
+  // }
 
   Future signUp(
       {@required String email,

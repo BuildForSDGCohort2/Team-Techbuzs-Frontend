@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:Greeneva/Services/navigation_service.dart';
 import 'package:Greeneva/constants/routename.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:stacked_services/stacked_services.dart';
+// import 'package:stacked_services/stacked_services.dart';
 
 import '../locator.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging();
+  FirebaseMessaging messaging = FirebaseMessaging();
+
   final NavigationServiceM _navigationService = locator<NavigationServiceM>();
 
   Future initialise() async {

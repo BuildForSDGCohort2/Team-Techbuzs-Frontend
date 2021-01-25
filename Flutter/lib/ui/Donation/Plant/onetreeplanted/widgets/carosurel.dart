@@ -429,8 +429,9 @@ class Carousel1 extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (_) => LoadingOP(
-                              destination: destination.city,
-                            ),
+                                destination: destination.city.contains("Afric")
+                                    ? "Africa"
+                                    : destination.city),
                           ),
                         ),
                         child: Container(
